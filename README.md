@@ -5,4 +5,4 @@
 Pythonilla toteutettu lausegeneraattori, joka Markovin ketjuja hyödyntäen luo lauseenomaisia sanayhdistelmiä lähdetekstien ja käyttäjän antamien parametrien perusteella.
 
 ### Viikkoraportit
-* [Viikko 1](https://github.com/jatufin/lausegenraattori/dokumentaatio/viikkoraportti-01.md)
+* [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
