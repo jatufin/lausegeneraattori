@@ -5,3 +5,6 @@
 * Aiheenvalinta
 * Tutustuminen tarvittaviin tietorakenteisiin
 * Projektin luonti ja alustus
+* Käytettävät kielet
+* Tutustuminen *unittest*-testausmoduuliin
+* Määrittelydokumentin luonti

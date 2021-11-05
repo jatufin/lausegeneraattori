@@ -2,7 +2,13 @@
 
 # Lausegeneraattori
 
+Opiskelija: Janne Tuukkanen
+Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
+
 Pythonilla toteutettu lausegeneraattori, joka Markovin ketjuja hyödyntäen luo lauseenomaisia sanayhdistelmiä lähdetekstien ja käyttäjän antamien parametrien perusteella.
+
+### Dokumentaatio
+* [Määrittelydokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/maarittelydokumentti.md)
 
 ### Viikkoraportit
 * [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
