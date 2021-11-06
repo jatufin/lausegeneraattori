@@ -30,7 +30,7 @@ Tekstipohjainen käyttöliittymä avautuu, mikäli ohjelma käynnistetään ilma
 ```
 $ python3 sentence_generator.py
 
-*** Lausegeneraattori ***
+*** Lausegeneraattori - päävalikko ***
 
 1. Lue ja käsittele teksti
 2. Valitse käytettävä tekstikorpus (ei valittu)
@@ -43,7 +43,7 @@ Tai antamalla ```DAT```-tiedoston nimi:
 ```
 $ python3 sentence_generator.py corpus.dat
 
-*** Lausegeneraattori ***
+*** Lausegeneraattori - päävalikko ***
 
 1. Lue ja käsittele teksti
 2. Valitse käytettävä tekstikorpus (corpus.dat)
@@ -61,18 +61,18 @@ Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedostoa ```corpus.txt``` ei ole olemassa
 * Tiedosto ```corpus.dat``` on jo olemassa
 
-Komentorivikutsu, joka tulostaa generoidun merkkijono stdout-vuohon:
+Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon:
 ```
 $ python3 sentence_generator.py corpus.dat avainsana aste
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedostoa ```corpus.dat``` ei ole olemassa
-* Avainsanaa ei löydy lainkaan tietorakenteesta
+* Sanaa ```avainsana``` ei löydy lainkaan tietorakenteesta
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
 
 ### Kirjastorajapinta
 
-Pääluokka:
+Luokka:
 ```
 SentenceGenerator
 ```
@@ -120,7 +120,8 @@ SentenceGenerator.generate(word, degree)
 ## Testaus
 * Käytetään Pythonin *unittest*-moduulia.
 * Käyttöliittymä rakennetaan niin, että se voidaan testata täysin erikseen.
-* Tietorakenteiden toiminta testataan erikseen.
+* Julkinen kirjastorajapinta testataan erikseen.
+* Tietorakenteiden sisäinen toiminta testataan erikseen.
 
 ## Aikavaatimukset
 * Korpuksen prosessointi ja lauseen generointi ovat erillisiä prosesseja, joista ensin mainittu tarvitsee tehdä vain kerran.

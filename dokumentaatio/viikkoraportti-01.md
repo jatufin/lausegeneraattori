@@ -19,8 +19,8 @@
 * Tarkka trie-puun rakenne, kun siihen lisätään Markov-todennäköisyydet
 * Algoritmi puun luomiseksi tekstin perusteella
 * Markovin asteiden huomioon ottaminen
-* tarkat tiedostoformaatit
-* Testaukset
+* Tiedostoformaattien tarkka muoto
+* Testausten toteutus
 
 ## Seuraavat toimenpiteet
 * Selvitetään edelläolevat asiat
