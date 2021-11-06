@@ -1,4 +1,5 @@
 # Tiralab 2021, periodi 2
+Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
 
 # Lausegeneraattori
 
@@ -9,7 +10,7 @@ Käyttäjä syöttää yhden tai useamman avainsanan. Näihin avainsanoihin ja t
 
 ## Luonnolliset kielet
 * Projekti toteutetaan suomeksi ja on tarkoitettu suomenkielisen tekstin käsittelyyn ja tuottamiseen
-* Määrittely- ja suunnitteludokumentit tehdään suomeksi
+* Määrittely-, suunnittelu- ja testausdokumentit tehdään suomeksi
 * Muuttujat, luokat, metodit jne. ohjelmakoodissa nimetään englanniksi
 * Ohjelmakoodin sisäinen dokumentaatio ja kommentit tehdään engalnniksi
 

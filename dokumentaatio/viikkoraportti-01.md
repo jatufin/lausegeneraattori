@@ -1,5 +1,7 @@
 # Viikko 1
 
+Arviolta käytetty aika: 8 tuntia
+
 ## Viikon 1 toimenpiteet
 
 * Aiheenvalinta
@@ -26,5 +28,10 @@
 * Selvitetään edelläolevat asiat
 * Aloitetaan suunnitteludokumentin luominen
 * Ohjelmoidaan ensimmäiset kokeiluversiot tietorakenteista ja tiedostoista
-* Samalla selvitetään, miten testauksia ruvetaan toteuttamaan
+* Tässä yhteydessä selvitetään mitä Pythonin standarditietorakenteita käytetään
+* Toteutetaan tekstikäyttöliittymä
+* Luodaan kirjastorajapinta
+* Aloitetaan yksikkötestaus
+
+
 
