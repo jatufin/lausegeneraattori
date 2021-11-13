@@ -1,6 +1,6 @@
 # Viikko 2
 
-Arviolta käytetty aika:
+Arviolta käytetty aika: 12 tuntia
 
 ## Viikon 2 toimenpiteet
 * Selvitetty tarkka tietorakenteen muoto
