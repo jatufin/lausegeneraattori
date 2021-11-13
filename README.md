@@ -12,3 +12,4 @@ Pythonilla toteutettu lausegeneraattori, joka Markovin ketjuja hyödyntäen luo 
 
 ### Viikkoraportit
 * [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
+* [Viikko 2](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-02.md)
