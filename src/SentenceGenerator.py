@@ -3,12 +3,16 @@ class SentenceGenerator:
     Generate random sentences based on given text using Markov chains
     """
     def readText(self, filename):
-        pass
+        return filename
+    
     def save(self, filename):
-        pass
+        return filename
+    
     def load(self, filename):
-        pass
+        return filename
+        
     def generate(self, degree, wordlist=[]):
-        pass
+        ws = "" if wordlist == [] else " " + " ".join(wordlist)
+        return degree + ws 
     
     
