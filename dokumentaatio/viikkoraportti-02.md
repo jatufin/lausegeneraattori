@@ -3,15 +3,15 @@
 Arviolta käytetty aika:
 
 ## Viikon 2 toimenpiteet
-
-
+* Selvitetty tarkka tietorakenteen muoto
+* Selvitetty algoritmien toiminta
+* Aloitettu ohjelmarungon tekeminen
 
 ## Tällä viikolla olen oppinut
 * Suffix Tree -tietorakenteen toiminta, erityisesti kirjasta:
 GUSFIELD, D. Algorithms on Strings, Trees, and Sequences : Computer Science and Computational Biology
 * Miten tietorakennetta käytetään nyt käsillä olevassa projektissa.
-* Tutustunut verkossa oleviin Pythonilla toteutettuihin Markovin ketjuihin
-* 
+* Tutustunut verkossa oleviin Pythonilla toteutettuihin Markovin ketjuihin 
 
 ## Vielä auki olevat asiat
 * Tiedostoformaatti puun tallentamiselle
