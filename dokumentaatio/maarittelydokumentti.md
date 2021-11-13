@@ -37,7 +37,7 @@ $ python3 sentence_generator.py
 2. Valitse käytettävä tekstikorpus (ei valittu)
 3. Vaihda Markov-aste              (k=2)
 
-Valitse toiminto, tai syötä sana:
+Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
 ```
 
 Tai antamalla ```DAT```-tiedoston nimi:
@@ -50,7 +50,7 @@ $ python3 sentence_generator.py corpus.dat
 2. Valitse käytettävä tekstikorpus (corpus.dat)
 3. Vaihda Markov-aste              (k=2)
 
-Valitse toiminto, tai syötä sana:
+Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
 ```
 
 ### Komentoriviargumentit
