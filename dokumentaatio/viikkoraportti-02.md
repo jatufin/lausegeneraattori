@@ -10,7 +10,7 @@ Arviolta käytetty aika:
 * Suffix Tree -tietorakenteen toiminta, erityisesti kirjasta:
 GUSFIELD, D. Algorithms on Strings, Trees, and Sequences : Computer Science and Computational Biology
 * Miten tietorakennetta käytetään nyt käsillä olevassa projektissa.
-
+* Tutustunut verkossa oleviin Pythonilla toteutettuihin Markovin ketjuihin
 
 ## Vielä auki olevat asiat
 

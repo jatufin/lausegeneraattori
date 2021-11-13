@@ -6,7 +6,7 @@ Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
 # Määrittelydokumenti
 
 ## Ohjelman toiminta
-Käyttäjä syöttää yhden tai useamman avainsanan. Näihin avainsanoihin ja tekstikorpuksesta luodun tietorakenteen perusteella ohjelma tuottaa sarjan sanoja, joiden pitäisi muodostaa luonnollisen kielen lausetta tai virkettä muistuttava merkkijono. Korpus on laaja tekstikokoelma, joka ohjelmalle on syötetty etukäteen.
+Käyttäjä voi syöttää yhden tai useamman avainsanan, tai ne generoidaan satunnaisesti. Näihin avainsanoihin ja tekstikorpuksesta luodun tietorakenteen perusteella ohjelma tuottaa sarjan sanoja, joiden pitäisi muodostaa luonnollisen kielen lausetta tai virkettä muistuttava merkkijono. Korpus on laaja tekstikokoelma, joka ohjelmalle on syötetty etukäteen.
 
 ## Luonnolliset kielet
 * Projekti toteutetaan suomeksi ja on tarkoitettu suomenkielisen tekstin käsittelyyn ja tuottamiseen
@@ -35,7 +35,7 @@ $ python3 sentence_generator.py
 
 1. Lue ja käsittele teksti
 2. Valitse käytettävä tekstikorpus (ei valittu)
-3. Vaihda Markov-aste              (n=2)
+3. Vaihda Markov-aste              (k=2)
 
 Valitse toiminto, tai syötä sana:
 ```
@@ -48,7 +48,7 @@ $ python3 sentence_generator.py corpus.dat
 
 1. Lue ja käsittele teksti
 2. Valitse käytettävä tekstikorpus (corpus.dat)
-3. Vaihda Markov-aste              (n=2)
+3. Vaihda Markov-aste              (k=2)
 
 Valitse toiminto, tai syötä sana:
 ```
@@ -62,13 +62,21 @@ Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedostoa ```corpus.txt``` ei ole olemassa
 * Tiedosto ```corpus.dat``` on jo olemassa
 
-Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon:
+Komentorivikutsu, joka tulostaa generoidun merkkijonon ```stdout```-vuohon perustuen satunnaiseen aloituslauseeseen:
 ```
-$ python3 sentence_generator.py corpus.dat avainsana aste
+$ python3 sentence_generator.py corpus.dat aste
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedostoa ```corpus.dat``` ei ole olemassa
-* Sanaa ```avainsana``` ei löydy lainkaan tietorakenteesta
+* Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
+
+Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon perustuen käyttäjän antamaan avainsanaan:
+```
+$ python3 sentence_generator.py corpus.dat aste avainsana1 [avainsana2]
+```
+Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
+* Tiedostoa ```corpus.dat``` ei ole olemassa
+* Sanaa ```avainsanaN``` ei löydy lainkaan tietorakenteesta
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
 
 ### Kirjastorajapinta
@@ -83,15 +91,18 @@ Julkiset luokkametodit:
 SentenceGenerator.readText(filename.txt)
 SentenceGenerator.save(filename.dat)
 SentenceGenerator.load(filename.dat)
-SentenceGenerator.generate(word, degree)
+SentenceGenerator.generate(wordlist, degree)
+SentenceGenerator.generate(degree)
 ```
 
 ## Syöte ja tuloste
 * Ohjelma lukee korpuksen kerran ja tallentaa syntyvän tietorakenteen tiedostoon.
 * Korpuksia voi olla useita ja käyttäjä voi antaa oman tiedostonsa, jokaisen tietorakenne tallennetaan erikseen.
 * Käyttäjä valitsee, mitä ennalta prosessoitua korpusta käytetään.
-* Käyttäjä syöttää avainsanan ja Markovin ketjun asteen.
-* Ohjelma tulostaa avainsanasta lähtien satunnaispolkua seuraten ketjussa vastaan tulevista sanoista syntyvän merkkijonon.
+* Käyttäjä syöttää Markovin ketjun asteen ```k```.
+* Käyttäjä voi syöttää enintään ```k``` avainsanaa ```sN```
+* Mikäli käyttäjä ei anna lainkaan avainsanaa, haetaan alku satunnaisesti.
+* Ohjelma tulostaa avainsanojen muodostamasta lauseesta lähtien satunnaispolkua seuraten ketjussa vastaan tulevista sanoista syntyvän merkkijonon.
 
 ## Tiedostoformaatit
 * Tekstikorpus luetaan yhdestä UTF-8 -koodatusta tekstitiedostosta. Järjestelmien väliset erot rivivaihtomerkkien välillä eivät vaikuta toimintaan.
@@ -105,16 +116,21 @@ SentenceGenerator.generate(word, degree)
 * Suomen kielen taivutusmuotoja ei huomioida, vaan taivutettuja sanoja käsitellään eri sanoina.
 
 ## Tietorakenteet
-* Tekstikorpuksen prosessoinnista syntyvä tietorakenne on Trie-puu
+* Tekstikorpuksen prosessoinnista syntyvä tietorakenne on syvyydeltään rajoitettu Trie-puu (suffix tree)
 * Solmut ovat kokonaisia sanoja siinä muodossa, kuin ne korpustekstissä esiintyvät.
 * Kaaret ovat Markovin ketjun periaatteen mukaisesti painotettuja.
 * Virkkeen lopettava merkki toimii polun päätepisteenä Trie-puussa
+* Puusta haetaan enintään halutun asteen ```k``` syvyinen ketju, jota seuraava sana valitaan palautettavan lauseen seuraavaksi
 
 ## Lauseen, eli sanalistan generointi
-* Avainsana toimii siemenenä (seed) kun sanajonoa lähdetään muodostamaan.
-* Seuraava sana valitaan puusta satunnaisesti, kaarien painotuksia noudattaen.
-* Annetusta ketjun asteesta riippuu, kuinka monta edeltävää sanaa otetaan huomioon.
-* Kun vastaan tulee sana, joka päättyy lopetusmerkkiin, lopetetaan uusien sanojen haku.
+* Lähdössä tarvitaan haluttua astetta ```k``` vastaava lista sanoja, joka vastaa puun juuresta lähtevää listaa
+* Mikäli käyttäjä antaa avainsanan lähdetään seuraamaan tätä sanaa puun juuresta, muussa tapauksessa valitaan lähtösana satunnaisesti
+* Mikäli satunnaisesti löytyvä puun haara on alle ```k``` sanaa pitkä, palautetaan tämä ja lopetetaan
+* Seurataan juuresta annettua ```k``` sanaa muodostavaa polkua
+* Kaarien painotusten suhteessa arvotaan seuraava sana
+* Mikäli löydetään lopetusmerkki, lopetetaan
+* Otetaan alkuperäisestä listasta ```k```-1 viimeistä sanaa ja lisätään loppuun nyt löytynyt uusi sana
+* Toistetaan haku juuresta
 * Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan synonyymien käsittely.
 * Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan taivutusmuotojen käsittely.
 
@@ -127,8 +143,8 @@ SentenceGenerator.generate(word, degree)
 ## Aikavaatimukset
 * Korpuksen prosessointi ja lauseen generointi ovat erillisiä prosesseja, joista ensin mainittu tarvitsee tehdä vain kerran.
 * Aikavaatimus mitataan suhteessa korpuksessa olevien sanojen määrään *n* ja haettavan lauseen maksimipituuteen *L*.
-* Pahimmassa tapauksessa lause olisi koko korpuksen mittainen. Tällöin O(L)=O(n), ja tätä voidaan pitää projektissa aikavaatimustavoitteena.
-* Trie-puu vie huomattavan paljon tilaa. Lähdetään olettamuksesta, että tämä tila on käytettävissä, eikä sille aseteta etukäteen rajoituksia.
+* Täydellisen trie-puun sijasta, jonka syvyys olisi yhtä suuri kuin leveys, ja tilavaatimus siten O(n^2) tarvitaan vain ```k``` + 1 syvyinen puu.
+* Tällä rajauksella päästään sekä korpuksen käsittelyssä, että lauseen generoinnissa aikavaatimukseen O(n)
 
 ## Lähteitä
 * https://blog.demofox.org/2019/05/11/markov-chain-text-generation/
