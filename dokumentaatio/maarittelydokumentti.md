@@ -40,42 +40,42 @@ $ python3 sentence_generator.py
 Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
 ```
 
-Tai antamalla ```DAT```-tiedoston nimi:
+Tai antamalla ```JSON```-tiedoston nimi:
 ```
-$ python3 sentence_generator.py corpus.dat
+$ python3 sentence_generator.py corpus.json
 
 *** Lausegeneraattori - päävalikko ***
 
 1. Lue ja käsittele teksti
-2. Valitse käytettävä tekstikorpus (corpus.dat)
+2. Valitse käytettävä tekstikorpus (corpus.json)
 3. Vaihda Markov-aste              (k=2)
 
 Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
 ```
 
 ### Komentoriviargumentit
-Komentorivikutsu korpuksen käsittelemiseksi ja tietorakenteen taleentamiseksi ohjelman omaan ```dat```-tiedostoformaattiin:
+Komentorivikutsu korpuksen käsittelemiseksi ja tietorakenteen taleentamiseksi ohjelman omaan ```json```-tiedostoformaattiin:
 ```
-$ python3 sentence_generator.py --init corpus.txt corpus.dat
+$ python3 sentence_generator.py --init corpus.txt corpus.json
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedostoa ```corpus.txt``` ei ole olemassa
-* Tiedosto ```corpus.dat``` on jo olemassa
+* Tiedosto ```corpus.json``` on jo olemassa
 
 Komentorivikutsu, joka tulostaa generoidun merkkijonon ```stdout```-vuohon perustuen satunnaiseen aloituslauseeseen:
 ```
-$ python3 sentence_generator.py corpus.dat aste
+$ python3 sentence_generator.py corpus.json aste
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
-* Tiedostoa ```corpus.dat``` ei ole olemassa
+* Tiedostoa ```corpus.json``` ei ole olemassa
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
 
 Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon perustuen käyttäjän antamaan avainsanaan:
 ```
-$ python3 sentence_generator.py corpus.dat aste avainsana1 [avainsana2]
+$ python3 sentence_generator.py corpus.json aste avainsana1 [avainsana2]
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
-* Tiedostoa ```corpus.dat``` ei ole olemassa
+* Tiedostoa ```corpus.json``` ei ole olemassa
 * Sanaa ```avainsanaN``` ei löydy lainkaan tietorakenteesta
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
 
@@ -89,8 +89,8 @@ SentenceGenerator
 Julkiset luokkametodit:
 ```
 SentenceGenerator.readText(filename.txt)
-SentenceGenerator.save(filename.dat)
-SentenceGenerator.load(filename.dat)
+SentenceGenerator.save(filename.json)
+SentenceGenerator.load(filename.json)
 SentenceGenerator.generate(wordlist, degree)
 SentenceGenerator.generate(degree)
 ```
@@ -106,7 +106,8 @@ SentenceGenerator.generate(degree)
 
 ## Tiedostoformaatit
 * Tekstikorpus luetaan yhdestä UTF-8 -koodatusta tekstitiedostosta. Järjestelmien väliset erot rivivaihtomerkkien välillä eivät vaikuta toimintaan.
-* Tietorakenteet tallennetaan ohjelman omassa formaatissa. Tiedostopääte on ```dat```.
+* Tietorakenteet tallennetaan JSON-formaatissa. Tiedostopääte on ```json```.
+* 
 
 ## Korpuksen käsittely
 * Lähdetekstistä poistetaan kaikki muut välimerkit ja ylimääräiset välit, paitsi virkkeen lopettavat: . (piste), ! (huutomerkki) ja ? (kysymysmerkki)
@@ -116,7 +117,7 @@ SentenceGenerator.generate(degree)
 * Suomen kielen taivutusmuotoja ei huomioida, vaan taivutettuja sanoja käsitellään eri sanoina.
 
 ## Tietorakenteet
-* Tekstikorpuksen prosessoinnista syntyvä tietorakenne on syvyydeltään rajoitettu Trie-puu (suffix tree)
+* Tekstikorpuksen prosessoinnista syntyvä tietorakenne on syvyydeltään rajoitettu Trie-puu
 * Solmut ovat kokonaisia sanoja siinä muodossa, kuin ne korpustekstissä esiintyvät.
 * Kaaret ovat Markovin ketjun periaatteen mukaisesti painotettuja.
 * Virkkeen lopettava merkki toimii polun päätepisteenä Trie-puussa

@@ -10,8 +10,9 @@ Pythonilla toteutettu lausegeneraattori, joka Markovin ketjuja hyödyntäen luo 
 ### Dokumentaatio
 * [Määrittelydokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/maarittelydokumentti.md)
 * [Suunnitteludokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/suunnitteludokumentti.md)
-
+* [Testausdokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/testausdokumentti.md)
 
 ### Viikkoraportit
 * [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
 * [Viikko 2](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-02.md)
+* [Viikko 3](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-03.md)
