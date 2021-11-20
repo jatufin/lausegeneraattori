@@ -1,6 +1,6 @@
 import unittest
 
-from SentenceGenerator import SentenceGenerator
+from sentence_generator import SentenceGenerator
 
 class TestSentenceGenerator(unittest.TestCase):
     """ Test class for SentenceGenerator """
