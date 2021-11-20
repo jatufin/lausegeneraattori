@@ -5,6 +5,65 @@ Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
 
 # Suunnitteludokumentti
 
+## Tietorakenteen käsittely
+
+Syötetekstistä ei tehdä välivaiheena listaa, vaan sanat tallennetaan puuhun suoraan merkkijonosta, sen jälkeen kun se on esikäsitelty.
+
+### Syötetekstin alustus
+1. Kaikki tyhjät välimerkit (whitespace) korvataan välilyöntimerkillä (space)
+2. Karsitaan syötteestä kaikki muut merkit, paitsi: ```[a-ö][A-Ö][0-9][-!?.]```
+3. Lopetusmerkkien ```[!?.]``` eteen ja jälkeen lisätään välilyönti
+2. Kaikki peräkkäin olevat välilyöntimerkit korvataan yhdellä välilyöntimerkillä
+
+### Puun muodostaminen
+
+On annettuna edellisessä vaiheessa alustettu merkkijono ```S```, sekä sen indeksi ```start = 0```.
+
+Parametri ```k``` kertoo Markovin ketjun maksimiasteen, jolloin puun syvyydeksi tulee ```k```+1.
+
+Funktio ```next_word(S, start)``` palauttaa merkkijonon kohdasta ```S[start]``` seuraavan merkkijonossa ```S``` olevaan välilyöntiin asti, ja kasvattaa indeksin ```start``` arvoa tähän välilyöntiin asti.
+
+Funktio ```is_ending(s)``` tarkistaa, onko annettu merkkijono lopetusmerkki ```[!?.]```.
+
+Muuttuja ```root=[]``` osoittaa alussa tyhjään Hashtable-tietorakenteeseen.
+
+```
+while (word = next_word(S, start)) != NULL:
+	current = root
+	i = start
+	do:
+		if current[word] == null:
+	        current[word] = []          ## luodaan uusi haara
+			current[word].weight = 0    ## Haaran paino muodostuu sanojen määrästä
+		cuurent[word].weight++
+		current = current[word]
+		if is_ending(word):
+			break
+	while(word = next_word(S, i)) != NULL	
+```
+
+### Painotuksista
+Jokaiseen haaraan merkitään seuraavan sanan paino. Nämä asettuvat automaattisesti oikein, koska jos esimerkiksi sana *hopea* sijoitetaan syvyydelle 3 puussa, sitä edeltää jo tekstissä oikeasti esiintyvät kaksi sanaa. Sama sana *hopea* sijoitetaan kuitenkin puussa myös sen juureen, jolloin sen paino määräytyy riippumatta edeltävistä sanoista.
+
+### Tekstin muuttaminen sanalistaksi
+
+### Lauseen generointi
+* Aluksi lause ```L``` on tyhjä
+* Käyttäjä on antanut yhden tai useamman avainsanan
+* Lähdössä tarvitaan haluttua astetta ```k``` vastaava lista ```H``` sanoja, joka vastaa jotain puun juuresta lähtevää haaraa
+* Mikäli käyttäjä ei antanut yhtään sanaa, muodostetaan lista ```H``` puun juuresta satunnaisesti haarojen painoja noudattaen
+* Mikäli käyttäjä antoi avainsanoja, seurataan niitä puun juuresta lähtien, kunnes ```H``` on muodostettu
+* Mikäli satunnaisesti löytyvä puun haara on alle ```k``` sanaa pitkä, kopioidaan haara lauseeseen ```L``` ja lopetetaan
+* Muussa tapauksessa asetetaan saatu ```k```-sanan ketju lauseen ```L``` alkuarvoksi
+* Seurataan juuresta annettua ```k``` sanaa muodostavaa polkua
+* Polun lopussa (eli ```k```+1 syvyydellä) kaarien painotusten suhteita painottaen valitaan seuraava sana
+* Lisätään sana listaan ```L```
+* Mikäli sana on lopetusmerkki, lopetetaan 
+* Poistetaan listasta   ```H``` ensimmäinen sana ja lisätään loppuun nyt löytynyt uusi sana
+* Toistetaan haku juuresta
+* Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan synonyymien käsittely.
+* Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan taivutusmuotojen käsittely.
+
 ## Aikavaatimusanalyysi
 
 ### Puun muodostaminen korpuksesta
@@ -18,12 +77,12 @@ root = []
 for i=0 to len(t)-1:
 	current = root
 	for j=i to i+k:           ## Tämä olisi täydellisessä suffiks-puussa: for j=i to len(t)-1
-		if current[t[i]] == NULL:
-			current[t[i]] = []
-			current[t[i]].weight = 0
-		current[t[i]].weight++
-		current = current[t[i]]
-		if t[i] == ".":
+		if current[t[j]] == NULL:
+			current[t[j]] = []
+			current[t[j]].weight = 0
+		current[t[j]].weight++
+		current = current[t[j]]
+		if t[j] == ".":
 			break;
 ```
 
@@ -81,4 +140,17 @@ function get_words(s):
 			return words
 		s.removeFirst()
 		s.addToLast(newWord)		
+```
+
+## Visualisointi
+
+Tehdään työkalu puurakenteen tulostamiseksi helposti tarkasteltavassa muodossa:
+```
+root +---- 3 aaa +---- 1 bb ---- .
+     |           |
+     |           +---- 2 cc +---- 2 aaa --- .
+	 |   		            |
+     |                      +---- 1 bb --- .
+	 |
+     +---- 1 bb ---- 1 .
 ```

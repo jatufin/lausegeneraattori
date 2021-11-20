@@ -123,16 +123,9 @@ SentenceGenerator.generate(degree)
 * Puusta haetaan enintään halutun asteen ```k``` syvyinen ketju, jota seuraava sana valitaan palautettavan lauseen seuraavaksi
 
 ## Lauseen, eli sanalistan generointi
-* Lähdössä tarvitaan haluttua astetta ```k``` vastaava lista sanoja, joka vastaa puun juuresta lähtevää listaa
-* Mikäli käyttäjä antaa avainsanan lähdetään seuraamaan tätä sanaa puun juuresta, muussa tapauksessa valitaan lähtösana satunnaisesti
-* Mikäli satunnaisesti löytyvä puun haara on alle ```k``` sanaa pitkä, palautetaan tämä ja lopetetaan
-* Seurataan juuresta annettua ```k``` sanaa muodostavaa polkua
-* Kaarien painotusten suhteessa arvotaan seuraava sana
-* Mikäli löydetään lopetusmerkki, lopetetaan
-* Otetaan alkuperäisestä listasta ```k```-1 viimeistä sanaa ja lisätään loppuun nyt löytynyt uusi sana
-* Toistetaan haku juuresta
-* Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan synonyymien käsittely.
-* Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan taivutusmuotojen käsittely.
+* Lause muodostetaan Trie-puusta siten, että ensimmäiset ```k``` sanaa ovat tiedossa, ja näitä seuraamalla valitaan seuraava sana
+* Tämän jälkeen haku toistetaan juuresta poistamalla alkuperäisistä ```k``` sanasta ensimmäinen ja lisäämällä löydetty uusi sana viimeiseksi
+* Haun alussa ensimmäiset sanat valitaan satunnaisesti, käyttäjän mahdollisesti antamiin avainsanoihin perustuen
 
 ## Testaus
 * Käytetään Pythonin *unittest*-moduulia.
