@@ -31,12 +31,25 @@ class Node:
             self._new_child(new_token)
             
         self.children[new_token].weight_increment()
-              
+
+    def add_token_list(self, token_list):
+        if not token_list:
+            return
+        first_token = token_list[0]
+        rest = token_list[1:]
+        self.add_token(first_token)
+        self.get_children(first_token).add_token_list(rest)
+            
+    def print_tree(self, indent=""):
+        print(":" + str(self.weight))
+        for token, node in self.children.items():
+            print(indent + str(token), end="")
+            node.print_tree(indent + "  ")
+            
     def __str__(self):
         s = f"[{self.weight}] ("
-        if self.has_children():
-            for token, node in self.children.items():
-                s += f"'{token}'" + str(node)
+        for token, node in self.children.items():
+            s += f"'{token}'" + str(node)
         s += ")"
 
         return s
@@ -46,10 +59,19 @@ class Node:
     
 def main():
     root = Node()
-    #root.add_token("aa")
-    #root.add_token("aa")
+    root.add_token("aa")
+    root.add_token("aa")
+    root.add_token("bb")    
+    root.get_children("bb").add_token("cc")
+    root.get_children("bb").add_token("dd")
+    root.get_children("bb").add_token("ee")
+    
+    root.get_children("aa").add_token("cc")    
+    root.get_children("bb").get_children("dd").add_token("ff")
 
-    print(root)
+    root.add_token("ff")
+    
+    root.print_tree()
 
 
 if __name__ == "__main__": main()
