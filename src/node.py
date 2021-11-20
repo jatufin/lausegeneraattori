@@ -21,6 +21,7 @@ class Node:
         return bool(self._children)
 
     def get_children(self, token):
+        """ Return a Node, if it can be found from the children list """
         if token in self.children:
             return self.children[token]
         else:
@@ -33,6 +34,8 @@ class Node:
         self.children[new_token].weight_increment()
 
     def add_token_list(self, token_list):
+        """ Add a sequence of tokens to the tree. If a token doesn't
+            exist, it will be added """
         if not token_list:
             return
         first_token = token_list[0]
@@ -58,20 +61,6 @@ class Node:
         self.children[token] = Node()
     
 def main():
-    root = Node()
-    root.add_token("aa")
-    root.add_token("aa")
-    root.add_token("bb")    
-    root.get_children("bb").add_token("cc")
-    root.get_children("bb").add_token("dd")
-    root.get_children("bb").add_token("ee")
-    
-    root.get_children("aa").add_token("cc")    
-    root.get_children("bb").get_children("dd").add_token("ff")
-
-    root.add_token("ff")
-    
-    root.print_tree()
-
+    pass
 
 if __name__ == "__main__": main()

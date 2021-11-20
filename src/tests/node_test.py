@@ -56,6 +56,33 @@ class TestNode(unittest.TestCase):
             str(self.empty_root),
             f"[0] ('{self.token_a}'[1] ('{self.token_b}'[1] ('{self.token_c}'[1] ())))"            
         )
+
+    def test_empty_root_add_two_equal_token_lists_works(self):
+        token_list = [self.token_a, self.token_b, self.token_c]
+
+        self.empty_root.add_token_list(token_list)
+        self.empty_root.add_token_list(token_list)        
+
+        self.empty_root.print_tree()
+        
+        self.assertEqual(
+            str(self.empty_root),
+            f"[0] ('{self.token_a}'[2] ('{self.token_b}'[2] ('{self.token_c}'[2] ())))"            
+        )
+    def test_empty_root_add_two_dissimilar_token_lists_works(self):
+        token_list_1 = [self.token_a, self.token_b]
+        token_list_2 = [self.token_b, self.token_c]        
+
+        self.empty_root.add_token_list(token_list_1)
+        self.empty_root.add_token_list(token_list_2)        
+
+        self.empty_root.print_tree()
+        
+        self.assertEqual(
+            str(self.empty_root),
+            f"[0] ('{self.token_a}'[1] ('{self.token_b}'[1] ())'{self.token_b}'[1] ('{self.token_c}'[1] ()))"
+        )
+
         
     def test_simple_tree_str_cast_is_correct(self):
         self.assertEqual(
