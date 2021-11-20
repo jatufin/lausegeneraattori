@@ -1,6 +1,6 @@
 Viikko 3
 
-Käytetty aika:
+Käytetty aika: 10 tuntia
 
 ### Viikon 3 toimepiteet
 * Korjattiin ja tarkennettiin määrittelyä
