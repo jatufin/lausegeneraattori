@@ -54,28 +54,20 @@ Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
 ```
 
 ### Komentoriviargumentit
-Komentorivikutsu korpuksen käsittelemiseksi ja tietorakenteen taleentamiseksi ohjelman omaan ```json```-tiedostoformaattiin:
-```
-$ python3 sentence_generator.py --init corpus.txt corpus.json
-```
-Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
-* Tiedostoa ```corpus.txt``` ei ole olemassa
-* Tiedosto ```corpus.json``` on jo olemassa
-
 Komentorivikutsu, joka tulostaa generoidun merkkijonon ```stdout```-vuohon perustuen satunnaiseen aloituslauseeseen:
 ```
-$ python3 sentence_generator.py corpus.json aste
+$ python3 sentence_generator.py corpus.txt aste
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
-* Tiedostoa ```corpus.json``` ei ole olemassa
+* Tiedoston ```corpus.txt``` luku tai käsittely ei onnistu
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
 
-Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon perustuen käyttäjän antamaan avainsanaan:
+Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon perustuen käyttäjän antamiin avainsanoihin:
 ```
-$ python3 sentence_generator.py corpus.json aste avainsana1 [avainsana2]
+$ python3 sentence_generator.py corpus.txt aste avainsana1 [avainsana2]
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
-* Tiedostoa ```corpus.json``` ei ole olemassa
+* Tiedoston ```corpus.txt``` luku tai käsittely ei onnistu
 * Sanaa ```avainsanaN``` ei löydy lainkaan tietorakenteesta
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
 
@@ -88,26 +80,23 @@ SentenceGenerator
 
 Julkiset luokkametodit:
 ```
+SentenceGenerator(maximum_degree=5)
 SentenceGenerator.readText(filename.txt)
-SentenceGenerator.save(filename.json)
-SentenceGenerator.load(filename.json)
 SentenceGenerator.generate(wordlist, degree)
 SentenceGenerator.generate(degree)
 ```
 
 ## Syöte ja tuloste
-* Ohjelma lukee korpuksen kerran ja tallentaa syntyvän tietorakenteen tiedostoon.
-* Korpuksia voi olla useita ja käyttäjä voi antaa oman tiedostonsa, jokaisen tietorakenne tallennetaan erikseen.
-* Käyttäjä valitsee, mitä ennalta prosessoitua korpusta käytetään.
+* Ohjelma lukee korpuksen kerran ja pitää syntyvän trie-puun muistissa
+* Tekstitiedostoa käsitellessä syntyvä puu on ```k```+1 sanaa syvä
+* Oletusarvo on ```k=5``` (Tämän voi määritellä ```SentenceGenerator```-luokan konstruktorissa
 * Käyttäjä syöttää Markovin ketjun asteen ```k```.
-* Käyttäjä voi syöttää enintään ```k``` avainsanaa ```sN```
+* Käyttäjä voi syöttää enintään ```N``` avainsanaa ```sN```
 * Mikäli käyttäjä ei anna lainkaan avainsanaa, haetaan alku satunnaisesti.
 * Ohjelma tulostaa avainsanojen muodostamasta lauseesta lähtien satunnaispolkua seuraten ketjussa vastaan tulevista sanoista syntyvän merkkijonon.
 
 ## Tiedostoformaatit
 * Tekstikorpus luetaan yhdestä UTF-8 -koodatusta tekstitiedostosta. Järjestelmien väliset erot rivivaihtomerkkien välillä eivät vaikuta toimintaan.
-* Tietorakenteet tallennetaan JSON-formaatissa. Tiedostopääte on ```json```.
-* 
 
 ## Korpuksen käsittely
 * Lähdetekstistä poistetaan kaikki muut välimerkit ja ylimääräiset välit, paitsi virkkeen lopettavat: . (piste), ! (huutomerkki) ja ? (kysymysmerkki)
