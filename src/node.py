@@ -1,3 +1,4 @@
+import random
 
 class Node:
     """ Trie tree with weighted vertices """
@@ -26,6 +27,25 @@ class Node:
             return self.children[token]
         else:
             return None
+
+    def _get_children_total_weight(self):
+        total = 0
+        for word, node in self.children.items():
+            total += node.weight
+        return total
+
+    def _get_children_by_beginning(self, words):
+        if words == []:
+            return self.children
+        first_word = words[0]
+        rest = words[1:]
+        if first_word in self.children:
+            return self.children[first_word]._get_children_by_beginning(rest)
+        else:
+            return None
+        
+    def _get_random_child(self):
+        pass
         
     def add_token(self, new_token):
         if new_token not in self.children:

@@ -1,5 +1,7 @@
+import sys
+
 from node import Node
-import SentenceGeneratorUI from sentence_generator_ui
+from sentence_generator_ui import SentenceGeneratorUI
 
 class SentenceGenerator:
     """
@@ -27,7 +29,7 @@ class SentenceGenerator:
         token_list = self._clean_string(input_string).split(" ")
         self._insert_token_list(token_list)
 
-    def print(self):
+    def print_tree(self):
         self._tree.print_tree()
         
     def _clean_string(self, s):
@@ -46,7 +48,13 @@ class SentenceGenerator:
     def __str__(self):
         return "DEG: " + str(self.degree) + " ROOT" + str(self._tree)
 
-
+    def _test(self):
+        s = "aa bb cc aa bb aa bb"
+        print(f"String: '{s}'")
+        self.read_string(s)
+        self.print_tree()
+        print(str(self._tree._get_children_by_beginning(["aa", "bb"])))
+    
 def main():
     """Main program for launching Sentence generator from command line
     
@@ -84,19 +92,21 @@ def main():
     if argc == 0:
         ui = SentenceGeneratorUI(sg)
         ui.launch()
-
-    if argc == 1:
-        sg.read_text(args[0])
-        sg.generate()
+    elif argc == 1:
+        if args[0] == "--test":
+            sg._test()
+        else:
+            sg.read_text(args[0])
+            sg.generate()
     elif argc == 2:
         sg.read_text(args[0])
-        sg.generate(degree=int(args[1])
-    else:
+        sg.generate(degree=int(args[1]))
+    elif argc > 2:
         sg.read_text(argc[0])
-        sg.generate(degree=int(args[1],args[2:])
+        sg.generate(degree=int(args[1],args[2:]))
 
 
-    return(0)
+    return 0
     
     
 
