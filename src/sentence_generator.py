@@ -1,4 +1,5 @@
 from node import Node
+import SentenceGeneratorUI from sentence_generator_ui
 
 class SentenceGenerator:
     """
@@ -17,14 +18,6 @@ class SentenceGenerator:
     
     def read_text(self, filename):
         """ Read and process the give text file """
-        pass
-
-    def save(self, filename):
-        """ Save the current data structure to binary file """
-        pass
-    
-    def load(self, filename):
-        """ Load a previously saved binary file """
         pass
 
     def generate(self, degree, wordlist=[]):
@@ -53,3 +46,60 @@ class SentenceGenerator:
     def __str__(self):
         return "DEG: " + str(self.degree) + " ROOT" + str(self._tree)
 
+
+def main():
+    """Main program for launching Sentence generator from command line
+    
+        Command line:
+        
+        1. Open interactive user interface:
+        $ python3 sentence_generator.py
+        
+        2. Print random sentence based on given corpus text and default Markov degree
+        $ python3 sentence_generator.py corpus.txt
+
+        Error messages:
+        * Reading file 'corpus.txt' failed
+
+        3. Print random sentence based on given corpus text and Markov degree
+        $ python3 sentence_generator.py corpus.txt degree
+
+        Error messages:
+        * Reading file 'corpus.txt' failed
+        * Given degree is out of bounds
+
+        4. Print random sentence based on given corpus binary file, Markov degree and word(s)
+        $ python3 sentence_generator.py corpus.txt degree keyword(s)
+
+        Error messages:
+        * Reading file 'corpus.txt' failed
+        * Given degree is out of bounds
+        * Keyword was not found from the corpus text
+        """
+    
+    args = sys.argv[1:]
+    argc = len(args)
+    sg = SentenceGenerator()
+    
+    if argc == 0:
+        ui = SentenceGeneratorUI(sg)
+        ui.launch()
+
+    if argc == 1:
+        sg.read_text(args[0])
+        sg.generate()
+    elif argc == 2:
+        sg.read_text(args[0])
+        sg.generate(degree=int(args[1])
+    else:
+        sg.read_text(argc[0])
+        sg.generate(degree=int(args[1],args[2:])
+
+
+    return(0)
+    
+    
+
+
+
+if __name__ == "__main__": main()
