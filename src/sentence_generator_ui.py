@@ -3,6 +3,8 @@ import sys
 class SentenceGeneratorUI:
     def __init__(self, sentence_generator):
         self._sg = sentence_generator
+        self._max_degree = 5
+        self._degree = 2
         
     def launch(self):
         print("Main menu")

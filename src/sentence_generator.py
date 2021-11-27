@@ -18,23 +18,54 @@ class SentenceGenerator:
     def degree(self):
         return self._degree
     
-    def read_text(self, filename):
-        """ Read and process the give text file """
-        pass
+    def read_file(self, filename):
+        """ Read and process the given text file
+        The resulting trie will be self._degree + 1 deep
+        """
+
+        s = ""
+        try:
+            with open(filename, "r") as file:
+                s = file.read()
+            file.close()
+        except IOError:
+            return False
+
+        self.read_string(s)
+        return True
 
     def generate(self, degree, wordlist=[]):
         pass
 
     def read_string(self, input_string):
-        token_list = self._clean_string(input_string).split(" ")
+        token_list = self._clean_string(input_string).split()
         self._insert_token_list(token_list)
 
     def print_tree(self):
         self._tree.print_tree()
         
     def _clean_string(self, s):
+        s = self._add_ending_period(s)
+        s = self._remove_illegal_characters(s)
+        s = self._add_spaces(s)
+        s = s.lower()
+        
         return s
 
+    def _add_ending_period(self, s):
+        return s + "."
+
+    def _remove_illegal_characters(self, text):
+        allowed_characters = "abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPWRSTUVWXYZÅÄÖ!?.\n "
+        return "".join(filter(lambda c: c in allowed_characters, text))
+
+    def _add_spaces(self, s):
+        s = s.replace(".", " . ")
+        s = s.replace("!", " ! ")
+        s = s.replace("?", " ? ")            
+
+        return s
+    
     def _insert_token_list(self, token_list):
         if token_list == []:
             return
@@ -48,13 +79,31 @@ class SentenceGenerator:
     def __str__(self):
         return "DEG: " + str(self.degree) + " ROOT" + str(self._tree)
 
+    def get_sentence(self, keywords, degree):
+        self._tree.get_random_series_by_keywords(keywords, degree+1)
+        
     def _test(self):
-        s = "aa bb cc aa bb aa bb"
+        s = "aa bb cc .aa bb aa bb"
         print(f"String: '{s}'")
         self.read_string(s)
         self.print_tree()
-        print(str(self._tree._get_children_by_beginning(["aa", "bb"])))
-    
+        print("Children for ['aa', 'bb']: ", end='')
+        print(str(self._tree._get_node_by_beginning(["aa", "bb"])))
+        print("Random series 3 deep: ", end='')
+        print(self._tree.get_random_series(3))
+        print("Random series by keywords 3 deep: ", end='')
+        print(self._tree.get_random_series_by_keywords(["aa", "bb"], 3))
+        print("Valid beginning ['aa', 'bb']: ", end='')
+        print(self._tree.is_valid_beginning(["aa", "bb"]))
+        print("Valid beginning ['aa', 'cc']: ", end='')
+        print(self._tree.is_valid_beginning(["aa", "cc"]))
+        print("Open file 'test.txt': ", end='')
+        if self.read_file("teZt.txt") == False:
+            print("Failed")
+        else:
+            print("Succeed")
+            self.print_tree()
+        
 def main():
     """Main program for launching Sentence generator from command line
     
