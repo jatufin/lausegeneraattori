@@ -68,7 +68,6 @@ class SentenceGenerator:
         return s == "." or s == "!" or s == "?"
     
     def _insert_token_list(self, token_list):
-        print(f"sentence_generator.py INSERT TOKEN LIST: {token_list}")
         if token_list == []:
             return
 
@@ -125,35 +124,6 @@ class SentenceGenerator:
         
     def print_error(self, message):
         print(f"Virhe: {message}", file=sys.stderr)
-    
-    def _test(self):
-        s = "aa bb cc .aa bb aa bb. bb cc aa "
-        print(f"String: '{s}'")
-        self.read_string(s)
-        self.print_tree()
-        print("Children for ['aa', 'bb']: ", end='')
-        print(str(self._tree._get_node_by_beginning(["aa", "bb"])))
-        print("Random series 3 deep: ", end='')
-        print(self._tree.get_random_series(3))
-        print("Random series by keywords 3 deep: ", end='')
-        print(self._tree.get_random_series_by_keywords(["aa", "bb"], 3))
-
-        print("Random sentence with keywords 2 deep ['aa', 'bb']: ", end='')
-        print(self._get_sentence_as_list(["aa", "bb"], 2))
-
-        print("Get another sentence as text, degree 3, no keywords: ", end='')
-        print(self.get_sentence(2))
-        
-        print("Valid beginning ['aa', 'bb']: ", end='')
-        print(self._tree.is_valid_beginning(["aa", "bb"]))
-        print("Valid beginning ['aa', 'cc']: ", end='')
-        print(self._tree.is_valid_beginning(["aa", "cc"]))
-        print("Open file 'test.txt': ", end='')
-        if self.read_file("teZt.txt") == False:
-            print("Failed")
-        else:
-            print("Succeed")
-            self.print_tree()
         
 def main():
     """Main program for launching Sentence generator from command line
@@ -194,11 +164,8 @@ def main():
         ui = SentenceGeneratorUI(sg)
         ui.launch()
     elif argc == 1:
-        if args[0] == "--test":
-            sg._test()
-        else:
-            if sg.read_file(args[0]):
-                print(sg.get_sentence(degree=default_degree))
+        if sg.read_file(args[0]):
+            print(sg.get_sentence(degree=default_degree))
     elif argc == 2:
         if sg.read_file(args[0]) and sg.is_string_valid_degree(args[1]):
             print(sg.get_sentence(degree=int(args[1])))
