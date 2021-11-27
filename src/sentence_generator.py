@@ -16,6 +16,9 @@ class SentenceGenerator:
 
     @property
     def max_degree(self):
+        """ The tree generated will be max_degree+1 deep, and allows searches
+        of maximum of max_degree Markov degree chains
+        """
         return self._max_degree
     
     def read_file(self, filename):
@@ -36,13 +39,19 @@ class SentenceGenerator:
         return True
 
     def read_string(self, input_string):
+        """ Creates trie tree from single string input
+        """
         token_list = self._clean_string(input_string).split()
         self._insert_token_list(token_list)
 
     def print_tree(self):
+        """ Print the trie data structure on screen
+        """
         self._tree.print_tree()
         
     def _clean_string(self, s):
+        """ Prepare the input string for processing
+        """
         s = self._add_ending_period(s)
         s = self._remove_illegal_characters(s)
         s = self._add_spaces(s)
@@ -51,13 +60,20 @@ class SentenceGenerator:
         return s
 
     def _add_ending_period(self, s):
+        """ Input text should consists of series of words ending in ending mark
+        This method makes sure we have at least one ending mark in the text.
+        """
         return s + "."
 
     def _remove_illegal_characters(self, text):
+        """ Only listed letters and caharacters are allowed in the input
+        """
         allowed_characters = "abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPWRSTUVWXYZÅÄÖ!?.\n "
         return "".join(filter(lambda c: c in allowed_characters, text))
 
     def _add_spaces(self, s):
+        """ End characters will be handled as separate words
+        """
         s = s.replace(".", " . ")
         s = s.replace("!", " ! ")
         s = s.replace("?", " ? ")            
@@ -65,9 +81,14 @@ class SentenceGenerator:
         return s
 
     def _is_end_character(self, s):
+        """ Program has to know, is the string it is processing is real word,
+        or a character denoting sentence end
+        """
         return s == "." or s == "!" or s == "?"
     
     def _insert_token_list(self, token_list):
+        """ Takes list of words found from the input text, and inserts it to the tree root
+        """
         if token_list == []:
             return
 
@@ -83,9 +104,15 @@ class SentenceGenerator:
             self._tree.add_token_list(token_list[i:i+self._max_degree+1])
             
     def __str__(self):
+        """ String representation of the whole tree
+        maximum degree is added on the fron of the string
+        """
         return "DEG: " + str(self._max_degree) + " ROOT" + str(self._tree)
 
     def _get_sentence_as_list(self, keywords, degree):
+        """ Generates list of words starting with 'keywords' from the tree.
+        Given Markov degree is used to generate the list
+        """
         wordlist = self._tree.get_random_series_by_keywords(keywords, degree+1)
         if not wordlist or len(wordlist) == 0:
             return []
@@ -99,6 +126,8 @@ class SentenceGenerator:
         return wordlist
             
     def get_sentence(self, degree, keywords=[]):
+        """ Gets a list of words from the tree and returns it as string
+        """
         words = self._get_sentence_as_list(keywords, degree)
         if len(words) == 0:
             return ""
@@ -108,11 +137,15 @@ class SentenceGenerator:
         return sentence
 
     def is_degree_valid(self, degree):
+        """ Checks if given degree can be used for generating sentences
+        """
         if degree > 0 and degree <= self.max_degree:
             return True
         return False
 
     def is_string_valid_degree(self, intstring):
+        """ Checks if the string given can be used as degree for generating sentences
+        """
         if not intstring.isdigit():
             self.print_error("Aste ei ole luonnollinen luku")
             return False
@@ -123,6 +156,8 @@ class SentenceGenerator:
         return True
         
     def print_error(self, message):
+        """ For error messages stderr output stream is used
+        """
         print(f"Virhe: {message}", file=sys.stderr)
         
 def main():
