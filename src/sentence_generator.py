@@ -9,18 +9,18 @@ class SentenceGenerator:
     """
     def __init__(self, degree=5):
         """ Argument: degree is the maximum Markov degree, which can be used in text generation
-            The depth of th tree will be degree+1
+            The depth of the tree will be degree+1
         """
-        self._degree = degree
+        self._max_degree = degree
         self._tree = Node()
 
     @property
-    def degree(self):
-        return self._degree
+    def max_degree(self):
+        return self._max_degree
     
     def read_file(self, filename):
         """ Read and process the given text file
-        The resulting trie will be self._degree + 1 deep
+        The resulting trie will be self._max_degree + 1 deep
         """
 
         s = ""
@@ -33,9 +33,6 @@ class SentenceGenerator:
 
         self.read_string(s)
         return True
-
-    def generate(self, degree, wordlist=[]):
-        pass
 
     def read_string(self, input_string):
         token_list = self._clean_string(input_string).split()
@@ -73,18 +70,20 @@ class SentenceGenerator:
         if token_list == []:
             return
             
-        if len(token_list) < (self._degree + 1):
+        if len(token_list) < (self._max_degree + 1):
             self._tree.add_token_list(token_list)
         else:
-            self._tree.add_token_list(token_list[:self._degree+1])
+            self._tree.add_token_list(token_list[:self._max_degree+1])
         self._insert_token_list(token_list[1:])
 
     def __str__(self):
-        return "DEG: " + str(self.degree) + " ROOT" + str(self._tree)
+        return "DEG: " + str(self._max_degree) + " ROOT" + str(self._tree)
 
     def _get_sentence_as_list(self, keywords, degree):
         wordlist = self._tree.get_random_series_by_keywords(keywords, degree+1)
-
+        if len(wordlist) == 0:
+            return []
+        
         while(not self._is_end_character(wordlist[-1])):
             last_words = wordlist[-degree:]
             words = self._tree.get_random_series_by_keywords(last_words, degree+1)
@@ -95,6 +94,8 @@ class SentenceGenerator:
             
     def get_sentence(self, degree, keywords=[]):
         words = self._get_sentence_as_list(keywords, degree)
+        if len(words) == 0:
+            return ""
         sentence = " ".join(words[:-1])  # no ending character included
         sentence = sentence.capitalize() # capitalize first letter
         sentence += words[-1]            # ending character

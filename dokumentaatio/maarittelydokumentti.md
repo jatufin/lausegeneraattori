@@ -33,17 +33,19 @@ $ python3 sentence_generator.py
 
 *** Lausegeneraattori - päävalikko ***
 
-Lähdeteksti: <ei avattu>
+Lähdeteksti: <ei valittu>
 Markov-aste: 2
 Lauseen alku: <tyhjä>
 Maksimiaste: 5
 
-1. Lue tekstitiedosto
-2. Vaihda Markov-aste
-3. Anna lauseen aloittavat sanat
-4. Tulosta tietorakenne
+1 - Lue tekstitiedosto
+2 - Vaihda Markov-aste
+3 - Anna lauseen aloittavat sanat
+4 - Tulosta tietorakenne
 
-Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen.
+0 - Lopeta
+
+Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen: 
 ```
 
 ### Komentoriviargumentit

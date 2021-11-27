@@ -45,18 +45,24 @@ class Node:
 
     def _get_random_child(self):
         total_weight = self._get_children_total_weight()
+        if total_weight == 0:
+            return None
+        
         rnd = random.randint(1, total_weight)
 
         i=0
         for word, node in self.children.items():
             i += node.weight
             if i >= rnd: return word
+        return None
         
     def get_random_series(self, depth):
         ''' Get random depth length series of words from the tree '''
         if depth == 0:
             return []
         word = self._get_random_child()
+        if word == None:
+            return []
         if self._is_end_character(word):
             return [word]
         return [word] + self.children[word].get_random_series(depth-1)
