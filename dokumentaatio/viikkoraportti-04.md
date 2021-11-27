@@ -6,6 +6,7 @@ Käytetty aika: 8
 * Korjattiin ja tarkennettiin määrittelyä
 * Saatiin valmiiksi SentenceGenerator -luokan toiminnallisuus
 * Peruskäyttöliittymä toimii
+* Komentoriviargumentit toimivat
 
 ### Tällä viikolla olen oppinut
 * Pythonin datatyyppien käsittelyä

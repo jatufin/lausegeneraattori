@@ -35,21 +35,18 @@ class SentenceGeneratorUI:
         if self._sg.read_file(filename):
             print("Tiedoston '{filename}' luku onnistui")
             self._filename = filename
-        else:
-            print(f"Virhe luettaessa tiedostoa '{filename}'")
 
     def _change_degree(self):
-        print("Anna Marko-aste: ", end='')
-        degree = input()
-        
-        if not degree.isdigit() or int(degree) > self._sg.max_degree:
-            print("Arvo ei ole kelvollinen")
-           
+        print("Anna Markovin aste: ", end='')
+        intstring = input()
+        if not self._sg.is_string_valid_degree(intstring):
+            return
+        self._degree = int(intstring)
+                       
     def _get_keywords(self):
         print("Anna sanat, joilla lause alkaa: ", end='')
         words = input()
         self._keywords = words.split()
-
 
     def _print_data_structure(self):
         self._sg.print_tree()
@@ -86,7 +83,7 @@ Maksimiaste: {maxdegree}
 
 0 - Lopeta
 
-Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen: """)
+Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen: """, end='')
 
     def _generate_sentence(self,degree=2, keywords=[]):
         print(f"Markov degree: {degree}")

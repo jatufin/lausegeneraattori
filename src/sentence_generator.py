@@ -29,6 +29,7 @@ class SentenceGenerator:
                 s = file.read()
             file.close()
         except IOError:
+            self.print_error("Tiedoston luku ei onnistu '{filename}'.")
             return False
 
         self.read_string(s)
@@ -81,7 +82,7 @@ class SentenceGenerator:
 
     def _get_sentence_as_list(self, keywords, degree):
         wordlist = self._tree.get_random_series_by_keywords(keywords, degree+1)
-        if len(wordlist) == 0:
+        if not wordlist or len(wordlist) == 0:
             return []
         
         while(not self._is_end_character(wordlist[-1])):
@@ -100,7 +101,25 @@ class SentenceGenerator:
         sentence = sentence.capitalize() # capitalize first letter
         sentence += words[-1]            # ending character
         return sentence
+
+    def is_degree_valid(self, degree):
+        if degree > 0 and degree <= self.max_degree:
+            return True
+        return False
+
+    def is_string_valid_degree(self, intstring):
+        if not intstring.isdigit():
+            self.print_error("Aste ei ole luonnollinen luku")
+            return False
+        degree = int(intstring)
+        if not self.is_degree_valid(int(degree)):
+            self.print_error("Asteen arvo ei ole sallitulla välillä")
+            return False
+        return True
         
+    def print_error(self, message):
+        print(f"Virhe: {message}", file=sys.stderr)
+    
     def _test(self):
         s = "aa bb cc .aa bb aa bb. bb cc aa "
         print(f"String: '{s}'")
@@ -163,6 +182,7 @@ def main():
     args = sys.argv[1:]
     argc = len(args)
     sg = SentenceGenerator()
+    default_degree = 2
     
     if argc == 0:
         ui = SentenceGeneratorUI(sg)
@@ -171,16 +191,16 @@ def main():
         if args[0] == "--test":
             sg._test()
         else:
-            sg.read_text(args[0])
-            sg.generate()
+            if sg.read_file(args[0]):
+                print(sg.get_sentence(degree=default_degree))
     elif argc == 2:
-        sg.read_text(args[0])
-        sg.generate(degree=int(args[1]))
+        if sg.read_file(args[0]) and sg.is_string_valid_degree(args[1]):
+            print(sg.get_sentence(degree=int(args[1])))
+
     elif argc > 2:
-        sg.read_text(argc[0])
-        sg.generate(degree=int(args[1],args[2:]))
-
-
+        if sg.read_file(args[0]) and sg.is_string_valid_degree(args[1]):
+            print(sg.get_sentence(degree=int(args[1]), keywords=args[2:]))
+        
     return 0
     
     
