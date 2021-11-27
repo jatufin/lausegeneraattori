@@ -93,7 +93,3 @@ class TestSentenceGenerator(unittest.TestCase):
     def test_main_without_argument_works(self):
         result = sg_main()
         self.assertEqual(result, 0)
-
-    def test_main_with_filename_argument_works(self):
-        result = sg_main(self.testfile)
-        self.assertEqual(result, 0)        
