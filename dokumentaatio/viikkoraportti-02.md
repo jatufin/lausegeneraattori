@@ -1,8 +1,8 @@
-# Viikko 2
+## Viikko 2
 
 Arviolta käytetty aika: 12 tuntia
 
-## Viikon 2 toimenpiteet
+## Viikolla tehdyt toimenpiteet
 * Selvitetty tarkka tietorakenteen muoto
 * Selvitetty algoritmien toiminta
 * Aloitettu ohjelmarungon tekeminen

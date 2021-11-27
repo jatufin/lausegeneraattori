@@ -1,8 +1,8 @@
-Viikko 3
+## Viikko 3
 
 Käytetty aika: 10 tuntia
 
-### Viikon 3 toimepiteet
+### Viikolla tehdyt toimepiteet
 * Korjattiin ja tarkennettiin määrittelyä
 * Aloitettiin testausdokumentaatio
 * Luotiin yleinen puutietorakenne (node.py) ja sille yksikkötestit

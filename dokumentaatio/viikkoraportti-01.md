@@ -1,8 +1,8 @@
-# Viikko 1
+## Viikko 1
 
 Arviolta käytetty aika: 8 tuntia
 
-## Viikon 1 toimenpiteet
+### Viikolla tehdyt toimenpiteet
 
 * Aiheenvalinta
 * Tutustuminen tarvittaviin tietorakenteisiin

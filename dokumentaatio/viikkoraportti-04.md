@@ -1,8 +1,8 @@
-Viikko 4
+## Viikko 4
 
 Käytetty aika: 16 tuntia
 
-### Viikon 3 toimepiteet
+### Viikolla tehdyt toimepiteet
 * Korjattiin ja tarkennettiin määrittelyä
 * Saatiin valmiiksi koko perustoiminnallisuus
 
