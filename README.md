@@ -10,26 +10,30 @@ Pythonilla toteutettu lausegeneraattori, joka Markovin ketjuja hyödyntäen luo 
 ## Ohjelman suoritus
 
 Ohjelma käynnistyy interaktiivisessa tilassa projektihakemistosta komennolla:
-``´
-    python3 src/sentence_generator.py
-``´
-Tai poetry-ympäristössä::
-``´
-	invoke start
-``´
 
-Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla ``´1``´ ja syöttämällä tiedoston nimi tai koko polku. Esimerkiksi projektihakemistossa ``´text/kalevala.txt``´. Nyt tekstejä voi tuottaa painamalla ``´<enter> ``´ -painiketta. Markov-astetta voi muuttaa, ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
+
+```
+    python3 src/sentence_generator.py
+```
+
+Tai poetry-ympäristössä::
+
+```
+	invoke start
+```
+
+Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla `1` ja syöttämällä tiedoston nimi tai koko polku. Esimerkiksi projektihakemistossa `text/kalevala.txt`. Nyt tekstejä voi tuottaa painamalla `<enter>` -painiketta. Markov-astetta voi muuttaa, ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
 
 Tuotetut lauseet eivät välttämättä ole valitun Markov-asteen pituisia, ja saattavat sisältää jopa ainoastaan lopetusmerkin. Tämä on ohjelman ominaisuus silloin, jos ensimmäistä sanaketjua haettaessa törmätäänkin puun haaraan, joka loppuu alkuunsa.
 
 Testit voi käynnistää poetry-ympäristössä:
-``´
+```
 	invoke test
-``´	
+```	
 Tai testikattavuusraportin luomiseksi:
-``´
+```
 	invoke coverage-report
-``´	
+```	
 
 
 ### Dokumentaatio
