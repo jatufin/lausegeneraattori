@@ -3,6 +3,7 @@ import sys
 from node import Node
 from sentence_generator_ui import SentenceGeneratorUI
 
+
 class SentenceGenerator:
     """
     Generate random sentences based on given text using Markov chains
@@ -92,14 +93,14 @@ class SentenceGenerator:
         if token_list == []:
             return
 
-        ###### Recursive solution:
+        # Recursive solution:
         # if len(token_list) < (self._max_degree + 1):
         #    self._tree.add_token_list(token_list)
         # else:
         #    self._tree.add_token_list(token_list[:self._max_degree+1])
         # self._insert_token_list(token_list[1:])
 
-        ###### Iterative solution:        
+        # Iterative solution:        
         for i in range(len(token_list)):
             self._tree.add_token_list(token_list[i:i+self._max_degree+1])
             
@@ -119,7 +120,8 @@ class SentenceGenerator:
         
         while(not self._is_end_character(wordlist[-1])):
             last_words = wordlist[-degree:]
-            words = self._tree.get_random_series_by_keywords(last_words, degree+1)
+            words = self._tree.get_random_series_by_keywords(
+                last_words, degree+1)
             last_word = words[-1]
             wordlist += [last_word]
 
@@ -131,9 +133,9 @@ class SentenceGenerator:
         words = self._get_sentence_as_list(keywords, degree)
         if len(words) == 0:
             return ""
-        sentence = " ".join(words[:-1])  # no ending character included
-        sentence = sentence.capitalize() # capitalize first letter
-        sentence += words[-1]            # ending character
+        sentence = " ".join(words[:-1])   # no ending character included
+        sentence = sentence.capitalize()  # capitalize first letter
+        sentence += words[-1]             # ending character
         return sentence
 
     def is_degree_valid(self, degree):
@@ -159,7 +161,8 @@ class SentenceGenerator:
         """ For error messages stderr output stream is used
         """
         print(f"Virhe: {message}", file=sys.stderr)
-        
+
+
 def main():
     """Main program for launching Sentence generator from command line
     
@@ -210,9 +213,7 @@ def main():
             print(sg.get_sentence(degree=int(args[1]), keywords=args[2:]))
         
     return 0
-    
-    
 
 
-
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()

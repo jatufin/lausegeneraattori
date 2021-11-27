@@ -1,5 +1,6 @@
 import random
 
+
 class Node:
     """ Trie tree with weighted vertices """
     
@@ -73,10 +74,11 @@ class Node:
         
         rnd = random.randint(1, total_weight)
 
-        i=0
+        i = 0
         for word, node in self.children.items():
             i += node.weight
-            if i >= rnd: return word
+            if i >= rnd:
+                return word
         
     def get_random_series(self, depth):
         """ Get random depth length series of words from the tree
@@ -84,7 +86,7 @@ class Node:
         if depth == 0:
             return []
         word = self._get_random_child()
-        if word == None:
+        if word is None:
             return []
         if self._is_end_character(word):
             return [word]
@@ -124,18 +126,17 @@ class Node:
         """ Add a sequence of tokens to the tree. If a token doesn't
             exist, it will be added
         """
-        ###### print(f"node.py ADD TOKEN LIST: {token_list}")
         if not token_list:
             return
 
-        ###### Recursive solution:
-        #first_token = token_list[0]
-        #rest = token_list[1:]
-        #self.add_token(first_token)
-        #if not self._is_end_character(first_token):
+        # Recursive solution:
+        # first_token = token_list[0]
+        # rest = token_list[1:]
+        # self.add_token(first_token)
+        # if not self._is_end_character(first_token):
         #    self.get_children(first_token).add_token_list(rest)
 
-        ###### Iterative solution:        
+        # Iterative solution:        
         current_node = self
         for token in token_list:
             current_node.add_token(token)

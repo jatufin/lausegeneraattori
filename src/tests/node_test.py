@@ -2,6 +2,7 @@ import unittest
 
 from node import Node
 
+
 class TestNode(unittest.TestCase):
     """ Test class for Node """
 
@@ -22,10 +23,9 @@ class TestNode(unittest.TestCase):
 
         self.long_tree = Node()
         self.token_list_a = [self.token_a, self.token_b, self.token_c]
-        self.token_list_b = [self.token_b, self.token_b, self.token_c]        
+        self.token_list_b = [self.token_b, self.token_b, self.token_c]       
         self.long_tree.add_token_list(self.token_list_a)
-        self.long_tree.add_token_list(self.token_list_b)        
-
+        self.long_tree.add_token_list(self.token_list_b)
 
     def test_empty_root_str_cast_is_correct(self):
         self.assertEqual(
@@ -129,7 +129,8 @@ class TestNode(unittest.TestCase):
         b.add_token(self.token_c)
         c = b.get_children(self.token_c)
         c.add_token(self.token_d)
-        node = self.simple_tree._get_node_by_beginning([self.token_b, self.token_c])
+        node = self.simple_tree._get_node_by_beginning(
+            [self.token_b, self.token_c])
         self.assertEqual(node.weight, 1)
 
     def test_node_is_not_found_with_false_beginning(self):
@@ -137,7 +138,8 @@ class TestNode(unittest.TestCase):
         b.add_token(self.token_c)
         c = b.get_children(self.token_c)
         c.add_token(self.token_d)
-        node = self.simple_tree._get_node_by_beginning([self.token_a, self.token_c])
+        node = self.simple_tree._get_node_by_beginning(
+            [self.token_a, self.token_c])
         self.assertEqual(node, None)
 
     def test_random_child_is_returned(self):
@@ -152,7 +154,7 @@ class TestNode(unittest.TestCase):
                 a = random_word
             if random_word == self.token_b:
                 b = random_word
-            if random_word == None: # A child should always be found
+            if random_word is None:  # A child should always be found
                 none_returned = True
 
         self.assertEqual(a, self.token_a)
@@ -174,7 +176,7 @@ class TestNode(unittest.TestCase):
                 list_a_found = True
             if random_list == self.token_list_b:
                 list_b_found = True
-            if random_list == None:
+            if random_list is None:
                 none_returned = True
 
         self.assertTrue(list_a_found)
@@ -193,7 +195,8 @@ class TestNode(unittest.TestCase):
 
     def test_random_series_with_starting_words_works(self):
         starting_words = self.token_list_a[:2]
-        found_words = self.long_tree.get_random_series_by_keywords(starting_words, 3)
+        found_words = self.long_tree.get_random_series_by_keywords(
+            starting_words, 3)
         self.assertEqual(found_words, self.token_list_a)
 
     def test_random_series_with_empty_starting_words_returns_list(self):
@@ -202,10 +205,12 @@ class TestNode(unittest.TestCase):
 
     def test_random_series_with_too_many_starting_words_returns_none(self):
         starting_words = self.token_list_a * 2
-        found_words = self.long_tree.get_random_series_by_keywords(starting_words, 3)
+        found_words = self.long_tree.get_random_series_by_keywords(
+            starting_words, 3)
         self.assertIsNone(found_words)
 
     def test_random_series_with_invalid_starting_words_returns_none(self):
         starting_words = [self.token_d]
-        found_words = self.long_tree.get_random_series_by_keywords(starting_words, 3)                
+        found_words = self.long_tree.get_random_series_by_keywords(
+            starting_words, 3)
         self.assertIsNone(found_words)

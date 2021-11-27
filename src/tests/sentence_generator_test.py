@@ -5,6 +5,7 @@ import unittest
 from sentence_generator import SentenceGenerator
 from sentence_generator import main as sg_main
 
+
 class TestSentenceGenerator(unittest.TestCase):
     """ Test class for SentenceGenerator """
     def setUp(self):
@@ -58,12 +59,12 @@ class TestSentenceGenerator(unittest.TestCase):
     def test_get_sentence_as_list_returns_nonempty_list(self):
         self.sg.read_file(self.testfile)
         for i in range(10):
-            wordlist = self.sg._get_sentence_as_list(["aa"],2)
+            wordlist = self.sg._get_sentence_as_list(["aa"], 2)
             self.assertGreater(len(wordlist), 0)
 
     def test_get_sentence_as_list_returns_empty_list_from_empty_tree(self):
         for i in range(10):
-            wordlist = self.sg._get_sentence_as_list([],2)
+            wordlist = self.sg._get_sentence_as_list([], 2)
             self.assertEqual(len(wordlist), 0)        
 
     def test_get_sentence_returns_nonempty_string(self):
@@ -87,9 +88,8 @@ class TestSentenceGenerator(unittest.TestCase):
         self.assertFalse(self.sg.is_string_valid_degree("1.0"))
         self.assertFalse(self.sg.is_string_valid_degree("F"))
         self.assertFalse(self.sg.is_string_valid_degree("0"))        
-        self.assertTrue(self.sg.is_string_valid_degree("1"))                       
-
-
+        self.assertTrue(self.sg.is_string_valid_degree("1"))
+        
     def test_main_without_argument_works(self):
         result = sg_main()
         self.assertEqual(result, 0)

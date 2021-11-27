@@ -5,6 +5,7 @@ Käytetty aika: 16 tuntia
 ### Viikolla tehdyt toimepiteet
 * Korjattiin ja tarkennettiin määrittelyä
 * Saatiin valmiiksi koko perustoiminnallisuus
+* Käytiin läpi lähdekoodi ja tehtiin tyylikorjaukset
 
 ### Tällä viikolla olen oppinut
 * Kuinka tuhoisa rekursio on toimivuudelle Pythonin kaltaisella, ei-funktionaalisella kielellä, kun käsiteltävän aineiston koko kasvaa

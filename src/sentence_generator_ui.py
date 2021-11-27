@@ -1,5 +1,3 @@
-import sys
-
 class SentenceGeneratorUI:
     def __init__(self, sentence_generator):
         self._sg = sentence_generator
@@ -13,7 +11,8 @@ class SentenceGeneratorUI:
         while(True):
             self._print_main_menu()
             command = input()
-            if command == "0": break;
+            if command == "0":
+                break
 
             if command == "1":
                 self._read_text()
@@ -62,12 +61,12 @@ class SentenceGeneratorUI:
         self._sg.print_tree()
 
     def _print_sentence(self):
-        """ Generate sentence after <enter> presses based on given text file, Markov degree
-        and beginning words
+        """ Generate sentence after <enter> presses based on given text file,
+        Markov degree and beginning words
         """
         while(True):
             print(self._sg.get_sentence(self._degree, self._keywords))
-            print("<enter>=uusi lause, 0=paluu: ",end='')
+            print("<enter>=uusi lause, 0=paluu: ", end='')
             if input() == "0":
                 break
         
@@ -76,7 +75,8 @@ class SentenceGeneratorUI:
         Also maximu degree which can be used is shown.
         """
         filename = self._filename
-        if filename == "": filename = "<ei valittu>"
+        if filename == "":
+            filename = "<ei valittu>"
         if len(self._keywords) > 0:
             keywords = " ".join(self._keywords)
         else:
@@ -101,7 +101,7 @@ Maksimiaste: {maxdegree}
 
 Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen: """, end='')
 
-    def _generate_sentence(self,degree=2, keywords=[]):
+    def _generate_sentence(self, degree=2, keywords=[]):
         """ Used for debugging
         """
         print(f"Markov degree: {degree}")
