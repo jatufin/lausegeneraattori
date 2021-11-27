@@ -66,8 +66,9 @@ class Node:
         returned list is depth long
         '''
         number_of_words = len(words)
+        
         if number_of_words == 0:
-            return self.get_random_series(self, depth)
+            return self.get_random_series(depth)
         if number_of_words > depth:
             return None
         if not self.is_valid_beginning(words):

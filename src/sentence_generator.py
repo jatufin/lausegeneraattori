@@ -65,6 +65,9 @@ class SentenceGenerator:
         s = s.replace("?", " ? ")            
 
         return s
+
+    def _is_end_character(self, s):
+        return s == "." or s == "!" or s == "?"
     
     def _insert_token_list(self, token_list):
         if token_list == []:
@@ -79,11 +82,26 @@ class SentenceGenerator:
     def __str__(self):
         return "DEG: " + str(self.degree) + " ROOT" + str(self._tree)
 
-    def get_sentence(self, keywords, degree):
-        self._tree.get_random_series_by_keywords(keywords, degree+1)
+    def _get_sentence_as_list(self, keywords, degree):
+        wordlist = self._tree.get_random_series_by_keywords(keywords, degree+1)
+
+        while(not self._is_end_character(wordlist[-1])):
+            last_words = wordlist[-degree:]
+            words = self._tree.get_random_series_by_keywords(last_words, degree+1)
+            last_word = words[-1]
+            wordlist += [last_word]
+
+        return wordlist
+            
+    def get_sentence(self, degree, keywords=[]):
+        words = self._get_sentence_as_list(keywords, degree)
+        sentence = " ".join(words[:-1])  # no ending character included
+        sentence = sentence.capitalize() # capitalize first letter
+        sentence += words[-1]            # ending character
+        return sentence
         
     def _test(self):
-        s = "aa bb cc .aa bb aa bb"
+        s = "aa bb cc .aa bb aa bb. bb cc aa "
         print(f"String: '{s}'")
         self.read_string(s)
         self.print_tree()
@@ -93,6 +111,13 @@ class SentenceGenerator:
         print(self._tree.get_random_series(3))
         print("Random series by keywords 3 deep: ", end='')
         print(self._tree.get_random_series_by_keywords(["aa", "bb"], 3))
+
+        print("Random sentence with keywords 2 deep ['aa', 'bb']: ", end='')
+        print(self._get_sentence_as_list(["aa", "bb"], 2))
+
+        print("Get another sentence as text, degree 3, no keywords: ", end='')
+        print(self.get_sentence(2))
+        
         print("Valid beginning ['aa', 'bb']: ", end='')
         print(self._tree.is_valid_beginning(["aa", "bb"]))
         print("Valid beginning ['aa', 'cc']: ", end='')
