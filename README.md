@@ -7,7 +7,12 @@ Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
 
 Pythonilla toteutettu lausegeneraattori, joka Markovin ketjuja hyödyntäen luo lauseenomaisia sanayhdistelmiä lähdetekstien ja käyttäjän antamien parametrien perusteella.
 
-## Ohjelman suoritus
+## Ohjelman toiminta
+Käyttäjä antaa ohjelmalle tekstitiedoston, esimerkiksi Kalevalan, jonka ohjelma käsittelee ja jonka perusteella luodaan sisäinen tietorakenne. (Trie-puu) Tämän jälkeen ohjelma tuottaa pyydettäessä puusta sanaketjuja, "lauseita", Markovin ketjuja. Ohjelmalle voi määritellä halutun Markovin ketjun asteen ja sanan tai sanat, joilla haluaa lauseen alkavan.
+
+On huomioitava, että mitä suurempi Markov-ketjun aste tai pienempi lähdetekstin koko, sitä orjallisemmin ohjelma tuottaa suoria kopioita lähdetekstissä esiintyvistä lauseista.
+
+## Ohjelman käynnistys
 
 Ohjelma käynnistyy interaktiivisessa tilassa projektihakemistosta komennolla:
 
@@ -40,7 +45,7 @@ Tai testikattavuusraportin luomiseksi:
 * [Määrittelydokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/maarittelydokumentti.md)
 * [Suunnitteludokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/suunnitteludokumentti.md)
 * [Testausdokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/testausdokumentti.md)
-
+* [Toteutusraportti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Toteutusraportti.md)
 ### Viikkoraportit
 * [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
 * [Viikko 2](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-02.md)

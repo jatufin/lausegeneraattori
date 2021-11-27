@@ -1,6 +1,6 @@
 ## Viikko 4
 
-Käytetty aika: 16 tuntia
+Käytetty aika: 18 tuntia
 
 ### Viikolla tehdyt toimepiteet
 * Korjattiin ja tarkennettiin määrittelyä
