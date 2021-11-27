@@ -33,24 +33,17 @@ $ python3 sentence_generator.py
 
 *** Lausegeneraattori - päävalikko ***
 
-1. Lue ja käsittele teksti
-2. Valitse käytettävä tekstikorpus (ei valittu)
-3. Vaihda Markov-aste              (k=2)
+Lähdeteksti: <ei avattu>
+Markov-aste: 2
+Lauseen alku: <tyhjä>
+Maksimiaste: 5
 
-Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
-```
+1. Lue tekstitiedosto
+2. Vaihda Markov-aste
+3. Anna lauseen aloittavat sanat
+4. Tulosta tietorakenne
 
-Tai antamalla ```JSON```-tiedoston nimi:
-```
-$ python3 sentence_generator.py corpus.json
-
-*** Lausegeneraattori - päävalikko ***
-
-1. Lue ja käsittele teksti
-2. Valitse käytettävä tekstikorpus (corpus.json)
-3. Vaihda Markov-aste              (k=2)
-
-Valitse toiminto, syötä aloitussana tai -lause, tai paina <enter>:
+Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen.
 ```
 
 ### Komentoriviargumentit
