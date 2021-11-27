@@ -29,7 +29,7 @@ class SentenceGenerator:
                 s = file.read()
             file.close()
         except IOError:
-            self.print_error("Tiedoston luku ei onnistu '{filename}'.")
+            self.print_error(f"Tiedoston luku ei onnistu '{filename}'.")
             return False
 
         self.read_string(s)

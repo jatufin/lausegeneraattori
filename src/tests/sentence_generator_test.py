@@ -9,8 +9,8 @@ class TestSentenceGenerator(unittest.TestCase):
         
         print("Setting up the test env for: SentenceGenerator")
 
-    def test_empty_generator_has_correct_degree(self):
-        self.assertEqual(self.generator.degree, 3)
+    def test_empty_generator_has_correct_max_degree(self):
+        self.assertEqual(self.generator.max_degree, 3)
         
     def test_empty_generator_has_correct_string_cast(self):
         self.assertEqual(str(self.generator), "DEG: 3 ROOT[0] ()")
