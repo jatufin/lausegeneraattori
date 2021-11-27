@@ -133,7 +133,3 @@ class Node:
     def _is_end_character(self, s):
         return s == "." or s == "!" or s == "?"
 
-def main():
-    pass
-
-if __name__ == "__main__": main()
