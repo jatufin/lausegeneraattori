@@ -54,7 +54,6 @@ class Node:
         for word, node in self.children.items():
             i += node.weight
             if i >= rnd: return word
-        return None
         
     def get_random_series(self, depth):
         ''' Get random depth length series of words from the tree '''
@@ -94,7 +93,7 @@ class Node:
     def add_token_list(self, token_list):
         """ Add a sequence of tokens to the tree. If a token doesn't
             exist, it will be added """
-        print(f"node.py ADD TOKEN LIST: {token_list}")
+        ###### print(f"node.py ADD TOKEN LIST: {token_list}")
         if not token_list:
             return
 

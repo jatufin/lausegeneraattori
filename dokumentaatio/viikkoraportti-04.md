@@ -4,13 +4,11 @@ Käytetty aika: 8
 
 ### Viikon 3 toimepiteet
 * Korjattiin ja tarkennettiin määrittelyä
-* Saatiin valmiiksi SentenceGenerator -luokan toiminnallisuus
-* Peruskäyttöliittymä toimii
-* Komentoriviargumentit toimivat
+* Saatiin valmiiksi koko perustoiminnallisuus
 
 ### Tällä viikolla olen oppinut
+* Kuinka tuhoisa rekursio on Pythonin kaltaisella, ei-funktionaalisella kielellä
 * Pythonin datatyyppien käsittelyä
-* Yllättävän tavan, miten Pythonin "+=" operaattori toimii listojen ja merkkijonojen kanssa
 
 ### Vielä auki olevat asiat (viime viikolta)
 * Testivektorit nyt toteutetulle tietorakenteen muodostamiselle
