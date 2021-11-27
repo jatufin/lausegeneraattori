@@ -68,15 +68,21 @@ class SentenceGenerator:
         return s == "." or s == "!" or s == "?"
     
     def _insert_token_list(self, token_list):
+        print(f"sentence_generator.py INSERT TOKEN LIST: {token_list}")
         if token_list == []:
             return
-            
-        if len(token_list) < (self._max_degree + 1):
-            self._tree.add_token_list(token_list)
-        else:
-            self._tree.add_token_list(token_list[:self._max_degree+1])
-        self._insert_token_list(token_list[1:])
 
+        ###### Recursive solution:
+        # if len(token_list) < (self._max_degree + 1):
+        #    self._tree.add_token_list(token_list)
+        # else:
+        #    self._tree.add_token_list(token_list[:self._max_degree+1])
+        # self._insert_token_list(token_list[1:])
+
+        ###### Iterative solution:        
+        for i in range(len(token_list)):
+            self._tree.add_token_list(token_list[i:i+self._max_degree+1])
+            
     def __str__(self):
         return "DEG: " + str(self._max_degree) + " ROOT" + str(self._tree)
 

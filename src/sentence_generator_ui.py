@@ -33,7 +33,7 @@ class SentenceGeneratorUI:
         print("Anna tiedoston nimi: ", end='')
         filename = input()
         if self._sg.read_file(filename):
-            print("Tiedoston '{filename}' luku onnistui")
+            print(f"Tiedoston '{filename}' luku onnistui")
             self._filename = filename
 
     def _change_degree(self):

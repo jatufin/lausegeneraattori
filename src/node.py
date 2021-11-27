@@ -94,14 +94,24 @@ class Node:
     def add_token_list(self, token_list):
         """ Add a sequence of tokens to the tree. If a token doesn't
             exist, it will be added """
+        print(f"node.py ADD TOKEN LIST: {token_list}")
         if not token_list:
             return
-        first_token = token_list[0]
-        rest = token_list[1:]
-        self.add_token(first_token)
 
-        if not self._is_end_character(first_token):
-            self.get_children(first_token).add_token_list(rest)
+        ###### Recursive solution:
+        #first_token = token_list[0]
+        #rest = token_list[1:]
+        #self.add_token(first_token)
+        #if not self._is_end_character(first_token):
+        #    self.get_children(first_token).add_token_list(rest)
+
+        ###### Iterative solution:        
+        current_node = self
+        for token in token_list:
+            current_node.add_token(token)
+            if self._is_end_character(token):
+                break
+            current_node = current_node.get_children(token)
             
     def print_tree(self, indent=""):
         print(":" + str(self.weight))
