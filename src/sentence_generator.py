@@ -53,39 +53,16 @@ class SentenceGenerator:
     def _clean_string(self, s):
         """ Prepare the input string for processing
         """
-        s = self._add_ending_period(s)
         s = self._remove_illegal_characters(s)
-        s = self._add_spaces(s)
         s = s.lower()
         
         return s
 
-    def _add_ending_period(self, s):
-        """ Input text should consists of series of words ending in ending mark
-        This method makes sure we have at least one ending mark in the text.
-        """
-        return s + "."
-
     def _remove_illegal_characters(self, text):
         """ Only listed letters and caharacters are allowed in the input
         """
-        allowed_characters = "abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPWRSTUVWXYZÅÄÖ!?.\n "
+        allowed_characters = "abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPWRSTUVWXYZÅÄÖ\n "
         return "".join(filter(lambda c: c in allowed_characters, text))
-
-    def _add_spaces(self, s):
-        """ End characters will be handled as separate words
-        """
-        s = s.replace(".", " . ")
-        s = s.replace("!", " ! ")
-        s = s.replace("?", " ? ")            
-
-        return s
-
-    def _is_end_character(self, s):
-        """ Program has to know, is the string it is processing is real word,
-        or a character denoting sentence end
-        """
-        return s == "." or s == "!" or s == "?"
     
     def _insert_token_list(self, token_list):
         """ Takes list of words found from the input text, and inserts it to the tree root
@@ -110,7 +87,7 @@ class SentenceGenerator:
         """
         return "DEG: " + str(self._max_degree) + " ROOT" + str(self._tree)
 
-    def _get_sentence_as_list(self, keywords, degree):
+    def _get_sentence_as_list(self, degree, length, keywords):
         """ Generates list of words starting with 'keywords' from the tree.
         Given Markov degree is used to generate the list
         """
@@ -118,7 +95,7 @@ class SentenceGenerator:
         if not wordlist or len(wordlist) == 0:
             return []
         
-        while(not self._is_end_character(wordlist[-1])):
+        while(not len(wordlist) == length):
             last_words = wordlist[-degree:]
             words = self._tree.get_random_series_by_keywords(
                 last_words, degree+1)
@@ -127,15 +104,15 @@ class SentenceGenerator:
 
         return wordlist
             
-    def get_sentence(self, degree, keywords=[]):
+    def get_sentence(self, degree, length, keywords=[]):
         """ Gets a list of words from the tree and returns it as string
         """
-        words = self._get_sentence_as_list(keywords, degree)
+        words = self._get_sentence_as_list(degree, length, keywords)
         if len(words) == 0:
             return ""
-        sentence = " ".join(words[:-1])   # no ending character included
+        sentence = " ".join(words)   # no ending character included
         sentence = sentence.capitalize()  # capitalize first letter
-        sentence += words[-1]             # ending character
+        sentence += "."             # period to the end
         return sentence
 
     def is_degree_valid(self, degree):
@@ -145,6 +122,9 @@ class SentenceGenerator:
             return True
         return False
 
+    def is_length_valid(self, length):
+        return length > 0
+    
     def is_string_valid_degree(self, intstring):
         """ Checks if the string given can be used as degree for generating sentences
         """
@@ -156,7 +136,19 @@ class SentenceGenerator:
             self.print_error("Asteen arvo ei ole sallitulla välillä")
             return False
         return True
-        
+
+    def is_string_valid_length(self, intstring):
+        """ Checks if the string given can be used as degree for generating sentences
+        """
+        if not intstring.isdigit():
+            self.print_error("Pituus ei ole luonnollinen luku")
+            return False
+        degree = int(intstring)
+        if not self.is_length_valid(int(degree)):
+            self.print_error("Pituuden arvo ei ole sallitulla välillä")
+            return False
+        return True
+    
     def print_error(self, message):
         """ For error messages stderr output stream is used
         """
@@ -197,20 +189,24 @@ def main():
     argc = len(args)
     sg = SentenceGenerator()
     default_degree = 2
-    
+    default_length = 8
+
     if argc == 0:
         ui = SentenceGeneratorUI(sg)
         ui.launch()
-    elif argc == 1:
-        if sg.read_file(args[0]):
-            print(sg.get_sentence(degree=default_degree))
     elif argc == 2:
-        if sg.read_file(args[0]) and sg.is_string_valid_degree(args[1]):
-            print(sg.get_sentence(degree=int(args[1])))
-
-    elif argc > 2:
-        if sg.read_file(args[0]) and sg.is_string_valid_degree(args[1]):
-            print(sg.get_sentence(degree=int(args[1]), keywords=args[2:]))
+        if sg.read_file(args[0]):
+            print(sg.get_sentence(degree=int(args[1]), length=default_length))
+    elif argc == 3:
+        if (sg.read_file(args[0]) and
+            sg.is_string_valid_degree(args[1]) and
+            sg.is_string_valid_length(args[2])):
+            print(sg.get_sentence(degree=int(args[1]), length=int(args[2])))
+    elif argc > 3:
+        if (sg.read_file(args[0]) and
+            sg.is_string_valid_degree(args[1]) and
+            sg.is_string_valid_length(args[2])):
+            print(sg.get_sentence(degree=int(args[1]), length=int(args[2]), keywords=args[3:]))
         
     return 0
 

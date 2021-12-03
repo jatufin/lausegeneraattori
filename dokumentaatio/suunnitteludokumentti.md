@@ -19,25 +19,27 @@ Syötetekstistä ei tehdä välivaiheena listaa, vaan sanat tallennetaan puuhun 
 
 On annettuna edellisessä vaiheessa alustettu merkkijono ```S```, sekä sen indeksi ```start = 0```.
 
+On annettu haluttu puun syvyys ```m```
+
 Parametri ```k``` kertoo Markovin ketjun maksimiasteen, jolloin puun syvyydeksi tulee ```k```+1.
 
 Funktio ```next_word(S, start)``` palauttaa merkkijonon kohdasta ```S[start]``` seuraavan merkkijonossa ```S``` olevaan välilyöntiin asti, ja kasvattaa indeksin ```start``` arvoa tähän välilyöntiin asti.
-
-Funktio ```is_ending(s)``` tarkistaa, onko annettu merkkijono lopetusmerkki ```[!?.]```.
 
 Muuttuja ```root=[]``` osoittaa alussa tyhjään Hashtable-tietorakenteeseen.
 
 ```
 while (word = next_word(S, start)) != NULL:
 	current = root
+	depth = 0
 	i = start
 	do:
 		if current[word] == null:
 	        current[word] = []          ## luodaan uusi haara
 			current[word].weight = 0    ## Haaran paino muodostuu sanojen määrästä
 		cuurent[word].weight++
+		depth++
 		current = current[word]
-		if is_ending(word):
+		if depth == m:
 			break
 	while(word = next_word(S, i)) != NULL	
 ```
@@ -48,6 +50,7 @@ Jokaiseen haaraan merkitään seuraavan sanan paino. Nämä asettuvat automaatti
 ### Tekstin muuttaminen sanalistaksi
 
 ### Lauseen generointi
+* Haluttu lauseen pituus on ```n``` sanaa
 * Aluksi lause ```L``` on tyhjä
 * Käyttäjä on antanut yhden tai useamman avainsanan
 * Lähdössä tarvitaan haluttua astetta ```k``` vastaava lista ```H``` sanoja, joka vastaa jotain puun juuresta lähtevää haaraa
@@ -58,7 +61,7 @@ Jokaiseen haaraan merkitään seuraavan sanan paino. Nämä asettuvat automaatti
 * Seurataan juuresta annettua ```k``` sanaa muodostavaa polkua
 * Polun lopussa (eli ```k```+1 syvyydellä) kaarien painotusten suhteita painottaen valitaan seuraava sana
 * Lisätään sana listaan ```L```
-* Mikäli sana on lopetusmerkki, lopetetaan 
+* Mikäli lista on ```n``` pitkä, lopetataan
 * Poistetaan listasta   ```H``` ensimmäinen sana ja lisätään loppuun nyt löytynyt uusi sana
 * Toistetaan haku juuresta
 * Ohjelmaan on mahdollisuus myöhemmin lisätä avainsanan synonyymien käsittely.
@@ -67,22 +70,24 @@ Jokaiseen haaraan merkitään seuraavan sanan paino. Nämä asettuvat automaatti
 ## Aikavaatimusanalyysi
 
 ### Puun muodostaminen korpuksesta
-Pseudokoodissa käytetään esimerkkimerkkijonoa, jossa piste ```.``` vastaa mitä tahansa lopetusmerkkiä, ja kirjaimet ```A```, ```B``` ja ```C``` kokonaisia sanoja. Markovin ketjun maksimiasteeksi määritetään ```k=2```.
+Pseudokoodissa käytetään esimerkkimerkkijonoa, haluttu puun syvyys on ```m``` sanaa. Kirjaimet ```A```, ```B``` ja ```C``` vastaavat kokonaisia sanoja, eikä välejä ole. Markovin ketjun maksimiasteeksi määritetään ```k=2```.
 
 ```
-t = "AB.ABAC.BABA.CBB.BBB.
+t = "ABABACBABACBBBBB
 k=2
 root = []
 
 for i=0 to len(t)-1:
 	current = root
+	depth = 0
 	for j=i to i+k:           ## Tämä olisi täydellisessä suffiks-puussa: for j=i to len(t)-1
 		if current[t[j]] == NULL:
 			current[t[j]] = []
 			current[t[j]].weight = 0
 		current[t[j]].weight++
 		current = current[t[j]]
-		if t[j] == ".":
+		depth++
+		if depth == m:
 			break;
 ```
 
@@ -122,13 +127,14 @@ Uuden sanan hakeminonenpuusta tapahtuu siis vakioajassa O(1).
 
 ### Lauseen hakeminen puusta
 
-Lauseen hakeminen puusta kestää niin kauan kun vastaan tulee lopetusmerkki "```.```". Pahimmassa tapauksessa lähdeteksti ei sisällä sellaista lopetusmerkkiä ollenkaan. Aikavaatimukseksi muodostuu keskimääräinen sanojen määrä lopetusmerkkien välillä alkutekstissä.
+Lauseen hakeminen puusta kestää niin kauan, kunnes se on ```m``` merkkiä pitkä.
 
 ```
 t = "AB.ABAC.BABA.CBB.BBB.
 s[0]="A"
 s[1]="B"
 k=2
+m=8
 words = "AB"
 current = root
 
@@ -136,7 +142,7 @@ function get_words(s):
 	while(true):
 		new_word=get_word(s)
 		words.addLast(new_word)
-		if new_word == ".":
+		if words.length() == m:
 			return words
 		s.removeFirst()
 		s.addToLast(newWord)		

@@ -41,7 +41,8 @@ Maksimiaste: 5
 1 - Lue tekstitiedosto
 2 - Vaihda Markov-aste
 3 - Anna lauseen aloittavat sanat
-4 - Tulosta tietorakenne
+4 - Anna haluttu lauseen pituus
+5 - Tulosta tietorakenne
 
 0 - Lopeta
 
@@ -51,20 +52,22 @@ Valitse toiminto tai paina <enter> tuottaaksesi uuden lauseen:
 ### Komentoriviargumentit
 Komentorivikutsu, joka tulostaa generoidun merkkijonon ```stdout```-vuohon perustuen satunnaiseen aloituslauseeseen:
 ```
-$ python3 sentence_generator.py corpus.txt aste
+$ python3 sentence_generator.py corpus.txt aste pituus
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedoston ```corpus.txt``` luku tai käsittely ei onnistu
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
+* Argumentin ```pituus``` arvo on annettujen rajojen ulkopuolella
 
 Komentorivikutsu, joka tulostaa generoidun merkkijono ```stdout```-vuohon perustuen käyttäjän antamiin avainsanoihin:
 ```
-$ python3 sentence_generator.py corpus.txt aste avainsana1 [avainsana2]
+$ python3 sentence_generator.py corpus.txt aste pituus avainsana1 [avainsana2]
 ```
 Annetaan virheilmoitus ```stderr```-vuohon, mikäli:
 * Tiedoston ```corpus.txt``` luku tai käsittely ei onnistu
 * Sanaa ```avainsanaN``` ei löydy lainkaan tietorakenteesta
 * Argumentin ```aste``` arvo on annettujen rajojen ulkopuolella
+* Argumentin ```pituus``` arvo on annettujen rajojen ulkopuolella
 
 ### Kirjastorajapinta
 
@@ -77,8 +80,8 @@ Julkiset luokkametodit:
 ```
 SentenceGenerator(maximum_degree=5)
 SentenceGenerator.readText(filename.txt)
-SentenceGenerator.generate(wordlist, degree)
-SentenceGenerator.generate(degree)
+SentenceGenerator.generate(wordlist, degree, length=8)
+SentenceGenerator.generate(degree, length=8)
 ```
 
 ## Syöte ja tuloste
@@ -87,6 +90,7 @@ SentenceGenerator.generate(degree)
 * Oletusarvo on ```k=5``` (Tämän voi määritellä ```SentenceGenerator```-luokan konstruktorissa
 * Käyttäjä syöttää Markovin ketjun asteen ```k```.
 * Käyttäjä voi syöttää enintään ```N``` avainsanaa ```sN```
+* Käyttäjä syöttää Markovin ketjun asteen ```m```, oletusarvo on 8.
 * Mikäli käyttäjä ei anna lainkaan avainsanaa, haetaan alku satunnaisesti.
 * Ohjelma tulostaa avainsanojen muodostamasta lauseesta lähtien satunnaispolkua seuraten ketjussa vastaan tulevista sanoista syntyvän merkkijonon.
 
@@ -94,9 +98,8 @@ SentenceGenerator.generate(degree)
 * Tekstikorpus luetaan yhdestä UTF-8 -koodatusta tekstitiedostosta. Järjestelmien väliset erot rivivaihtomerkkien välillä eivät vaikuta toimintaan.
 
 ## Korpuksen käsittely
-* Lähdetekstistä poistetaan kaikki muut välimerkit ja ylimääräiset välit, paitsi virkkeen lopettavat: . (piste), ! (huutomerkki) ja ? (kysymysmerkki)
-* Loppumerkit käsitellään erillisinä sanoina ja erotetaan edeltävästä sanasta lisättävällä välillä
-* Yhdyssanojen välissä olevia väliviivoja ei poisteta.
+* Lähdetekstistä poistetaan kaikki muut merkit, paitsi suomen kielen kirjaimet (a-ö)
+* Kaikki kirjaimet muutetaan pieniksi kirjaimiksi
 * Oletetaan, ettei tekstissä ole tavuviivoja.
 * Suomen kielen taivutusmuotoja ei huomioida, vaan taivutettuja sanoja käsitellään eri sanoina.
 
@@ -104,13 +107,12 @@ SentenceGenerator.generate(degree)
 * Tekstikorpuksen prosessoinnista syntyvä tietorakenne on syvyydeltään rajoitettu Trie-puu
 * Solmut ovat kokonaisia sanoja siinä muodossa, kuin ne korpustekstissä esiintyvät.
 * Kaaret ovat Markovin ketjun periaatteen mukaisesti painotettuja.
-* Virkkeen lopettava merkki toimii polun päätepisteenä Trie-puussa
 * Puusta haetaan enintään halutun asteen ```k``` syvyinen ketju, jota seuraava sana valitaan palautettavan lauseen seuraavaksi
 
 ## Lauseen, eli sanalistan generointi
 * Lause muodostetaan Trie-puusta siten, että ensimmäiset ```k``` sanaa ovat tiedossa, ja näitä seuraamalla valitaan seuraava sana
 * Tämän jälkeen haku toistetaan juuresta poistamalla alkuperäisistä ```k``` sanasta ensimmäinen ja lisäämällä löydetty uusi sana viimeiseksi
-* Haun alussa ensimmäiset sanat valitaan satunnaisesti, käyttäjän mahdollisesti antamiin avainsanoihin perustuen
+* Haun alussa seurataan käyttäjän mahdollisesti antamien avainsanojen ketjua
 
 ## Testaus
 * Käytetään Pythonin *unittest*-moduulia.

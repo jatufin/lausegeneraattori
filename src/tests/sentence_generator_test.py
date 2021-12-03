@@ -21,12 +21,12 @@ class TestSentenceGenerator(unittest.TestCase):
 
     def test_empty_generator_reads_short_string_correctly(self):
         self.sg.read_string("aa bb")
-        self.assertEqual(str(self.sg), "DEG: 3 ROOT[0] ('aa'[1] ('bb'[1] ('.'[1] ()))'bb'[1] ('.'[1] ())'.'[1] ())")
+        self.assertEqual(str(self.sg), "DEG: 3 ROOT[0] ('aa'[1] ('bb'[1] ())'bb'[1] ())")
 
     def test_reading_text_file_works(self):
         result = self.sg.read_file(self.testfile_short)
         self.assertTrue(result)
-        self.assertEqual(str(self.sg), "DEG: 3 ROOT[0] ('aa'[1] ('bb'[1] ('.'[1] ()))'bb'[1] ('.'[1] ())'.'[1] ())")
+        self.assertEqual(str(self.sg), "DEG: 3 ROOT[0] ('aa'[1] ('bb'[1] ())'bb'[1] ())")
 
     def test_opening_nonexistent_file_fails(self):
         result = self.sg.read_file(self.testfile_short + "XXX")
@@ -38,13 +38,6 @@ class TestSentenceGenerator(unittest.TestCase):
         self.sg.print_tree()
         sys.stdout = sys.__stdout__
         self.assertEqual(capture.getvalue(), ":0\n")
-
-    def test_end_character_is_recognized(self):
-        self.assertTrue(self.sg._is_end_character("."))
-        self.assertTrue(self.sg._is_end_character("!"))
-        self.assertTrue(self.sg._is_end_character("?"))
-        self.assertFalse(self.sg._is_end_character(","))
-        self.assertFalse(self.sg._is_end_character("a"))
 
     def test_insert_token_list_works(self):
         self.sg._insert_token_list(["aa"])
@@ -59,23 +52,23 @@ class TestSentenceGenerator(unittest.TestCase):
     def test_get_sentence_as_list_returns_nonempty_list(self):
         self.sg.read_file(self.testfile)
         for i in range(10):
-            wordlist = self.sg._get_sentence_as_list(["aa"], 2)
+            wordlist = self.sg._get_sentence_as_list(degree=2, length=5, keywords=["aa"])
             self.assertGreater(len(wordlist), 0)
 
     def test_get_sentence_as_list_returns_empty_list_from_empty_tree(self):
         for i in range(10):
-            wordlist = self.sg._get_sentence_as_list([], 2)
+            wordlist = self.sg._get_sentence_as_list(degree=2, length=5, keywords=[])
             self.assertEqual(len(wordlist), 0)        
 
     def test_get_sentence_returns_nonempty_string(self):
         self.sg.read_file(self.testfile)
         for i in range(10):
-            sentence = self.sg.get_sentence(degree=2, keywords=["aa"])
+            sentence = self.sg.get_sentence(degree=2, length=5, keywords=["aa"])
             self.assertGreater(len(sentence), 0)        
 
     def test_get_sentence_returns_empty_string_from_empty_tree(self):
         for i in range(10):
-            sentence = self.sg.get_sentence(degree=2, keywords=["aa"])
+            sentence = self.sg.get_sentence(degree=2, length=5, keywords=["aa"])
             self.assertEqual(len(sentence), 0)        
 
     def test_degree_value_validation_works(self):

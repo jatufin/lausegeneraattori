@@ -2,6 +2,7 @@ class SentenceGeneratorUI:
     def __init__(self, sentence_generator):
         self._sg = sentence_generator
         self._degree = 2
+        self._length = 8
         self._filename = ""
         self._keywords = []
         
@@ -24,6 +25,9 @@ class SentenceGeneratorUI:
                 self._get_keywords()
                 continue
             if command == "4":
+                self._change_length()
+                continue
+            if command == "5":
                 self._print_data_structure()
                 continue
             if command == "":
@@ -47,6 +51,15 @@ class SentenceGeneratorUI:
         if not self._sg.is_string_valid_degree(intstring):
             return
         self._degree = int(intstring)
+
+    def _change_length(self):
+        """ Change the Markov degree which is used for generating sentences
+        """
+        print("Anna haluttu lauseen pituus sanoina: ", end='')
+        intstring = input()
+        if not self._sg.is_string_valid_length(intstring):
+            return
+        self._length = int(intstring)
                        
     def _get_keywords(self):
         """ User enters the starting words the generated sentence should start
@@ -65,7 +78,7 @@ class SentenceGeneratorUI:
         Markov degree and beginning words
         """
         while(True):
-            print(self._sg.get_sentence(self._degree, self._keywords))
+            print(self._sg.get_sentence(self._degree, self._length, self._keywords))
             print("<enter>=uusi lause, 0=paluu: ", end='')
             if input() == "0":
                 break
@@ -83,6 +96,7 @@ class SentenceGeneratorUI:
             keywords = "<tyhjä>"
         degree = self._degree
         maxdegree = self._sg.max_degree
+        length = self._length
         
         print(f"""
 *** Lausegeneraattori - päävalikko ***
@@ -90,12 +104,14 @@ class SentenceGeneratorUI:
 Lähdeteksti: {filename}
 Markov-aste: {degree}
 Lauseen alku: {keywords}
+Lauseen pituus: {length} sanaa
 Maksimiaste: {maxdegree}
 
 1 - Lue tekstitiedosto
 2 - Vaihda Markov-aste
 3 - Anna lauseen aloittavat sanat
-4 - Tulosta tietorakenne
+4 - Anna haluttu lauseen pituus
+5 - Tulosta tietorakenne
 
 0 - Lopeta
 
