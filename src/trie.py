@@ -1,15 +1,10 @@
 import random
 
-
-class Node:
-    """ Trie tree with weighted vertices """
-    
-    def __init__(self):
-        """ Word itself is a key in dictionary object children, that why
-        it's not property of the node itself
-        """
-        self._weight = 0
-        self._children = {}
+class TrieNode:
+    def __init__(self, word="", weight=0):
+        self._word = word
+        self._weight = weight
+        self._children = []
 
     @property
     def weight(self):
@@ -21,11 +16,15 @@ class Node:
         return self._weight
 
     @property
+    def word(self):
+        return self._word
+
+    @property
     def children(self):
-        """ Dictionary of the words, which can follow the current node
+        """ List of the node (words), which can follow the current node (word)
         """
         return self._children
-
+    
     def weight_increment(self):
         """ When a node (word) is added to the tree, its weight is increased
         """
@@ -35,15 +34,14 @@ class Node:
         """ Returns True, if the current node has children nodes at all
         """
         return bool(self._children)
-    
-    def get_child(self, token):
-        """ Return a Node, if it can be found from the children dictionary,
-        token is a string, i.e. word
+        
+    def _get_child(self, word):
+        """ Returns a children node, if it is same word as the word given
+        in the argument
         """
-        if token in self.children:
-            return self.children[token]
-        else:
-            return None
+        for node in self._children:
+            if node.word == word:
+                return node
 
     def _get_children_total_weight(self):
         """ Sums up the weights of all the current nodes immediate children.
@@ -51,7 +49,7 @@ class Node:
         added to the random select process
         """
         total = 0
-        for word, node in self.children.items():
+        for node in self._children:
             total += node.weight
         return total
 
@@ -64,9 +62,10 @@ class Node:
             return self
         first_word = words[0]
         rest = words[1:]
-        if first_word in self.children:
-            return self.children[first_word]._get_node_by_beginning(rest)
-        return None
+        next_node = self._get_child(first_word)
+        if not next_node:
+            return None
+        return next_node._get_node_by_beginning(rest)
 
     def _get_random_child(self):
         """ Select random word following current by adjusting randomness by the
@@ -80,27 +79,29 @@ class Node:
         rnd = random.randint(1, total_weight)
 
         i = 0
-        for word, node in self.children.items():
+        for node in self.children:
             i += node.weight
             if i >= rnd:
-                return word
-        
-    def get_random_series(self, depth):
+                return node
+    
+    def _get_random_series(self, depth):
         """ Get random depth length series of words from the tree
         """
         if depth == 0:
             return []
-        word = self._get_random_child()
-        if word is None:
+        node = self._get_random_child()
+        if node is None:
+            print("Lasta ei löytynyt")
             return []
-        return [word] + self.children[word].get_random_series(depth-1)
+        print(f"Löytyi sana: {node.word}")
+        return [node.word] + node._get_random_series(depth-1)
         
-    def is_valid_beginning(self, words):
+    def _is_valid_beginning(self, words):
         """ Gets list of words and evaluates, if there exists identical
         path downward from current node
         """
         return True if self._get_node_by_beginning(words) else False
-
+    
     def get_random_series_by_keywords(self, words, depth):
         """ Follow first keywords, and after them random path until 
         depth words have been found
@@ -108,27 +109,31 @@ class Node:
         number_of_words = len(words)
 
         if number_of_words == 0:
-            return self.get_random_series(depth)
+            return self._get_random_series(depth)
         if number_of_words > depth:
             return None
-        if not self.is_valid_beginning(words):
+        if not self._is_valid_beginning(words):
             return None
         starting_node = self._get_node_by_beginning(words)
-        return words + starting_node.get_random_series(depth - number_of_words)
+        return words + starting_node._get_random_series(depth - number_of_words)
 
-    def _new_child(self, token):
+    def _new_child(self, word):
         """ Create new Node object and add it to the children of current node
         """
-        self.children[token] = Node()
+        self._children.append(TrieNode(word))
+        print(f"Children: {self.children}")
     
-    def add_token(self, new_token):
+    def _add_token(self, new_word):
         """ Add new token (word) to the children of the current. If it exists
         already, its weight is increased
         """
-        if new_token not in self.children:
-            self._new_child(new_token)
-            
-        self.children[new_token].weight_increment()
+        child_node = self._get_child(new_word)
+        if not child_node:
+            print(f"Lisätään sana: {new_word}")
+            self._new_child(new_word)
+            child_node = self._get_child(new_word)
+         
+        child_node.weight_increment()
 
     def add_token_list(self, token_list):
         """ Add a sequence of tokens to the tree. If a token doesn't
@@ -137,33 +142,46 @@ class Node:
         if not token_list:
             return
 
-        # Recursive solution:
-        # first_token = token_list[0]
-        # rest = token_list[1:]
-        # self.add_token(first_token)
-        # if not self._is_end_character(first_token):
-        #    self.get_child(first_token).add_token_list(rest)
-
-        # Iterative solution:        
         current_node = self
         for token in token_list:
-            current_node.add_token(token)
-            current_node = current_node.get_child(token)
-            
+            current_node._add_token(token)
+            current_node = current_node._get_child(token)
+        
     def print_tree(self, indent=""):
         """ Print representation of the tree to stdout
         """
         print(":" + str(self.weight))
-        for token, node in self.children.items():
-            print(indent + str(token), end="")
+        for node in self.children:
+            print(indent + str(node.word), end="")
             node.print_tree(indent + "  ")
-            
+    
     def __str__(self):
         """ String repesentation of te tree from current node downwards
         """
-        s = f"[{self.weight}] ("
-        for token, node in self.children.items():
-            s += f"'{token}'" + str(node)
+        s = f"'{self.word}'[{self.weight}] ("
+        for node in self.children:
+            s += str(node)
         s += ")"
 
         return s
+                    
+class Trie:
+    def __init__(self):
+        self._root = TrieNode()
+
+    def get_random_series_by_keywords(self, words, depth):
+        """ Follow first keywords, and after them random path until 
+        depth words have been found
+        """
+        return self._root.get_random_series_by_keywords(words, depth)
+
+    def print_tree(self, indent=""):
+        """ Print representation of the tree to stdout
+        """
+        self._root.print_tree()
+
+    def add_token_list(self, token_list):
+        """ Add a sequence of tokens to the tree. If a token doesn't
+            exist, it will be added
+        """
+        self._root.add_token_list(token_list)

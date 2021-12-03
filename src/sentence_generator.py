@@ -1,6 +1,7 @@
 import sys
 
 from node import Node
+from trie import Trie
 from sentence_generator_ui import SentenceGeneratorUI
 
 
@@ -8,12 +9,12 @@ class SentenceGenerator:
     """
     Generate random sentences based on given text using Markov chains
     """
-    def __init__(self, degree=5):
+    def __init__(self, tree, degree=5):
         """ Argument: degree is the maximum Markov degree, which can be used in text generation
             The depth of the tree will be degree+1
         """
         self._max_degree = degree
-        self._tree = Node()
+        self._tree = tree
 
     @property
     def max_degree(self):
@@ -99,6 +100,7 @@ class SentenceGenerator:
             last_words = wordlist[-degree:]
             words = self._tree.get_random_series_by_keywords(
                 last_words, degree+1)
+            print(f"Sanat: {words}")
             last_word = words[-1]
             wordlist += [last_word]
 
@@ -187,26 +189,33 @@ def main():
     
     args = sys.argv[1:]
     argc = len(args)
-    sg = SentenceGenerator()
-    default_degree = 2
+    # Node object is trie with children in hash tables (Python Dictionary)
+    sg_node = SentenceGenerator(Node())
+    # Trie object is trie with children in lists tables (Python List)
+    sg_trie = SentenceGenerator(Trie())
+
+    generators = (("Node class (Dictionary)", sg_node),
+                  ("Trie class (List)", sg_trie))
+
+    default_sg = sg_node
     default_length = 8
 
     if argc == 0:
-        ui = SentenceGeneratorUI(sg)
+        ui = SentenceGeneratorUI(generators)
         ui.launch()
     elif argc == 2:
-        if sg.read_file(args[0]):
-            print(sg.get_sentence(degree=int(args[1]), length=default_length))
+        if default_sg.read_file(args[0]):
+            print(default_sg.get_sentence(degree=int(args[1]), length=default_length))
     elif argc == 3:
-        if (sg.read_file(args[0]) and
-            sg.is_string_valid_degree(args[1]) and
-            sg.is_string_valid_length(args[2])):
-            print(sg.get_sentence(degree=int(args[1]), length=int(args[2])))
+        if (default_sg.read_file(args[0]) and
+            default_sg.is_string_valid_degree(args[1]) and
+            default_sg.is_string_valid_length(args[2])):
+            print(default_sg.get_sentence(degree=int(args[1]), length=int(args[2])))
     elif argc > 3:
-        if (sg.read_file(args[0]) and
-            sg.is_string_valid_degree(args[1]) and
-            sg.is_string_valid_length(args[2])):
-            print(sg.get_sentence(degree=int(args[1]), length=int(args[2]), keywords=args[3:]))
+        if (default_sg.read_file(args[0]) and
+            default_sg.is_string_valid_degree(args[1]) and
+            default_sg.is_string_valid_length(args[2])):
+            print(default_sg.get_sentence(degree=int(args[1]), length=int(args[2]), keywords=args[3:]))
         
     return 0
 

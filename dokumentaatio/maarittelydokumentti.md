@@ -7,6 +7,7 @@ Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
 
 ## Ohjelman toiminta
 Käyttäjä voi syöttää yhden tai useamman avainsanan, tai ne generoidaan satunnaisesti. Näihin avainsanoihin ja tekstikorpuksesta luodun tietorakenteen perusteella ohjelma tuottaa sarjan sanoja, joiden pitäisi muodostaa luonnollisen kielen lausetta tai virkettä muistuttava merkkijono. Korpus on laaja tekstikokoelma, joka ohjelmalle on syötetty etukäteen.
+Ohjelma toteutetaan kahdella rajapinnaltaan identtisellä tietorakenteella, jotka kuitenkin siäisiltä toteutuksiltaan poikkeavat. Näiden rakenteiden toiminnan tehokkuutta päästään siis vertailemaan.
 
 ## Luonnolliset kielet
 * Projekti toteutetaan suomeksi ja on tarkoitettu suomenkielisen tekstin käsittelyyn ja tuottamiseen
@@ -39,10 +40,11 @@ Lauseen alku: <tyhjä>
 Maksimiaste: 5
 
 1 - Lue tekstitiedosto
-2 - Vaihda Markov-aste
-3 - Anna lauseen aloittavat sanat
-4 - Anna haluttu lauseen pituus
-5 - Tulosta tietorakenne
+2 - Vaihda generaattoria
+3 - Vaihda Markov-aste
+4 - Anna lauseen aloittavat sanat
+5 - Anna haluttu lauseen pituus
+6 - Tulosta tietorakenne
 
 0 - Lopeta
 
@@ -107,7 +109,10 @@ SentenceGenerator.generate(degree, length=8)
 * Tekstikorpuksen prosessoinnista syntyvä tietorakenne on syvyydeltään rajoitettu Trie-puu
 * Solmut ovat kokonaisia sanoja siinä muodossa, kuin ne korpustekstissä esiintyvät.
 * Kaaret ovat Markovin ketjun periaatteen mukaisesti painotettuja.
-* Puusta haetaan enintään halutun asteen ```k``` syvyinen ketju, jota seuraava sana valitaan palautettavan lauseen seuraavaksi
+* Puusta haetaan enintään halutun asteen ```k``` syvyinen ketju, jota seuraava sana valitaan palautettavan lauseen seuraavaksi.
+* Puu toteutetaan kahdella tietorakenteella, joiden toimintaa päästään vertailemaan:
+  * Puu, jossa sanat on sijoitettu Pythonin Dictionary-listaan. Puun solmut eivät itsessään sisällä sanoja
+  * Puu, jossa solmut sisältävät sanat, ja lapsisolmut on sijoitettu Pythonin listarakenteeseen.
 
 ## Lauseen, eli sanalistan generointi
 * Lause muodostetaan Trie-puusta siten, että ensimmäiset ```k``` sanaa ovat tiedossa, ja näitä seuraamalla valitaan seuraava sana
