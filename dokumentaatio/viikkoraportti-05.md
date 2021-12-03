@@ -8,6 +8,7 @@ Käytetty aika:
 * Lisättiin määrittelyyn trie-tietorakenteen toteutus listoilla, tämän hetkisen Dictionary-toteutuksen sijasta
 * Toteutettiin uusi Trie-luokka, joka käyttää sanojen tallentamiseen TrieNode-luokkaa
 * Lisättiin käyttöliittymään mahdollisuus vaihtaa tietorakenneobjektia
+* Lisättiin käyttöliittymään mahdollisuus valita tiedosto listasta
 
 ### Tällä viikolla olen oppinut
 
