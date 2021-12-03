@@ -2,6 +2,8 @@ import io
 import sys
 import unittest
 
+from node import Node
+
 from sentence_generator import SentenceGenerator
 from sentence_generator import main as sg_main
 
@@ -9,7 +11,8 @@ from sentence_generator import main as sg_main
 class TestSentenceGenerator(unittest.TestCase):
     """ Test class for SentenceGenerator """
     def setUp(self):
-        self.sg = SentenceGenerator(3)
+        tree = Node()
+        self.sg = SentenceGenerator(tree, 3)
         self.testfile_short = "src/tests/test_short.txt"
         self.testfile = "src/tests/test.txt"
         

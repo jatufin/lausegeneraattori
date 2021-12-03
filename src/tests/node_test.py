@@ -45,7 +45,7 @@ class TestNode(unittest.TestCase):
         )
 
     def test_empty_root_returns_none_children(self):
-        children = self.empty_root.get_children(self.token_a)
+        children = self.empty_root.get_child(self.token_a)
         self.assertEqual(
             children,
             None
@@ -113,7 +113,7 @@ class TestNode(unittest.TestCase):
         )
 
     def test_simple_tree_add_subtoken_works(self):        
-        b = self.simple_tree.get_children(self.token_b)
+        b = self.simple_tree.get_child(self.token_b)
         b.add_token(self.token_c)
         self.assertEqual(
             str(self.simple_tree),
@@ -125,18 +125,18 @@ class TestNode(unittest.TestCase):
         self.assertEqual(total_weight, 3)
 
     def test_node_is_found_with_beginning(self):
-        b = self.simple_tree.get_children(self.token_b)
+        b = self.simple_tree.get_child(self.token_b)
         b.add_token(self.token_c)
-        c = b.get_children(self.token_c)
+        c = b.get_child(self.token_c)
         c.add_token(self.token_d)
         node = self.simple_tree._get_node_by_beginning(
             [self.token_b, self.token_c])
         self.assertEqual(node.weight, 1)
 
     def test_node_is_not_found_with_false_beginning(self):
-        b = self.simple_tree.get_children(self.token_b)
+        b = self.simple_tree.get_child(self.token_b)
         b.add_token(self.token_c)
-        c = b.get_children(self.token_c)
+        c = b.get_child(self.token_c)
         c.add_token(self.token_d)
         node = self.simple_tree._get_node_by_beginning(
             [self.token_a, self.token_c])
@@ -162,7 +162,7 @@ class TestNode(unittest.TestCase):
         self.assertFalse(none_returned)
 
     def test_no_random_child_is_returned_if_there_is_no_children(self):
-        a = self.simple_tree.get_children(self.token_a)
+        a = self.simple_tree.get_child(self.token_a)
         self.assertEqual(a._get_random_child(), None)
 
     def test_random_series_is_returned(self):
@@ -186,12 +186,6 @@ class TestNode(unittest.TestCase):
     def test_empty_random_series_is_returned_for_empty_tree(self):
         random_list = self.empty_root.get_random_series(3)
         self.assertEqual(random_list, [])
-
-    def test_only_end_character_is_returned_in_random_series(self):
-        tokenlist = [self.endchar, self.token_a]
-        self.empty_root.add_token_list(tokenlist)
-        randomlist = self.empty_root.get_random_series(2)
-        self.assertEqual(randomlist, [self.endchar])
 
     def test_random_series_with_starting_words_works(self):
         starting_words = self.token_list_a[:2]
