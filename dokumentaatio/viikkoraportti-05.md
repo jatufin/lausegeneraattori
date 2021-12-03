@@ -3,8 +3,9 @@
 Käytetty aika: 
 
 ### Viikolla tehdyt toimepiteet
-* Muutettiin määrittelyä: Poistettiin lopetusmerkkien käyttö ja haetaan tietyn mittaisia lauseita
-* Päivitettiin myös suunnitteludokumentin pseudokoodeja
+* Muutettiin määrittelyä ja suunnitteludokumenttia: Poistettiin lopetusmerkkien käyttö ja haetaan tietyn mittaisia lauseita
+* Päivitettiin muutos koodiin ja testeihin
+
 
 ### Tällä viikolla olen oppinut
 
