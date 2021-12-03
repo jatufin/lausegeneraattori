@@ -52,8 +52,9 @@ class SentenceGeneratorUI:
         selection = self._list_selector(file_names,
                                         "Valitse tiedosto",
                                         selected=-1)
-        filename = self._directory + "/" + file_names[selection]
-        self._read_file(filename)
+        if selection:
+            filename = self._directory + "/" + file_names[selection]
+            self._read_file(filename)
 
     def _read_file(self, filename):
         print(f"Reading and processing file {filename}")
@@ -66,7 +67,8 @@ class SentenceGeneratorUI:
         selection = self._list_selector(generator_descriptions,
                                         "Valitse luokka",
                                         selected=self._selected_generator)
-        self._set_generator(selection)        
+        if selection:
+            self._set_generator(selection)        
 
     def _list_selector(self, items, prompt, selected=-1):
         i = 0
