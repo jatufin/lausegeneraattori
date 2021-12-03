@@ -91,9 +91,7 @@ class TrieNode:
             return []
         node = self._get_random_child()
         if node is None:
-            print("Lasta ei löytynyt")
             return []
-        print(f"Löytyi sana: {node.word}")
         return [node.word] + node._get_random_series(depth-1)
         
     def _is_valid_beginning(self, words):
@@ -121,7 +119,6 @@ class TrieNode:
         """ Create new Node object and add it to the children of current node
         """
         self._children.append(TrieNode(word))
-        print(f"Children: {self.children}")
     
     def _add_token(self, new_word):
         """ Add new token (word) to the children of the current. If it exists
@@ -129,7 +126,6 @@ class TrieNode:
         """
         child_node = self._get_child(new_word)
         if not child_node:
-            print(f"Lisätään sana: {new_word}")
             self._new_child(new_word)
             child_node = self._get_child(new_word)
          

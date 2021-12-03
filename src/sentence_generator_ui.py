@@ -1,3 +1,6 @@
+import os
+
+
 class SentenceGeneratorUI:
     def __init__(self, sentence_generators):
         self._generators = sentence_generators
@@ -5,6 +8,7 @@ class SentenceGeneratorUI:
         self._sg = None
         self._degree = 2
         self._length = 8
+        self._directory = "./text"
         self._filename = ""
         self._keywords = []
 
@@ -44,8 +48,11 @@ class SentenceGeneratorUI:
     def _read_text(self):
         """ User enters the text file name and program processes it
         """
-        print("Anna tiedoston nimi: ", end='')
-        filename = input()
+        file_names = os.listdir(self._directory)
+        selection = self._list_selector(file_names,
+                                        "Valitse tiedosto",
+                                        selected=-1)
+        filename = self._directory + "/" + file_names[selection]
         self._read_file(filename)
 
     def _read_file(self, filename):
@@ -55,23 +62,30 @@ class SentenceGeneratorUI:
             self._filename = filename
 
     def _change_generator(self):
+        generator_descriptions = list(map(lambda x: x[0], self._generators))
+        selection = self._list_selector(generator_descriptions,
+                                        "Valitse luokka",
+                                        selected=self._selected_generator)
+        self._set_generator(selection)        
+
+    def _list_selector(self, items, prompt, selected=-1):
         i = 0
-        for generator in self._generators:
-            if i == self._selected_generator:
+        for item in items:
+            if i == selected:
                 print("*", end='')
             else:
                 print(" ", end='')
-            print(f"{i} {generator[0]}")
+            print(f"{i} {item}")
             i += 1
-        print("\nValitse generaattori: ", end='')
+        print(f"\n{prompt}: ", end='')
         selection = input()
         if not selection.isdigit():
-            return
+            return None
         index = int(selection)
-        if index < 0 or index >= len(self._generators):
-            return
-        self._set_generator(index)        
-        
+        if index < 0 or index >= len(items):
+            return None
+        return index
+    
     def _change_degree(self):
         """ Change the Markov degree which is used for generating sentences
         """
@@ -123,6 +137,7 @@ class SentenceGeneratorUI:
         """ Main menu shows values of current text file, Markov degree and keywords.
         Also maximu degree which can be used is shown.
         """
+        directory = self._directory
         filename = self._filename
         if filename == "":
             filename = "<ei valittu>"
@@ -136,16 +151,18 @@ class SentenceGeneratorUI:
         length = self._length
         
         print(f"""
+**************************************
 *** Lausegeneraattori - päävalikko ***
 
-Lähdeteksti: {filename}
+Hakemisto: {directory}
+Tiedosto: {filename}
 Valittu generaattori: {generator}
 Markov-aste: {degree}
 Lauseen alku: {keywords}
 Lauseen pituus: {length} sanaa
 Maksimiaste: {maxdegree}
 
-1 - Lue tekstitiedosto
+1 - Aseta ja lue tiedosto
 2 - Vaihda generaattoria
 3 - Vaihda Markov-aste
 4 - Anna lauseen aloittavat sanat

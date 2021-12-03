@@ -32,14 +32,16 @@ Tekstipohjainen käyttöliittymä avautuu, mikäli ohjelma käynnistetään ilma
 ```
 $ python3 sentence_generator.py
 
+**************************************
 *** Lausegeneraattori - päävalikko ***
 
-Lähdeteksti: <ei valittu>
+Hakemisto: ./text
+Tiedosto: <ei valittu>
 Markov-aste: 2
 Lauseen alku: <tyhjä>
 Maksimiaste: 5
 
-1 - Lue tekstitiedosto
+1 - Aseta ja lue tiedosto
 2 - Vaihda generaattoria
 3 - Vaihda Markov-aste
 4 - Anna lauseen aloittavat sanat

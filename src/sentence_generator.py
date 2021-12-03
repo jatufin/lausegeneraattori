@@ -100,7 +100,6 @@ class SentenceGenerator:
             last_words = wordlist[-degree:]
             words = self._tree.get_random_series_by_keywords(
                 last_words, degree+1)
-            print(f"Sanat: {words}")
             last_word = words[-1]
             wordlist += [last_word]
 
