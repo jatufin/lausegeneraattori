@@ -13,6 +13,7 @@ class SentenceGenerator:
         """ Argument: degree is the maximum Markov degree, which can be used in text generation
             The depth of the tree will be degree+1
         """
+        self._MAX_LENGTH = 100000
         self._max_degree = degree
         self._tree = tree
 
@@ -124,7 +125,7 @@ class SentenceGenerator:
         return False
 
     def is_length_valid(self, length):
-        return length > 0
+        return length > 0 and length < self._MAX_LENGTH
     
     def is_string_valid_degree(self, intstring):
         """ Checks if the string given can be used as degree for generating sentences

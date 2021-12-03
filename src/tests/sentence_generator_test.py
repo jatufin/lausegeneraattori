@@ -85,6 +85,24 @@ class TestSentenceGenerator(unittest.TestCase):
         self.assertFalse(self.sg.is_string_valid_degree("F"))
         self.assertFalse(self.sg.is_string_valid_degree("0"))        
         self.assertTrue(self.sg.is_string_valid_degree("1"))
+
+    def test_length_validation_returns_true_if_positive(self):
+        self.assertTrue(self.sg.is_length_valid(1))
+
+    def test_length_validation_returns_false_if_zero(self):
+        self.assertFalse(self.sg.is_length_valid(0))        
+
+    def test_length_validation_returns_false_if_negative(self):
+        self.assertFalse(self.sg.is_length_valid(-1))
+
+    def test_length_validation_returns_false_if_too_big(self):
+        self.assertFalse(self.sg.is_length_valid(10000000))        
+
+    def test_string_length_validation_for_number_works(self):
+        self.assertTrue(self.sg.is_string_valid_length("1"))
+        self.assertFalse(self.sg.is_string_valid_length("-1"))
+        self.assertFalse(self.sg.is_string_valid_length("a"))
+        self.assertFalse(self.sg.is_string_valid_length("10000000"))
         
     def test_main_without_argument_works(self):
         result = sg_main()

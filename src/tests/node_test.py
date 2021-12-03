@@ -11,9 +11,7 @@ class TestNode(unittest.TestCase):
         self.token_b = "bb"
         self.token_c = "cc"
         self.token_d = "dd"
-        self.endchar = "."
         
-        print("Setting up the test env for: Node")
         self.empty_root = Node()
 
         self.simple_tree = Node()
@@ -30,7 +28,7 @@ class TestNode(unittest.TestCase):
     def test_empty_root_str_cast_is_correct(self):
         self.assertEqual(
             str(self.empty_root),
-            "[0] ()"
+            "[0] ()" # This differs from empty Trie() tree, which is "''[0] ()"
         )
 
     def test_empty_root_children_property_is_empty(self):
@@ -78,8 +76,6 @@ class TestNode(unittest.TestCase):
         self.empty_root.add_token_list(token_list)
         self.empty_root.add_token_list(token_list)        
 
-        self.empty_root.print_tree()
-        
         self.assertEqual(
             str(self.empty_root),
             f"[0] ('{self.token_a}'[2] ('{self.token_b}'[2] ('{self.token_c}'[2] ())))"            
@@ -92,8 +88,6 @@ class TestNode(unittest.TestCase):
         self.empty_root.add_token_list(token_list_1)
         self.empty_root.add_token_list(token_list_2)        
 
-        self.empty_root.print_tree()
-        
         self.assertEqual(
             str(self.empty_root),
             f"[0] ('{self.token_a}'[1] ('{self.token_b}'[1] ())'{self.token_b}'[1] ('{self.token_c}'[1] ()))"

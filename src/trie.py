@@ -181,3 +181,6 @@ class Trie:
             exist, it will be added
         """
         self._root.add_token_list(token_list)
+
+    def __str__(self):
+        return str(self._root)
