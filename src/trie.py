@@ -58,10 +58,13 @@ class TrieNode:
         node. If the words of the list don't appear in the same order in
         the tree, None is returned.
         """
+
         if words == []:
             return self
         first_word = words[0]
+
         rest = words[1:]
+        
         next_node = self._get_child(first_word)
         if not next_node:
             return None

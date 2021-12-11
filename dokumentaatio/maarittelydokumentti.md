@@ -47,6 +47,7 @@ Maksimiaste: 5
 4 - Anna lauseen aloittavat sanat
 5 - Anna haluttu lauseen pituus
 6 - Tulosta tietorakenne
+7 - Aja aikaraportti
 
 0 - Lopeta
 

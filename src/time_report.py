@@ -1,4 +1,6 @@
 import os
+import random
+
 from timeit import default_timer as timer
 from datetime import timedelta
 
@@ -6,7 +8,7 @@ from datetime import timedelta
 def time_report(filename, generators):
     split_input = 5000 # word count of each input size increment
     number_of_sentences = 100
-    min_sentence_length = 5
+    min_sentence_length = 6
     max_sentence_length = 20
     max_markov_degree = 5
     
@@ -77,7 +79,7 @@ def time_report(filename, generators):
                                                                         length=sentence_length,
                                                                         count=number_of_sentences))
                     speed = number_of_sentences / took_time
-                    print(f"Tietorakenne: {generator_desc} Syöte {number_of_words} sanaa, Erilaisia sanoja: {different_words}, Markovin aste: {degree}, Luodun lauseen pituus: {sentence_length:2} Keskinopeus: {speed:5.0f} lausetta sekunnissa.")
+                    print(f"Tietorakenne: {generator_desc} Syöte {number_of_words} sanaa, Erilaisia sanoja: {different_words}, Markovin aste: {degree}, Luodun lauseen pituus: {sentence_length:2} Keskinopeus: {speed:6.0f} lausetta sekunnissa.")
                     csv_line = '"{generator_desc}";{words};{different_words};{degree};{sentence_length};{speed}\n'
                     csv_string_sentence_generation += csv_line
 
@@ -107,7 +109,31 @@ def write_file(filename, content):
     print(f"Tallennettiin tiedosto: '{filename}'")
     return True
 
+
+def generate_test_text(filename="test.txt", size=50000, words=["aa", "aa", "bb"]):
+    """ Produce test text file selecting random items from the wordlist
+    """
+    output_string = ""
+
+    try:
+        with open(filename, "w") as file:
+            for i in range(size):
+                next_word = random.choice(words)
+                file.write(next_word)
+                file.write(" ")
+            file.close()
+    except IOError:
+        self.print_error(f"Tiedoston kirjoitus ei onnistu '{filename}'.")
+        return False
     
+    print(f"Tallennettiin tiedosto: '{filename}'")
+    return True
+    
+
+        
+        
+
+
 def generate_sentences(generator, degree=2, count=50, length=10):
     for i in range(count):
         generator.get_sentence(degree=degree, length=length)

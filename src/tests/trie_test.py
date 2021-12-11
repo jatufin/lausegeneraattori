@@ -23,7 +23,11 @@ class TestTrie(unittest.TestCase):
             str(self.empty_root),
             "''[0] ()"  # This differs from empty Node() tree, which is "[0] ()"
         )
+    def test_reset_resets_true(self):
+        self.simple_tree.reset()
+        self.assertEqual(str(self.simple_tree), str(self.empty_root))
 
+        
     def test_get_random_series_by_keywords_returns_words(self):
         words = self.simple_tree.get_random_series_by_keywords(["aa"], 1)
         self.assertEqual(words, ["aa"])
@@ -36,3 +40,7 @@ class TestTrie(unittest.TestCase):
             f"''[0] ('{'aa'}'[1] ())"
         )
 
+
+    def test_is_valid_beginning_returns_valid_answers(self):
+        answer = self.simple_tree.is_valid_beginning([self.token_a])
+        self.assertTrue(answer)

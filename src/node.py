@@ -67,6 +67,7 @@ class Node:
             return self
         first_word = words[0]
         rest = words[1:]
+
         if first_word in self.children:
             return self.children[first_word]._get_node_by_beginning(rest)
         return None

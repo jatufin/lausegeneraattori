@@ -35,6 +35,15 @@ class TestSentenceGenerator(unittest.TestCase):
         result = self.sg.read_file(self.testfile_short + "XXX")
         self.assertFalse(result)
 
+    def test_number_of_words_in_string_counts_correctly(self):
+        self.assertEqual(self.sg.number_of_words_in_string("aa bb cc"), 3)
+
+
+    def test_number_of_different_words_in_string_counts_correctly(self):
+        self.assertEqual(self.sg.number_of_different_words_in_string("aa bb bb cc"), 3)
+        
+        
+        
     def test_printing_tree_works(self):
         capture = io.StringIO()
         sys.stdout = capture
@@ -74,6 +83,11 @@ class TestSentenceGenerator(unittest.TestCase):
             sentence = self.sg.get_sentence(degree=2, length=5, keywords=["aa"])
             self.assertEqual(len(sentence), 0)        
 
+    def test_get_sentence_as_list_returns_list_when_given_beginning(self):
+        self.sg.read_string("aa bb")
+        wordlist = self.sg._get_sentence_as_list(degree=2, length=5, keywords=["aa", "bb"])
+        self.assertNotEqual(wordlist, [])
+        
     def test_degree_value_validation_works(self):
         self.assertFalse(self.sg.is_degree_valid(0))
         self.assertFalse(self.sg.is_degree_valid(self.sg.max_degree + 1))

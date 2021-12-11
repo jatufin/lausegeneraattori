@@ -9,6 +9,7 @@
 * Node-luokka (```node.py```) yksikkötestaus on kattava 99% (Yksi varoitus johtuu suunnitelman mukaisesta silmukasta poistumisesta)
 * SentenceGenerator-luokan ```sentence_generator.py``` yksikkötestaus on kattava 85% (ulkopuolelle jää main() -metodi, joka käsittelee komentoriviargumentit)
 * Trie- ja TrieNode -luokkien (```trie.py```) yksikkötestaukset ovat kattavia. Vastaavasti kuin edellä, ulkopuolelle jäävät ```print``` metodit ja yksittäinen poistuminen silmukasta suunnitellusti
+* Käyttöliittymä ja aikaraportin generointi on jätetty yksikkötestauksen ulkopuolelle
 
 ### Testikattavuus
 ![coverage report](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/coverage_report.png)
@@ -44,11 +45,9 @@ Sama tietorakenne on toteutettu kahdella eri tavalla:
 * Node-luokka käyttää Pythonin Dictionary -luokkaa puun haarojen säilyttämiseen
 * Trie-luokka tallettaa haarat Pythonin listaan
 
-Jo alustavasti ollaan nähty, että jälkimmäinen Trie-luokka toimii aineiston käsittelyssä oleellisesti ensimmäistä hitaammin. Tehdään testiaineisto ja lisätäään käyttöliittymään tarvittavat mittaukset näiden kahden luokan nopeuserojen selvittämiseksi:
-* Miten syötteen käsittelyaikojen ero kasvaa erilaisten sanojen määrän kasvaessa?
-* Miten syötteen käsittelyaikojen ero kasvaa syötteen pituuden kasvaessa?
-* Miten syötteen käsittelyaikojen ero kasvaa luotavan puun syvyyden kasvaessa?
-* Miten nämä muutokset vaikuttavat sanojen hakemiseen kuluvaan aikaan?
-* Miten sanojen hakemiseen kuluvan ajan ero kasvaa haettavan sanalistan pituuden kasvaessa?
+Jo alustavasti ollaan nähty, että jälkimmäinen Trie-luokka toimii aineiston käsittelyssä oleellisesti ensimmäistä hitaammin. Tämän tukimiseksi ja yleensäkin aikaavtivuuksien tarkistamiseksi, on ohjelmassa aikaraportti -toiminto, joka tuottaa CSV-tiedostoihin mittausdataa annetun syötetiedoston perusteella.
+
+
+
 
 
