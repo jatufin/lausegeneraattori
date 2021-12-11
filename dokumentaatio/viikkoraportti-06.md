@@ -6,13 +6,11 @@ Käytetty aika: 10 tuntia
 * Lisättiin aikaraporttien teko ohjelmaan
 * Tehtiin yksikkötestaukset valmiiksi
 * Aloitettiin tuotettujen aikaraporttien testaus
+* Löydettiin ohjelmasta joitakin virheitä, jotka korjattiin
 
 ### Tällä viikolla olen oppinut
-* 
+* Ajanotto Garbage Collecton välttäen
 * Yksikkötestien tekemistä
-
-### Vielä auki olevat asiat
-* 
 
 ### Seuraavat toimenpiteet
 * Suoritusaikadatan analysointi
