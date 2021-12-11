@@ -4,7 +4,7 @@ from datetime import timedelta
 
 
 def time_report(filename, generators):
-    split_input = 1000 # word count of each input size increment
+    split_input = 5000 # word count of each input size increment
     number_of_sentences = 100
     min_sentence_length = 5
     max_sentence_length = 20
@@ -51,10 +51,6 @@ def time_report(filename, generators):
         while(words_from_start < len(text_as_wordlist)):
             words_from_start += split_input
             input_string = " ".join(text_as_wordlist[:words_from_start])
-            print("Lista:")
-            print(text_as_wordlist[:words_from_start])
-            print("Stringi:")
-            print(input_string)
             number_of_words = sg.number_of_words_in_string(input_string)
             different_words = sg.number_of_different_words_in_string(input_string)
             print(f"Syötteen pituus {number_of_words} sanaa. Erilaisia sanoja: {different_words}")
