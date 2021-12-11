@@ -45,7 +45,7 @@ class SentenceGenerator:
         """ Creates trie tree from single string input
         """
         self._tree.reset()  # Clear the tree
-        token_list = self._clean_string(input_string).split()
+        token_list = self.string_to_wordlist(input_string)
         self._insert_token_list(token_list)
 
     def number_of_words_in_string(self, input_string):
@@ -57,14 +57,21 @@ class SentenceGenerator:
     def number_of_different_words_in_string(self, input_string):
         """ Counts number of different words in the string after preprocessing
         """
-        words = self._clean_string(input_string).split()
-
+        words = self.string_to_wordlist(input_string)
         dict= {}
         for word in words:
             dict[word] = 1
 
         return len(dict)
-        
+
+    def string_to_wordlist(self, input_string):
+        """ Preprocess the input string and split it by whitespaces
+        to a list a words
+        """
+        token_list = self._clean_string(input_string).split()
+
+        return token_list
+    
     def print_tree(self):
         """ Print the trie data structure on screen
         """
