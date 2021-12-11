@@ -1,5 +1,7 @@
 import os
 
+from time_report import time_report
+
 
 class SentenceGeneratorUI:
     def __init__(self, sentence_generators):
@@ -41,6 +43,9 @@ class SentenceGeneratorUI:
             if command == "6":
                 self._print_data_structure()
                 continue
+            if command == "7":
+                self._run_time_report()
+                continue
             if command == "":
                 self._print_sentence()
                 continue
@@ -57,12 +62,20 @@ class SentenceGeneratorUI:
             self._read_file(filename)
 
     def _read_file(self, filename):
+        """ Reads and processes given file, if it succeeds, the
+        user interfaces _filename property is updated and shown
+        in the main menu.
+        """
         print(f"Reading and processing file {filename}")
         if self._sg.read_file(filename):
             print(f"Tiedoston '{filename}' luku onnistui")
             self._filename = filename
 
     def _change_generator(self):
+        """ More than one generator (Trie-tree implementations) can be used.
+        They are provided in a list, which each element has first string
+        describing the generator, and second the generator object itself.
+        """
         generator_descriptions = list(map(lambda x: x[0], self._generators))
         selection = self._list_selector(generator_descriptions,
                                         "Valitse luokka",
@@ -71,6 +84,10 @@ class SentenceGeneratorUI:
             self._set_generator(selection)        
 
     def _list_selector(self, items, prompt, selected=-1):
+        """ Prints a given list with numbers on each line, and asks user
+        to select one. If selected argument is given, that line is
+        higlighted with asterisk.
+        """
         i = 0
         for item in items:
             if i == selected:
@@ -125,6 +142,12 @@ class SentenceGeneratorUI:
         """
         self._sg.print_tree()
 
+    def _run_time_report(self):
+        """ Run tests with all Generators using given corpus file
+        """
+        time_report(self._filename , self._generators)
+        
+        
     def _print_sentence(self):
         """ Generate sentence after <enter> presses based on given text file,
         Markov degree and beginning words
@@ -170,6 +193,7 @@ Maksimiaste: {maxdegree}
 4 - Anna lauseen aloittavat sanat
 5 - Anna haluttu lauseen pituus
 6 - Tulosta tietorakenne
+7 - Aja aikaraportti
 
 0 - Lopeta
 

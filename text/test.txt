@@ -1,1 +1,1 @@
-aa bb cc . aa bb .cc bb. cc aa
+aa bb cc aa bb cc bb cc aa

@@ -44,9 +44,27 @@ class SentenceGenerator:
     def read_string(self, input_string):
         """ Creates trie tree from single string input
         """
+        self._tree.reset()  # Clear the tree
         token_list = self._clean_string(input_string).split()
         self._insert_token_list(token_list)
 
+    def number_of_words_in_string(self, input_string):
+        """ Counts number of words in the string after preprocessing
+        """
+        words = self._clean_string(input_string).split()
+        return len(words)
+
+    def number_of_different_words_in_string(self, input_string):
+        """ Counts number of different words in the string after preprocessing
+        """
+        words = self._clean_string(input_string).split()
+
+        dict= {}
+        for word in words:
+            dict[word] = 1
+
+        return len(dict)
+        
     def print_tree(self):
         """ Print the trie data structure on screen
         """

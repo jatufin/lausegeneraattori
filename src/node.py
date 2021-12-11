@@ -8,9 +8,12 @@ class Node:
         """ Word itself is a key in dictionary object children, that why
         it's not property of the node itself
         """
+        self.reset()
+
+    def reset(self):
         self._weight = 0
         self._children = {}
-
+        
     @property
     def weight(self):
         """ Weight is the number of occurences of a word after previous

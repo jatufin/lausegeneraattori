@@ -165,6 +165,9 @@ class Trie:
     def __init__(self):
         self._root = TrieNode()
 
+    def reset(self):
+        self._root = TrieNode()
+
     def get_random_series_by_keywords(self, words, depth):
         """ Follow first keywords, and after them random path until 
         depth words have been found
