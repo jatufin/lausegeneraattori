@@ -59,7 +59,7 @@ class Node:
         return total
 
     def _get_node_by_beginning(self, words):
-        """ Follow the list of words given in the tree, and return the last
+        """ Follow the list of words given, in the tree, and return the last
         node. If the words of the list don't appear in the same order in
         the tree, None is returned.
         """
@@ -94,8 +94,10 @@ class Node:
         if depth == 0:
             return []
         word = self._get_random_child()
+
         if word is None:
             return []
+
         return [word] + self.children[word].get_random_series(depth-1)
         
     def is_valid_beginning(self, words):
@@ -117,6 +119,7 @@ class Node:
         if not self.is_valid_beginning(words):
             return None
         starting_node = self._get_node_by_beginning(words)
+
         return words + starting_node.get_random_series(depth - number_of_words)
 
     def _new_child(self, token):

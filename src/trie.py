@@ -185,5 +185,8 @@ class Trie:
         """
         self._root.add_token_list(token_list)
 
+    def is_valid_beginning(self, words):
+        return self._root._is_valid_beginning(words)
+    
     def __str__(self):
         return str(self._root)

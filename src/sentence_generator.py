@@ -103,7 +103,7 @@ class SentenceGenerator:
             
     def __str__(self):
         """ String representation of the whole tree
-        maximum degree is added on the fron of the string
+        maximum degree is added on the front of the string
         """
         return "DEG: " + str(self._max_degree) + " ROOT" + str(self._tree)
 
@@ -114,9 +114,13 @@ class SentenceGenerator:
         wordlist = self._tree.get_random_series_by_keywords(keywords, degree+1)
         if not wordlist or len(wordlist) == 0:
             return []
-        
+
         while(not len(wordlist) == length):
             last_words = wordlist[-degree:]
+            
+            if not self._tree.is_valid_beginning(last_words):
+                break
+            
             words = self._tree.get_random_series_by_keywords(
                 last_words, degree+1)
             last_word = words[-1]

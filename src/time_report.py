@@ -37,17 +37,26 @@ def time_report(filename, generators):
         sg = generator[1]
 
         print("*************************************")
-        Print(f("Generaattori: {generator_desc}"))
+        print(f"Generaattori: {generator_desc}")
 
-        print("Generating Trie-trees:")
-        for degree in range(5):
-              sg._max_degree = degree
-              took_time = measure_time(lambda: sg.read_file(input_string))
-              print(f"Depth: {degree} trie took seconds: {took_time}")
-            
-    
+        print("Luodaan eri syvyisiä Trie-puita:")
+        for degree in range(7):            
+            sg._max_degree = degree
+            took_time = measure_time(lambda: sg.read_string(input_string))
+            print(f"  Puun syvyys: {degree+1} Kulunut aika sekunteina: {took_time}")
+        # The last generated depth remains in the generators
 
-    
+        for degree in range(1, 6):
+            print(f"Markovin aste: {degree}")
+            for sentence_length in range(6, 16):
+                count = 100
+                took_time = measure_time(lambda: generate_sentences(generator=sg,
+                                                                    degree=degree,
+                                                                    length=sentence_length,
+                                                                    count=count))
+                print(f"  Tuotettiin {count} lausetta, pituudeltaan {sentence_length} sanaa, ajassa: (sekunteja) {took_time}")
+
+                
 def measure_time(function):
     """ Runs the given argumentless function and returns its runtime in
     seconds. Uses timeit library, which takes account garbage collection.
@@ -58,3 +67,8 @@ def measure_time(function):
 
     return timedelta(seconds=end - start)
 
+
+def generate_sentences(generator, degree=2, count=50, length=10):
+    for i in range(count):
+        generator.get_sentence(degree=degree, length=length)
+    
