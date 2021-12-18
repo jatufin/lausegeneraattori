@@ -28,7 +28,7 @@ class SentenceGenerator:
 
     @property
     def max_degree(self):
-        """ The tree generated will be max_degree+1 deep, and allows searches
+        """The tree generated will be max_degree+1 deep, and allows searches
         of maximum of max_degree Markov degree chains
 
         Returns:
@@ -37,7 +37,7 @@ class SentenceGenerator:
         return self._max_degree
     
     def read_file(self, filename):
-        """ Read and process the given text file
+        """Read and process the given text file
         The resulting trie will be self._max_degree + 1 deep
 
         Args:
