@@ -14,7 +14,7 @@ class SentenceGenerator:
         _max_degree : Maximum degree of Markov chains can be produced
         _tree : Node or Trie object
     """
-    def __init__(self, tree, degree=5):
+    def __init__(self, tree, degree=6):
         """Constructor for the SentenceGenerator class
         
         Args:
@@ -61,7 +61,7 @@ class SentenceGenerator:
         return True
 
     def read_string(self, input_string):
-        """ Creates trie tree from single string input
+        """Creates trie tree from single string input
 
         Args:
             input_string : String
@@ -71,7 +71,7 @@ class SentenceGenerator:
         self._insert_token_list(token_list)
 
     def number_of_words_in_string(self, input_string):
-        """ Counts number of words in the string after preprocessing
+        """Counts number of words in the string after preprocessing
 
         Args:
             input_string : String
@@ -83,7 +83,7 @@ class SentenceGenerator:
         return len(words)
 
     def number_of_different_words_in_string(self, input_string):
-        """ Counts number of different words in the string after preprocessing
+        """Counts number of different words in the string after preprocessing
 
         Args:
             input_string : String
@@ -99,7 +99,7 @@ class SentenceGenerator:
         return len(dict)
 
     def string_to_wordlist(self, input_string):
-        """ Preprocess the input string and split it by whitespaces
+        """Preprocess the input string and split it by whitespaces
         to a list a words
 
         Args:
@@ -113,12 +113,12 @@ class SentenceGenerator:
         return token_list
     
     def print_tree(self):
-        """ Print the trie data structure on screen
+        """Print the trie data structure on screen
         """
         self._tree.print_tree()
         
     def _clean_string(self, input_string):
-        """ Prepare the input string for processing
+        """Prepare the input string for processing
 
         Args:
             input_string : String
@@ -132,7 +132,7 @@ class SentenceGenerator:
         return return_string
 
     def _remove_illegal_characters(self, text):
-        """ Only listed letters and caharacters are allowed in the input
+        """Only listed letters and caharacters are allowed in the input
 
         Args:
             text : String
@@ -141,7 +141,7 @@ class SentenceGenerator:
         return "".join(filter(lambda c: c in allowed_characters, text))
     
     def _insert_token_list(self, token_list):
-        """ Takes list of words found from the input text, and inserts it to the tree root
+        """Takes list of words found from the input text, and inserts it to the tree root
 
         Args:
             text : String
@@ -153,7 +153,7 @@ class SentenceGenerator:
             self._tree.add_token_list(token_list[i:i+self._max_degree+1])
             
     def __str__(self):
-        """ String representation of the whole tree
+        """String representation of the whole tree
         maximum degree is added on the front of the string
 
         Returns:
@@ -162,7 +162,7 @@ class SentenceGenerator:
         return "DEG: " + str(self._max_degree) + " ROOT" + str(self._tree)
 
     def _get_sentence_as_list(self, degree, length, keywords):
-        """ Generates list of words starting with 'keywords' from the tree.
+        """Generates list of words starting with 'keywords' from the tree.
         Given Markov degree is used to generate the list
 
         Args:
@@ -184,20 +184,21 @@ class SentenceGenerator:
             return wordlist[:length]
         
         while(not len(wordlist) == length):
-            last_words = wordlist[-degree:]
+            last_words = [] if degree == 0 else wordlist[-degree:] 
             
             if not self._tree.is_valid_beginning(last_words):
                 break
-            
+
             words = self._tree.get_random_series_by_keywords(
                 last_words, degree+1)
+
             last_word = words[-1]
             wordlist += [last_word]
 
         return wordlist
             
     def get_sentence(self, degree, length, keywords=[]):
-        """ Gets a list of words from the tree and returns it as string,
+        """Gets a list of words from the tree and returns it as string,
         with capital first letter and a period in the end.
 
         Args:
@@ -218,7 +219,7 @@ class SentenceGenerator:
         return sentence
 
     def is_degree_valid(self, degree):
-        """ Checks if given degree can be used for generating sentences
+        """Checks if given degree can be used for generating sentences
         
         Args:
             degree : Integer
@@ -234,7 +235,7 @@ class SentenceGenerator:
         return length > 0 and length < self._MAX_LENGTH
     
     def is_string_valid_degree(self, input_string):
-        """ Checks if the string given can be used as degree for generating
+        """Checks if the string given can be used as degree for generating
         sentences
 
         Args:
@@ -254,7 +255,7 @@ class SentenceGenerator:
         return True
 
     def is_string_valid_length(self, input_string):
-        """ Checks if the string given can be used as degree for
+        """Checks if the string given can be used as degree for
         generating sentences
 
         Args:
@@ -274,7 +275,7 @@ class SentenceGenerator:
         return True
     
     def print_error(self, message):
-        """ For error messages stderr output stream is used
+        """For error messages stderr output stream is used
 
         Args:
             message : String
