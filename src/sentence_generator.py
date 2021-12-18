@@ -177,6 +177,12 @@ class SentenceGenerator:
         if not wordlist or len(wordlist) == 0:
             return []
 
+        if len(wordlist) == length:
+            return wordlist
+
+        if len(wordlist) > length:
+            return wordlist[:length]
+        
         while(not len(wordlist) == length):
             last_words = wordlist[-degree:]
             
