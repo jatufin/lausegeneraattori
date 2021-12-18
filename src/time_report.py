@@ -10,6 +10,10 @@ def time_report(filename, generators):
     different classes for trie structure (Node or Trie), run
     number of tests and generae CSV files for analyzing
 
+    Args:
+        filename : String. Name of the input text file
+        generators : A list of SentenceGenerator objects
+
     Output files:
 
         trie_build,csv : Table of building times of tries from the input file. Columns:
@@ -45,9 +49,6 @@ def time_report(filename, generators):
     for generator in generators:
         print(generator[0])
 
-    # An instance for calling methdos
-
-    
     print(f"Syötetiedosto: {filename}")
     
     input_string = ""
@@ -56,10 +57,10 @@ def time_report(filename, generators):
             file_content_string = file.read()
             file.close()
     except IOError:
-        self.print_error(f"Tiedoston luku ei onnistu '{filename}'.")
+        print(f"Tiedoston luku ei onnistu '{filename}'.")
         return False
 
-    first_generator = generators[0][1] # Just for the next line
+    first_generator = generators[0][1]  # Just for the next line
     text_as_wordlist = first_generator.string_to_wordlist(file_content_string)
     
     csv_string_trie_build = '"generator";"input_length";"language_size";"depth";"time"\n'

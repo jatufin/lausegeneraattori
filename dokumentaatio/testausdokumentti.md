@@ -45,8 +45,17 @@ Sama tietorakenne on toteutettu kahdella eri tavalla:
 * Node-luokka käyttää Pythonin Dictionary -luokkaa puun haarojen säilyttämiseen
 * Trie-luokka tallettaa haarat Pythonin listaan
 
-Jo alustavasti ollaan nähty, että jälkimmäinen Trie-luokka toimii aineiston käsittelyssä oleellisesti ensimmäistä hitaammin. Tämän tukimiseksi ja yleensäkin aikaavtivuuksien tarkistamiseksi, on ohjelmassa aikaraportti -toiminto, joka tuottaa CSV-tiedostoihin mittausdataa annetun syötetiedoston perusteella.
+### Suorituskyky
 
+Tietorakenteiden suorituskykyvertailua, ja niiden vastaavuutta alkuperäisiin aikavaatimusarvioihin varten on luotu testausohjelma: ```time_report.py```. Tähän pääsee käsiksi ohjelman käyttöliittymästä.
+
+### Ohjelman toiminnan oikeellisuus
+
+Ohjelman tuottamien sanalistojen oikeellisuutta varten on luotu ohjelmaosio ```output_diagnose.py```, joka vertaa tuotettujen sanalistojen ominaisuuksia verrattuna alkuperäiseen tekstiin.
+
+Alla olevasta kuvaajasta näkyy, että kun tuotettujen listojen määrä kasvaa, sanojen ilmenemistodennäköisyydet lähestyvät alkuperäisen tekstin vastaavia lukuja, kuten pitääkin:
+
+![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_plot.png)
 
 
 

@@ -1,17 +1,14 @@
-## Viikko 6
+## Viikko 7
 
-Käytetty aika: 10 tuntia 
+Käytetty aika: 11 tuntia 
 
 ### Viikolla tehdyt toimepiteet
-* Lisättiin aikaraporttien teko ohjelmaan
-* Tehtiin yksikkötestaukset valmiiksi
-* Aloitettiin tuotettujen aikaraporttien testaus
-* Löydettiin ohjelmasta joitakin virheitä, jotka korjattiin
+* Luotiin testausosio, joka vertaa sanojen ilmenemistiheyttä ohjelman luomissa sanajonoissa ja vertaa näitä ilmenemistiheyksiin alkuperäisessä tekstiaineistossa.
+* Samalla löytyi ohjelmasta joukko pienempiä virheitä, jotka korjattiin
 
 ### Tällä viikolla olen oppinut
-* Ajanotto Garbage Collecton välttäen
-* Yksikkötestien tekemistä
+* Että analysoitavan aineiston tuottaminen voi olla yllättävän hankalaa
 
 ### Seuraavat toimenpiteet
-* Suoritusaikadatan analysointi
+* Kunnollisten kuvaajien teko R-ohjelmalla
 

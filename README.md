@@ -51,3 +51,4 @@ Tai testikattavuusraportin luomiseksi:
 * [Viikko 4](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-04.md)
 * [Viikko 5](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-05.md)
 * [Viikko 6](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-06.md)
+* [Viikko 7](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-07.md)

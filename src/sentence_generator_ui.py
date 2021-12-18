@@ -1,7 +1,7 @@
 import os
 
 from time_report import time_report
-
+from output_diagnose import output_diagnose
 
 class SentenceGeneratorUI:
     def __init__(self, sentence_generators):
@@ -46,6 +46,9 @@ class SentenceGeneratorUI:
             if command == "7":
                 self._run_time_report()
                 continue
+            if command == "8":
+                self._run_output_diagnose()
+                continue        
             if command == "":
                 self._print_sentence()
                 continue
@@ -55,9 +58,9 @@ class SentenceGeneratorUI:
         """
         file_names = os.listdir(self._directory)
         selection = self._list_selector(file_names,
-                                        "Valitse tiedosto",
+                                        "Valitse tiedosto (<enter>=paluu)",
                                         selected=-1)
-        if selection:
+        if not selection is None:
             filename = self._directory + "/" + file_names[selection]
             self._read_file(filename)
 
@@ -80,7 +83,8 @@ class SentenceGeneratorUI:
         selection = self._list_selector(generator_descriptions,
                                         "Valitse luokka",
                                         selected=self._selected_generator)
-        if selection:
+
+        if not selection == None:
             self._set_generator(selection)        
 
     def _list_selector(self, items, prompt, selected=-1):
@@ -88,9 +92,9 @@ class SentenceGeneratorUI:
         to select one. If selected argument is given, that line is
         higlighted with asterisk.
         """
-        i = 0
+        i = 1
         for item in items:
-            if i == selected:
+            if i == selected+1:  # Array starts from 0, selections 1
                 print("*", end='')
             else:
                 print(" ", end='')
@@ -98,9 +102,16 @@ class SentenceGeneratorUI:
             i += 1
         print(f"\n{prompt}: ", end='')
         selection = input()
+        if selection == "":
+            if selected == -1:
+                return None
+            else:
+                return selected
+            
         if not selection.isdigit():
             return None
-        index = int(selection)
+        index = int(selection) - 1
+
         if index < 0 or index >= len(items):
             return None
         return index
@@ -149,20 +160,36 @@ class SentenceGeneratorUI:
         """
         time_report(self._filename , self._generators)
         
+    def _run_output_diagnose(self):
+        """Diagnose word frequencies in the output sentences
+        """
+        printout_options = ["None", "Partial", "Full"]
+        selection = self._list_selector(printout_options,
+                                        "Valitse tulostuksen taso",
+                                        selected=2)
+
+        if not selection == None:
+            printout = printout_options[selection]
+            print(f"Printout: {printout}")
+            output_diagnose(self._filename,
+                            self._sg,
+                            printout)
         
     def _print_sentence(self):
         """ Generate sentence after <enter> presses based on given text file,
         Markov degree and beginning words
         """
         while(True):
-            print(self._sg.get_sentence(self._degree, self._length, self._keywords))
+            print(self._sg.get_sentence(self._degree,
+                                        self._length,
+                                        self._keywords))
             print("<enter>=uusi lause, 0=paluu: ", end='')
             if input() == "0":
                 break
         
     def _print_main_menu(self):
         """ Main menu shows values of current text file, Markov degree and keywords.
-        Also maximu degree which can be used is shown.
+        Also maximum degree which can be used is shown.
         """
         directory = self._directory
         filename = self._filename
@@ -196,6 +223,7 @@ Maksimiaste: {maxdegree}
 5 - Anna haluttu lauseen pituus
 6 - Tulosta tietorakenne
 7 - Aja aikaraportti
+8 - Aja tuotettujen lauseiden analyysi
 
 0 - Lopeta
 

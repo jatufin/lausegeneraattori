@@ -14,7 +14,7 @@ class SentenceGenerator:
         _max_degree : Maximum degree of Markov chains can be produced
         _tree : Node or Trie object
     """
-    def __init__(self, tree, degree=6):
+    def __init__(self, tree, degree=5):
         """Constructor for the SentenceGenerator class
         
         Args:
@@ -227,7 +227,7 @@ class SentenceGenerator:
         Returns:
             Boolean
         """
-        if degree > 0 and degree <= self.max_degree:
+        if degree >= 0 and degree <= self.max_degree:
             return True
         return False
 
