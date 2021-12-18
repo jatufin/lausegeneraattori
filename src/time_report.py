@@ -6,6 +6,30 @@ from datetime import timedelta
 
 
 def time_report(filename, generators):
+    """Using given text file and sentence generators, which use
+    different classes for trie structure (Node or Trie), run
+    number of tests and generae CSV files for analyzing
+
+    Output files:
+
+        trie_build,csv : Table of building times of tries from the input file. Columns:
+
+            generator : String containing the description of the generator
+            input_length : Integer, input text word count
+            language_size : Integer, different word in the input text
+            depth : Integer, depth of the trie tree which was built
+            time : Integer, time it took to build the trie.
+
+        sentence_generation.csv : Table of times it takes to generate different
+                                  length sentences. Columns:
+
+            generator : String containing the description of the generator
+            input_length : Integer, input text word count
+            language_size : Integer, different word in the input text
+            markov_degree : Integer, Markov degree used to generate the sentence
+            sentence_length : Ineteger, length in word of the generated sentence
+            speed : Integer. Average sentences per second it ook to generate sentences
+    """
     split_input = 5000 # word count of each input size increment
     number_of_sentences = 100
     min_sentence_length = 6
