@@ -210,15 +210,8 @@ class Node:
         if not token_list:
             return
 
-        # Recursive solution:
-        # first_token = token_list[0]
-        # rest = token_list[1:]
-        # self.add_token(first_token)
-        # if not self._is_end_character(first_token):
-        #    self.get_child(first_token).add_token_list(rest)
-
-        # Iterative solution:        
         current_node = self
+
         for token in token_list:
             current_node.add_token(token)
             current_node = current_node.get_child(token)
