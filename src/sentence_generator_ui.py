@@ -111,6 +111,7 @@ class SentenceGeneratorUI:
         print("Anna Markovin aste: ", end='')
         intstring = input()
         if not self._sg.is_string_valid_degree(intstring):
+            print("Arvo ei ollut sallituissa rajoissa")
             return
         self._degree = int(intstring)
 
@@ -127,6 +128,7 @@ class SentenceGeneratorUI:
         print("Anna haluttu lauseen pituus sanoina: ", end='')
         intstring = input()
         if not self._sg.is_string_valid_length(intstring):
+            print("Arvo ei ollut sallituissa rajoissa")            
             return
         self._length = int(intstring)
                        
