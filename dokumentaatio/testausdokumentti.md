@@ -51,12 +51,24 @@ Tietorakenteiden suorituskykyvertailua, ja niiden vastaavuutta alkuperäisiin ai
 
 ### Ohjelman toiminnan oikeellisuus
 
-Ohjelman tuottamien sanalistojen oikeellisuutta varten on luotu ohjelmaosio ```output_diagnose.py```, joka vertaa tuotettujen sanalistojen ominaisuuksia verrattuna alkuperäiseen tekstiin.
+Tuotetut lauseet alkavat vastata lähemmin ja lähemmin alkutekstiä, kun niitä tuotettaessa Makovin aste kasvaa. Esimerkkejä on [Toteutusraportissa](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Titeutusraportti.md)
 
-Alla olevasta kuvaajasta näkyy, että kun tuotettujen listojen määrä kasvaa, sanojen ilmenemistodennäköisyydet lähestyvät alkuperäisen tekstin vastaavia lukuja, kuten pitääkin:
+Tarkempaa analyysiä varten on luotu ohjelmaosio ```output_diagnose.py```, joka vertaa tuotettujen sanalistojen ominaisuuksia verrattuna alkuperäiseen tekstiin. Tarkemmin sanoen tuotetuissa lauseissa olevien _n_-pituisia sanaketjuja seuraavien sanojen esiintymistiheyksiä verrataan samoja sanaketjuja alkuperäistekstissä seuraavien sanojen tiheyteen.
 
-![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_plot.png)
+Nähdään, että mitä enemmän lauseita tuotetaan, sitä tarkemmin nämä vastaavat toisiaan. Lisäksi sillä, käytetään _Trie_ vai _Node_ -tietorakennetta ei ole vaikutusta:
 
+Alla olevasta kuvaajasta näkyy, että kun tuotettujen listojen määrä kasvaa, sanojen ilmenemistodennäköisyydet lähestyvät alkuperäisen tekstin vastaavia lukuja, kuten pitääkin. Eroja ei myöskään ilmene tuloksissa Node- ja Trie-tietorakenteiden välillä:
+
+Node-tietorakennetta käyttäen ajettu analyysi alkeelliselle "aa bb" -korpukselle, kun tuotetum lauseet ovat 7 sanan pituisia:
+![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_aabb_Node.png)
+
+Trie-tietorakennetta käyttäen ajettu analyysi alkeelliselle "aa bb" -korpukselle, kun tuotetum lauseet ovat 7 sanan pituisia:
+![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_aabb_Trie.png)
+
+Tulosten poikkeama pienenee huomattavasti hitaammin, kun korpuksena on paljon enemmän sanoja sisältävä Kalevala, mutta lauseiden pituus edelleen vain 7 merkkiä:
+![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_Kalevala_Node.png)
+
+Kaiken kaikkiaan sanojen esiintymistodennäköisyydet sanayhdistelmien jälkeen vastaavat niitä, mitä lähdetekstissäkin ilmenee, alkaen Markovin asteesta 0, jolloin jokaisen sanan esiintymistodennäköisyys vastaa kyseisen sanan ilmenemismäärien suhdetta koko tekstin pituuteen. Ohjelma siis tuottaa sellaisia sanaketjuja, kuten pitääkin.
 
 
 

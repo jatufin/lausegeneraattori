@@ -1,4 +1,4 @@
-
+import datetime
 
 def output_diagnose(filename, sg, printout="Full"):
     """Using given input text generate sentences with different Markov
@@ -26,11 +26,14 @@ def output_diagnose(filename, sg, printout="Full"):
         sg : SentenceGenerator
 
     """
-    max_markov_degree = sg.max_degree
-    sentence_length = 10
+    # max_markov_degree = sg.max_degree
+    max_markov_degree = 3
+    sentence_length = 50
+
     number_of_sentences = 10000
-    
-    print(f"Syötetiedosto: {filename}")
+    number_of_sentences_increase_step = 500
+
+    csv_filename = "output_diagnose.csv"
     
     try:
         with open(filename, "r") as file:
@@ -44,47 +47,68 @@ def output_diagnose(filename, sg, printout="Full"):
         print(f"Filename: {filename}")
         
     text_as_wordlist = sg.string_to_wordlist(file_content_string)
+    number_of_words = sg.number_of_words_in_string(file_content_string)
+    different_words = sg.number_of_different_words_in_string(file_content_string)
 
     sg.read_string(file_content_string)
 
-    csv_list = ['"filename";"degree";"sentence_length";"number_of_sentences";"difference"\n']
+    csv_list = ['"degree";"sentence_length";"number_of_sentences";"difference"\n']
 
-    i = 0
+    i = 1
     while(i < number_of_sentences):
-        i += 500
+        i += number_of_sentences_increase_step
         result = all_degrees(sg,
+                             max_degree=max_markov_degree,
                              sentence_length=sentence_length,
                              number_of_sentences=i,
                              text_as_wordlist=text_as_wordlist,
-                             csv_row_prefix=f"{filename};",
                              printout=printout)
         csv_list += result
 
-    save_csv_to_file("output_diagnose.csv", csv_list)
-    
+    save_csv_to_file(filename=csv_filename,
+                     csv_list=csv_list,
+                     input_file=filename,
+                     number_of_words=number_of_words,
+                     different_words=different_words,
+                     sentence_length=sentence_length)
 
-def save_csv_to_file(filename, csv_list):
+    if not printout == "None":
+        print(f"Syötetiedosto: {filename}")
+        print(f"Syötteen pituus {number_of_words} sanaa. Erilaisia sanoja: {different_words}")
+    print
+
+def save_csv_to_file(filename, csv_list, input_file=None, number_of_words=None, different_words=None, sentence_length=None):
     try:
         with open(filename, "w") as file:
+            
+            file.write(f"# Date: {datetime.datetime.now()}\n")
+            file.write(f"# Input file: {input_file}\n")
+            file.write(f"# Text length in words: {number_of_words}\n")
+            file.write(f"# Different words in the text: {different_words}\n")
+            file.write(f"# Length of generated sentences: {sentence_length}\n")
+            
             for row in csv_list:
                 file.write(row)
+                
             file.close()
+            
     except IOError:
         self.print_error(f"Tiedoston kirjoitus ei onnistu '{filename}'.")
         return False
 
     print(f"Tallennettiin tiedosto: '{filename}'")
+    
     return True
 
-def all_degrees(sg, sentence_length, number_of_sentences, text_as_wordlist, csv_row_prefix, printout):
+def all_degrees(sg, max_degree, sentence_length, number_of_sentences, text_as_wordlist, printout):
     """Generate sentences with all markov degrees from 0 to max_degree, and compare
     occurences of words following degree length prefixes to those of full text.
 
     Args:
         sg : SentenceGenerator
+        max_degree : Integer. The tests are run with 0..max_degree length prefixes
         sentence_length : Number of words in the generated senteces
         text_as_wordlist : List of strings containing the original text.
-        csv_row_prefix : String added to the start of each CSV row
         printout : String. If "Full" print to stdout progress of the process
 
     Returns:
@@ -92,7 +116,7 @@ def all_degrees(sg, sentence_length, number_of_sentences, text_as_wordlist, csv_
     """
     return_list = []
     
-    for degree in range(0, sg.max_degree+1):
+    for degree in range(0, max_degree+1):
 
         # generate number of sentences and count number of occurences of words
         # after markov degree long prefixes
@@ -107,7 +131,7 @@ def all_degrees(sg, sentence_length, number_of_sentences, text_as_wordlist, csv_
 
         if not printout == "None":
             print(f"Degree: {degree} length: {sentence_length} Number of sentences: {number_of_sentences} Difference: {difference_to_full_text:2.5}")
-        return_list.append(csv_row_prefix + f"{degree};{sentence_length};{number_of_sentences};{difference_to_full_text}\n")
+        return_list.append(f"{degree};{sentence_length};{number_of_sentences};{difference_to_full_text}\n")
 
     return return_list
 

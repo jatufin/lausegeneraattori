@@ -1,4 +1,4 @@
 [run]
 source=src
-omit = src/**/__init__.py,src/tests/**,src/sentence_generator_ui.py,src/time_report.py
+omit = src/**/__init__.py,src/tests/**,src/sentence_generator_ui.py,src/time_report.py,src/output_diagnose.py
 
