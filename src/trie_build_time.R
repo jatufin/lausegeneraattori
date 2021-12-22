@@ -1,10 +1,11 @@
-buildtimes_filename = "../trie_build.csv"
-sentencegeneration_filename = "../sentence_generation.csv"
+### filename = "../trie_build.csv"
+filename = "../trie_build_aabb.csv"
+### filename = "../trie_build_Kalevala.csv"
 
-buildtimes_metadata  <- readLines(file(buildtimes_filename, encoding="UTF-8"), n=4)
-buildtimes_metatext <- paste(gsub("# ", "", buildtimes_metadata), collapse="\n")
+metadata  <- readLines(file(filename, encoding="UTF-8"), n=4)
+metatext <- paste(gsub("# ", "", metadata), collapse="\n")
 
-buildtimes <- read.table(buildtimes_filename,
+buildtimes <- read.table(filename,
                          dec=".",
                          quote="\"",
                          sep=";",
@@ -32,4 +33,4 @@ legend("bottomright",
        legend=levels(factor(buildtimes$generator)),
        pch=c(16,17))       
 
-text(25000, 0.25, buildtimes_metatext)
+text(25000, 0.23, buildtimes_metatext)

@@ -2,6 +2,7 @@ import os
 import random
 
 from timeit import default_timer as timer
+import datetime
 from datetime import timedelta
 
 
@@ -61,10 +62,21 @@ def time_report(filename, generators):
         return False
 
     first_generator = generators[0][1]  # Just for the next line
+
     text_as_wordlist = first_generator.string_to_wordlist(file_content_string)
-    
-    csv_string_trie_build = '"generator";"input_length";"language_size";"depth";"time"\n'
-    csv_string_sentence_generation = '"generator";"input_length";"language_size";"markov_degree";"sentence_length";"speed"\n'
+    number_of_words = first_generator.number_of_words_in_string(file_content_string)
+    different_words = first_generator.number_of_different_words_in_string(file_content_string)
+
+    metadata = f"# Date: {datetime.datetime.now()}\n"
+    metadata += f"# Input file: {filename}\n"
+    metadata += f"# Text length in words: {number_of_words}\n"
+    metadata += f"# Different words in the text: {different_words}\n"
+
+    csv_string_trie_build = metadata
+    csv_string_trie_build += '"generator";"input_length";"language_size";"depth";"time"\n'
+
+    csv_string_sentence_generation = metadata
+    csv_string_sentence_generation += '"generator";"markov_degree";"sentence_length";"speed"\n'
     
     for generator in generators:
         generator_desc = generator[0]
@@ -105,7 +117,7 @@ def time_report(filename, generators):
                                                                         count=number_of_sentences))
                     speed = number_of_sentences / took_time
                     print(f"Tietorakenne: {generator_desc} Syöte {number_of_words} sanaa, Erilaisia sanoja: {different_words}, Markovin aste: {degree}, Luodun lauseen pituus: {sentence_length:2} Keskinopeus: {speed:6.0f} lausetta sekunnissa.")
-                    csv_line = '"{generator_desc}";{words};{different_words};{degree};{sentence_length};{speed}\n'
+                    csv_line = f'"{generator_desc}";{degree};{sentence_length};{speed}\n'
                     csv_string_sentence_generation += csv_line
 
     # Write CSV files
