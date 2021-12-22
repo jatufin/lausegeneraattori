@@ -89,7 +89,7 @@ class TestSentenceGenerator(unittest.TestCase):
         self.assertNotEqual(wordlist, [])
         
     def test_degree_value_validation_works(self):
-        self.assertFalse(self.sg.is_degree_valid(0))
+        self.assertFalse(self.sg.is_degree_valid(-1))
         self.assertFalse(self.sg.is_degree_valid(self.sg.max_degree + 1))
         self.assertTrue(self.sg.is_degree_valid(1))
         self.assertTrue(self.sg.is_degree_valid(self.sg.max_degree))
@@ -97,7 +97,8 @@ class TestSentenceGenerator(unittest.TestCase):
     def test_degree_string_value_validation_works(self):
         self.assertFalse(self.sg.is_string_valid_degree("1.0"))
         self.assertFalse(self.sg.is_string_valid_degree("F"))
-        self.assertFalse(self.sg.is_string_valid_degree("0"))        
+        self.assertFalse(self.sg.is_string_valid_degree("-1"))        
+        self.assertTrue(self.sg.is_string_valid_degree("0"))        
         self.assertTrue(self.sg.is_string_valid_degree("1"))
 
     def test_length_validation_returns_true_if_positive(self):
