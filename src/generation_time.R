@@ -1,6 +1,6 @@
 ### filename = "../sentence_generation.csv"
-filename = "../sentence_generation_aabb.csv"
-### filename = "../sentence_generation_Kalevala.csv"
+### filename = "../sentence_generation_aabb.csv"
+filename = "../sentence_generation_Kalevala.csv"
 
 
 metadata  <- readLines(file(filename, encoding="UTF-8"), n=4)

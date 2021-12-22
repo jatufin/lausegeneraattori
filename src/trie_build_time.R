@@ -1,6 +1,6 @@
 ### filename = "../trie_build.csv"
-filename = "../trie_build_aabb.csv"
-### filename = "../trie_build_Kalevala.csv"
+### filename = "../trie_build_aabb.csv"
+filename = "../trie_build_Kalevala.csv"
 
 metadata  <- readLines(file(filename, encoding="UTF-8"), n=4)
 metatext <- paste(gsub("# ", "", metadata), collapse="\n")
