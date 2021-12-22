@@ -7,13 +7,11 @@ Koulutusohjelma: Tietojenkäsittelytieteen kandidaatti, Helsingin yliopisto
 
 ## Tietorakenteen käsittely
 
-Syötetekstistä ei tehdä välivaiheena listaa, vaan sanat tallennetaan puuhun suoraan merkkijonosta, sen jälkeen kun se on esikäsitelty.
+Syötetekstistä esikäsitellään ja muutetaan välien kohdalta katkaisten muutetaan sanoja sisältäväksi listaksi.
 
 ### Syötetekstin alustus
-1. Kaikki tyhjät välimerkit (whitespace) korvataan välilyöntimerkillä (space)
-2. Karsitaan syötteestä kaikki muut merkit, paitsi: ```[a-ö][A-Ö][0-9][-!?.]```
-3. Lopetusmerkkien ```[!?.]``` eteen ja jälkeen lisätään välilyönti
-2. Kaikki peräkkäin olevat välilyöntimerkit korvataan yhdellä välilyöntimerkillä
+1. Karsitaan syötteestä kaikki muut merkit, paitsi: ```[a-ö][A-Ö][0-9]```
+2. Kirjaimet muutetaan pieniksi kirjaimiksi
 
 ### Puun muodostaminen
 

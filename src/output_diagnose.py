@@ -28,10 +28,10 @@ def output_diagnose(filename, sg, printout="Full"):
     """
     # max_markov_degree = sg.max_degree
     max_markov_degree = 3
-    sentence_length = 50
+    sentence_length = 10
 
-    number_of_sentences = 10000
-    number_of_sentences_increase_step = 500
+    number_of_sentences = 50000
+    number_of_sentences_increase_step = 1000
 
     csv_filename = "output_diagnose.csv"
     

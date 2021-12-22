@@ -6,7 +6,8 @@
 
 #filename <- "../output_diagnose_aabb_Node.csv"
 #filename <- "../output_diagnose_aabb_Trie.csv"
-filename <- "../output_diagnose_Kalevala_Node.csv"
+#filename <- "../output_diagnose_Kalevala_Node.csv"
+filename <- "../output_diagnose_Kalevala_Node_long.csv"
 
 metadata <- readLines(file(filename, encoding="UTF-8"), n=5)
 metadata_text <- paste(gsub("# ", "", metadata), collapse="\n")
@@ -26,7 +27,7 @@ plot(csv$number_of_sentences,
      ylab="Probability difference to original text",
      main="Probability for wollowing word")
 
-text(3000, 0.45 ,metadata_text)
+text(25000, 0.20 ,metadata_text)
 
 legend("topright",
        legend=levels(factor(csv$degree)),

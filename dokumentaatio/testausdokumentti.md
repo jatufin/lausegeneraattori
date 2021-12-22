@@ -51,7 +51,9 @@ Tietorakenteiden suorituskykyvertailua, ja niiden vastaavuutta alkuperäisiin ai
 
 ### Ohjelman toiminnan oikeellisuus
 
-Tuotetut lauseet alkavat vastata lähemmin ja lähemmin alkutekstiä, kun niitä tuotettaessa Makovin aste kasvaa. Esimerkkejä on [Toteutusraportissa](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Titeutusraportti.md)
+Tuotetut lauseet alkavat vastata lähemmin ja lähemmin alkutekstiä, kun niitä tuotettaessa Makovin aste kasvaa. Esimerkkejä on [Toteutusraportissa](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Toteutusraportti.md)
+
+Yksikkötesteissä testataan, että alkeistapaukset, kuten tyhjä tai yhden tai kahden sanan mittainen syöte, toimivat. 
 
 Tarkempaa analyysiä varten on luotu ohjelmaosio ```output_diagnose.py```, joka vertaa tuotettujen sanalistojen ominaisuuksia verrattuna alkuperäiseen tekstiin. Tarkemmin sanoen tuotetuissa lauseissa olevien _n_-pituisia sanaketjuja seuraavien sanojen esiintymistiheyksiä verrataan samoja sanaketjuja alkuperäistekstissä seuraavien sanojen tiheyteen.
 
@@ -67,6 +69,9 @@ Trie-tietorakennetta käyttäen ajettu analyysi alkeelliselle "aa bb" -korpuksel
 
 Tulosten poikkeama pienenee huomattavasti hitaammin, kun korpuksena on paljon enemmän sanoja sisältävä Kalevala, mutta lauseiden pituus edelleen vain 7 merkkiä:
 ![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_Kalevala_Node.png)
+
+Tehtäessä ajo suurille lausemäärille käyrän muoto tulee ilmeiseksi.
+![Kuvaaja](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/output_diagnose_Kalevala_Node_long.png)
 
 Kaiken kaikkiaan sanojen esiintymistodennäköisyydet sanayhdistelmien jälkeen vastaavat niitä, mitä lähdetekstissäkin ilmenee, alkaen Markovin asteesta 0, jolloin jokaisen sanan esiintymistodennäköisyys vastaa kyseisen sanan ilmenemismäärien suhdetta koko tekstin pituuteen. Ohjelma siis tuottaa sellaisia sanaketjuja, kuten pitääkin.
 
