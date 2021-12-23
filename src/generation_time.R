@@ -36,4 +36,4 @@ legend("topright",
        legend=levels(factor(generation$generator)),
        pch=c(16,17))       
 
-text(30000, .025, metatext)
+text(30000, 30000, metatext)

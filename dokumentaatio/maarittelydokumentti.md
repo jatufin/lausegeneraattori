@@ -133,9 +133,3 @@ SentenceGenerator.generate(degree, length=8)
 * Aikavaatimus mitataan suhteessa korpuksessa olevien sanojen määrään *n* ja haettavan lauseen maksimipituuteen *L*.
 * Täydellisen trie-puun sijasta, jonka syvyys olisi yhtä suuri kuin leveys, ja tilavaatimus siten O(n^2) tarvitaan vain ```k``` + 1 syvyinen puu.
 * Tällä rajauksella päästään sekä korpuksen käsittelyssä, että lauseen generoinnissa aikavaatimukseen O(n)
-
-## Lähteitä
-* https://blog.demofox.org/2019/05/11/markov-chain-text-generation/
-* https://www.geeksforgeeks.org/advantages-trie-data-structure/
-* https://www.cs.jhu.edu/~langmea/resources/lecture_notes/tries_and_suffix_tries.pdf
-* GUSFIELD, D. Algorithms on Strings, Trees, and Sequences : Computer Science and Computational Biology. Cambridge [England]: Cambridge University Press, 1997. ISBN 9780521585194. Disponível em: https://search-ebscohost-com.libproxy.helsinki.fi/login.aspx?direct=true&db=e000xww&AN=502387&site=ehost-live&scope=site. Acesso em: 13 nov. 2021.

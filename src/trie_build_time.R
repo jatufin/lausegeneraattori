@@ -1,6 +1,6 @@
 ### filename = "../trie_build.csv"
-filename = "../trie_build_aabb.csv"
-### filename = "../trie_build_Kalevala.csv"
+### filename = "../trie_build_aabb.csv"
+filename = "../trie_build_Kalevala.csv"
 
 metadata  <- readLines(file(filename, encoding="UTF-8"), n=4)
 metatext <- paste(gsub("# ", "", metadata), collapse="\n")
@@ -12,9 +12,9 @@ input <- read.table(filename,
                          comment.char="#",
                          header=TRUE)
 
-### buildtimes = input[input$generator == "Node class (Dictionary)",]
+buildtimes = input[input$generator == "Node class (Dictionary)",]
 ### buildtimes = input[input$generator == "Trie class (List)",]
-buildtimes = input
+### buildtimes = input
 
 shapes = c(16, 17)
 shapes  <- shapes[factor(buildtimes$generator)]
@@ -37,4 +37,4 @@ legend("bottomright",
        legend=levels(factor(buildtimes$generator)),
        pch=c(16,17))       
 
-text(25000, 0.25, metatext)
+text(25000, 0.8, metatext)

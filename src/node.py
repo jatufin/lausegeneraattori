@@ -2,7 +2,7 @@ import random
 
 
 class Node:
-    """ Trie tree with weighted vertices. The tree doesn't have
+    """Trie tree with weighted vertices. The tree doesn't have
     a separate class for the whole tree. Every tree is an individual
     subtree
 
@@ -27,7 +27,7 @@ class Node:
         
     @property
     def weight(self):
-        """ Weight is the number of occurences of a word after previous
+        """Weight is the number of occurences of a word after previous
         word in this branch of the tree. Node's weight in relation to total
         weight of it and its siblings, represents ndes probability to appear
         after the words above it in the tree
@@ -39,7 +39,7 @@ class Node:
 
     @property
     def children(self):
-        """ Dictionary of the words, which can follow the current node
+        """Dictionary of the words, which can follow the current node
 
         Returns:
             Dictionary, where keys are strings and values Node objects
@@ -60,7 +60,7 @@ class Node:
         return bool(self._children)
     
     def get_child(self, token):
-        """ Returns a Node, if it can be found from the children dictionary,
+        """Returns a Node, if it can be found from the children dictionary,
         by the token string.
 
         Args:
@@ -75,7 +75,7 @@ class Node:
             return None
 
     def _get_children_total_weight(self):
-        """ Sums up the weights of all the current nodes immediate children.
+        """Sums up the weights of all the current nodes immediate children.
         This value is used, when probability of the next word appearing is
         added to the random select process
 
@@ -88,7 +88,7 @@ class Node:
         return total
 
     def _get_node_by_beginning(self, words):
-        """ Follow the list of words given, in the tree, and return the last
+        """Follow the list of words given, in the tree, and return the last
         node. If the words of the list don't appear in the same order in
         the tree, None is returned.
 
@@ -108,7 +108,7 @@ class Node:
         return None
 
     def _get_random_child(self):
-        """ Select random word following current by adjusting randomness by the
+        """Select random word following current by adjusting randomness by the
         weights of the child nodes. If we have 3 childs, with weights 1,2
         and 3, the last one will be selected half the time
 
@@ -128,7 +128,7 @@ class Node:
                 return word
         
     def get_random_series(self, depth):
-        """ Get random depth length series of words from the tree
+        """Get random depth length series of words from the tree
 
         Args:
             depth : Integer
@@ -146,7 +146,7 @@ class Node:
         return [word] + self.children[word].get_random_series(depth-1)
         
     def is_valid_beginning(self, words):
-        """ Gets list of words and evaluates, if there exists identical
+        """Gets list of words and evaluates, if there exists identical
         path downward from current node
 
         Args:
@@ -158,7 +158,7 @@ class Node:
         return True if self._get_node_by_beginning(words) else False
 
     def get_random_series_by_keywords(self, words, depth):
-        """ Follow first keywords, and after them random path until 
+        """Follow first keywords, and after them random path until 
         depth words have been found
 
         Args:
@@ -181,7 +181,7 @@ class Node:
         return words + starting_node.get_random_series(depth - number_of_words)
 
     def _new_child(self, token):
-        """ Create new Node object and add it to the children of current node
+        """Create new Node object and add it to the children of current node
 
         Args:
             token : String, which a single word.
@@ -189,7 +189,7 @@ class Node:
         self.children[token] = Node()
     
     def add_token(self, new_token):
-        """ Add new token (word) to the children of the current. If it exists
+        """Add new token (word) to the children of the current. If it exists
         already, its weight is increased
 
         Args:
@@ -201,7 +201,7 @@ class Node:
         self.children[new_token].weight_increment()
 
     def add_token_list(self, token_list):
-        """ Add a ordered sequence of tokens to the tree. If a token doesn't
+        """Add a ordered sequence of tokens to the tree. If a token doesn't
             exist, it will be added
 
         Args:
@@ -217,7 +217,7 @@ class Node:
             current_node = current_node.get_child(token)
             
     def print_tree(self, indent=""):
-        """ Print representation of the tree to stdout
+        """Print representation of the tree to stdout
 
         Args:
             indent : Indentation string. Leading whitespaces used by
@@ -229,7 +229,7 @@ class Node:
             node.print_tree(indent + "  ")
             
     def __str__(self):
-        """ String repesentation of te tree from current node downwards
+        """String repesentation of the tree from current node downwards
 
         Returns:
             String
