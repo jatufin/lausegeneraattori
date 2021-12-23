@@ -23,7 +23,7 @@ plot(generation$number_of_words,
      col=factor(generation$markov_degree),
      pch=shapes,
      xlab="Input text length (words)",
-     ylab="Generation speed (1/second)",
+     ylab="Generation speed (1/s)",
      main="Sentence generation speed")
 
 legend("topleft",
@@ -36,4 +36,4 @@ legend("topright",
        legend=levels(factor(generation$generator)),
        pch=c(16,17))       
 
-text(30000, 30000, metatext)
+text(30000, .025, metatext)

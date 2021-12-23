@@ -86,7 +86,7 @@ Tulostamalla _Node_-ratkaisun erikseen, näemme että puu syntyy edelleen lineaa
 
 ### Aikavaativuus lauseiden muodostamiselle
 
-Lauseiden muodostuksen pahimman vaihtoehdon aikavastaavuus on _O(n)_ mutta todellisuudessa yksinkertaiselle _AA_BB_ -tekstille se on verrannollinen vai käytettyyn Markovin asteeseen. Tämä onkin loogista, sillä vain kaksi sanaa sisältävässä aineistossa ei lapsisolmuja jouduta juurikaan käymään läpi. Mielenkiintoista en, että _Dictionaryä_ käyttävä _Node_ on alle 20000 sanan mittaisilla syötteillä lähes kaksi kertaa listalla toteutettua _Trie_-tietorakennetta nopeampi, mutta tämän jälkeen ero katoaa:
+Lauseiden muodostuksen pahimman vaihtoehdon aikavastaavuus on _O(n)_ mutta todellisuudessa yksinkertaiselle _AA_BB_ -tekstille se on verrannollinen vain käytettyyn Markovin asteeseen. Tämä onkin loogista, sillä vain kaksi sanaa sisältävässä aineistossa ei lapsisolmuja jouduta juurikaan käymään läpi. Mielenkiintoista en, että _Dictionaryä_ käyttävä _Node_ on alle 20000 sanan mittaisilla syötteillä lähes kaksi kertaa listalla toteutettua _Trie_-tietorakennetta nopeampi, mutta tämän jälkeen ero katoaa:
 
 ![Lauseiden muodostus aa bb -tekstille](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/generation_aabb.png)
 
