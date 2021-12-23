@@ -76,7 +76,7 @@ def time_report(filename, generators):
     csv_string_trie_build += '"generator";"input_length";"language_size";"depth";"time"\n'
 
     csv_string_sentence_generation = metadata
-    csv_string_sentence_generation += '"generator";"markov_degree";"sentence_length";"speed"\n'
+    csv_string_sentence_generation += '"generator";"number_of_words";"markov_degree";"sentence_length";"speed"\n'
     
     for generator in generators:
         generator_desc = generator[0]
@@ -117,7 +117,7 @@ def time_report(filename, generators):
                                                                         count=number_of_sentences))
                     speed = number_of_sentences / took_time
                     print(f"Tietorakenne: {generator_desc} Syöte {number_of_words} sanaa, Erilaisia sanoja: {different_words}, Markovin aste: {degree}, Luodun lauseen pituus: {sentence_length:2} Keskinopeus: {speed:6.0f} lausetta sekunnissa.")
-                    csv_line = f'"{generator_desc}";{degree};{sentence_length};{speed}\n'
+                    csv_line = f'"{generator_desc}";{number_of_words};{degree};{sentence_length};{speed}\n'
                     csv_string_sentence_generation += csv_line
 
     # Write CSV files

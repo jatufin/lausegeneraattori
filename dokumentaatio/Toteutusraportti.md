@@ -64,22 +64,39 @@ Markovin ketjujen generoinnissa käytettävistä Trie-puista tehtiin kaksi vaiht
 
 ## Saavutetut aika ja tilavaativuudet
 
+## Testisyötteet:
+
+* _AA_BB_ -teksti on pituudeltaan 50000 sanaa ja sisältää vain sanoja "aa" ja "bb". Tekstissä ei ole muita rakenteita, kuin toisen sanan kaksinkertainen ilmaantuvuustodennäköisyys toisen sanan jälkeen.
+* _Kalevala_ -teksti
 ### Tilavaatimus
 Molemmat tietorakenteet on toteutettu täsmälleen samalla tavalla, ja niiden tilavaatimus on _O(nm)_ missä _n_ on syötetekstin pituus sanoina, ja _m_ on luodun puun syvyys. Puun syvyys on yksi enemmän, kuin sen luontiaikana määritetty maksimiarvo Markovin asteelle. Eli, jos puun syvyys on 6, pystyy siitä hakemaan enintään viidennen asteen Markovin ketjuja.
 
 ### Aikavaativuus Trie-puun muodostamiselle
-Aikavaativuuden puun generoinnille tulisi olla _O(n)_, eli sen pitäisi kasvaa lineaarisesti. Ohjelmaan lisättiin moduuli, joka tekee tarvittavat aikatestaukset. Kuvaajat osoittavat aikavaativuuden toteutuvan puiden luonnin osalta:
+Aikavaativuuden puun generoinnille tulisi olla _O(n)_, ja lineaarinen kasvu näkyykin hyvin _AA_BB_ -tekstin kohdalla molemmilla implementaatioilla:
 
 ![Trien rakennus aa bb -tekstille](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/build_aabb.png)
-![Trien rakennus Kalevalalle -tekstille](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/build_Kalevala.png)
+
+_Kalevala_-tekstin kohdalla tulee ilmeiseksi, kuinka paljon nopeampi _Dictionaryä_ käyttävä _Node_-implementaatio on:
+
+![Trien rakennus Kalevalalle -tekstille molemmilla implementaatioilla](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/build_Kalevala.png)
+
+Tulostamalla _Node_-ratkaisun erikseen, näemme että puu syntyy edelleen lineaarisessa ajassa suhteessa syötteen pituuteen. Ero implemntaatioiden välillä on siis ainoastaan vakiokertoimessa.
+
+![Trien rakennus Kalevalalle -tekstille Node implementaatiolla](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/build_Kalevala_Node.png)
 
 ### Aikavaativuus lauseiden muodostamiselle
 
-Lauseiden muodostus riippuu pitkälti alkutekstin rakenteesta, eli sen pituudesta ja erilaisten sanojen määrästä. Syvyys, eli Markovin aste, johon puussa tunkeudutaan kutakin sanaa haettaessa on määräävä tekijä:
+Lauseiden muodostuksen pahimman vaihtoehdon aikavastaavuus on _O(n)_ mutta todellisuudessa yksinkertaiselle _AA_BB_ -tekstille se on verrannollinen vai käytettyyn Markovin asteeseen. Tämä onkin loogista, sillä vain kaksi sanaa sisältävässä aineistossa ei lapsisolmuja jouduta juurikaan käymään läpi. Mielenkiintoista en, että _Dictionaryä_ käyttävä _Node_ on alle 20000 sanan mittaisilla syötteillä lähes kaksi kertaa listalla toteutettua _Trie_-tietorakennetta nopeampi, mutta tämän jälkeen ero katoaa:
 
 ![Lauseiden muodostus aa bb -tekstille](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/generation_aabb.png)
+
+_Kalevala_-teksti on rakenteeltaan lähes päinvastainen: Erilaisia sanoja on lähes kolmasosa kokonaismäärästä. Ensisilmäyksellä hakunopeus näyttäisi muuttuvan epälineaarisesti:
+
 ![Lauseiden muodostus Kalevalalle -tekstille](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/generation_Kalevala.png)
 
+Kääntämällä mitattava arvo nopeuden sijasta lauseenmuodostukseen meneväksi ajaksi, nähdään kuitenkin, että haut kasvavat lineaarisesti syötetkstin pituuden suhteen, kuten _O(n)_ ennustaakin:
+
+![Lauseiden muodostus Kalevalalle -tekstille](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/generation_Kalevala_time.png)
 
 ## Puutteet ja parannusehdotukset
 * Alkuperäisten ajatusten pohjalta luotu Node-tietorakenne on toteutettu turhan monimutkaiseksi, ja yhteensopivuuden saavuttamiseksi myös Trie-tietorakenne on samankaltainen
