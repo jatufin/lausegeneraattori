@@ -1,4 +1,4 @@
-# Käyttö-ohje
+# Käyttöohje
 
 ## Asennus
 
@@ -8,38 +8,37 @@ Ensimmäiseksi tulee ladata ja purkaa ohjelman julkaisun (release) zip-tiedosto:
 
 Tämän jälkeen siirrytään projektihakemistoon ja asennetaan riippuvuudet komennolla:
 
-
 ```
-    poetry install
+poetry install
 ```
 
 ## Ohjelman käynnistys
 
 Ohjelma käynnistyy interaktiivisessa tilassa projektihakemistosta komennolla:
 
+```
+poetry run invoke start
+```
+
+Tai siirtymällä ensin Poetry-komentotulkkiin:
 
 ```
-	poetry run invoke start
-```
-
-Tai poetry-ympäristössä::
-
-```
-	invoke start
+$ poetry shell
+$ invoke start
 ```
 
 Testien ajo tapahtuu komennolla:
 ```
-	poetry run invoke test
+$ poetry run invoke test
 ```	
 Ja testikattavuusraportin voi luoda komennolla:
 ```
-	poetry run invoke coverage-report
+$ poetry run invoke coverage-report
 ```	
 
 ## Ohjelman käyttö
 
-Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla `1`. Ohjelma listaa tiedostot projektihakemiston `text` ja halutun tiedoston saa valittua antamalla sitä vastaavan numeron. Nyt tekstejä voi tuottaa painamalla `<enter>` -painiketta. Markov-astetta voi muuttaa, sekä muodostuvan lauseen pituutta,ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
+Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla `1`. Ohjelma listaa tiedostot projektihakemiston `text`-alihakemistossa ja halutun tiedoston saa valittua antamalla sitä vastaavan numeron. Nyt tekstejä voi tuottaa painamalla `<enter>` -painiketta. Markov-astetta sekä muodostuvan lauseen pituutta voi muuttaa. Käytettävää Trie-puun implementaatiota voi vaihtaa ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
 
 ### Päävalikko
 
@@ -62,7 +61,7 @@ Tuotettujen lauseiden pituus sanoina.
 Tulostaa näytölle Trie-puun.
 
 #### 7 - Aja aikaraportti
-Tekee nyt valitulla tiedostoilla testit, kuinka pitkään Trie-puun muodostus, ja uusien lauseiden generointi kestää.
+Tekee nyt valitulla tiedostoilla testit, kuinka pitkään Trie-puun muodostus ja uusien lauseiden generointi kestää.
 Tulokset tallentuvat CSV-tiedostoihin myöhempää analyysiä varten.
 
 #### 8 - Aja tuotettujen lauseiden analyysi
@@ -72,6 +71,6 @@ Tulokset tallentuvat CSV-tiedostoihin myöhempää analyysiä varten.
 #### 0 - Lopeta
 
 #### Lauseiden generointi
-Aina pPainamalla `<enter>`-painiketta tulostuu näytölle lause. Takaisin päävalikkoon pääsee antamalla `0`.
+Aina painamalla `<enter>`-painiketta tulostuu näytölle lause. Takaisin päävalikkoon pääsee antamalla `0`.
 
 

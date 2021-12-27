@@ -12,32 +12,6 @@ Käyttäjä antaa ohjelmalle tekstitiedoston, esimerkiksi Kalevalan, jonka ohjel
 
 On huomioitava, että mitä suurempi Markov-ketjun aste tai pienempi lähdetekstin koko, sitä orjallisemmin ohjelma tuottaa suoria kopioita lähdetekstissä esiintyvistä lauseista.
 
-## Ohjelman käynnistys
-
-Ohjelma käynnistyy interaktiivisessa tilassa projektihakemistosta komennolla:
-
-
-```
-    python3 src/sentence_generator.py
-```
-
-Tai poetry-ympäristössä::
-
-```
-	invoke start
-```
-
-Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla `1`. Ohjelma listaa tiedostot projektihakemiston `text` ja halutun tiedoston saa valittua antamalla sitä vastaavan numeron. Nyt tekstejä voi tuottaa painamalla `<enter>` -painiketta. Markov-astetta voi muuttaa, sekä muodostuvan lauseen pituutta,ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
-
-Testit voi käynnistää poetry-ympäristössä:
-```
-	invoke test
-```	
-Tai testikattavuusraportin luomiseksi:
-```
-	invoke coverage-report
-```	
-
 
 ### Dokumentaatio
 * [Määrittelydokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/maarittelydokumentti.md)
@@ -45,6 +19,7 @@ Tai testikattavuusraportin luomiseksi:
 * [Testausdokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/testausdokumentti.md)
 * [Toteutusraportti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Toteutusraportti.md)
 * [Käyttöohje](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Kaytto-ohje.md)
+
 ### Viikkoraportit
 * [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
 * [Viikko 2](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-02.md)
@@ -53,3 +28,4 @@ Tai testikattavuusraportin luomiseksi:
 * [Viikko 5](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-05.md)
 * [Viikko 6](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-06.md)
 * [Viikko 7](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-07.md)
+* [Viikko 8](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-08.md)

@@ -1,6 +1,6 @@
 ## Viikko 5
 
-Käytetty aika: 
+Käytetty aika: 6
 
 ### Viikolla tehdyt toimepiteet
 * Muutettiin määrittelyä ja suunnitteludokumenttia: Poistettiin lopetusmerkkien käyttö ja haetaan tietyn mittaisia lauseita
@@ -15,9 +15,6 @@ Käytetty aika:
 ### Tällä viikolla olen oppinut
 * Että ero Pythonin listan ja Dictionary-olion (Hash table) välillä on tämän kaltaisessa sovelluksessa oleellinen, vaikka lista onkin sisäisesti toteutettu taulukkona.
 * Yksikkötestien tekemistä
-
-### Vielä auki olevat asiat
-* 
 
 ### Seuraavat toimenpiteet
 * Lisätään ohjelmaan mahdollisuus ajaa suoritusaikaraportteja
