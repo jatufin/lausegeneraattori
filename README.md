@@ -27,7 +27,7 @@ Tai poetry-ympäristössä::
 	invoke start
 ```
 
-Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla `1` ja syöttämällä tiedoston nimi tai koko polku. Esimerkiksi projektihakemistossa `text/kalevala.txt`. Nyt tekstejä voi tuottaa painamalla `<enter>` -painiketta. Markov-astetta voi muuttaa, sekä muodostuvan lauseen pituutta,ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
+Valikko on suoraviivainen, mutta ensimmäiseksi tulee ladata tekstitiedosto valitsemalla `1`. Ohjelma listaa tiedostot projektihakemiston `text` ja halutun tiedoston saa valittua antamalla sitä vastaavan numeron. Nyt tekstejä voi tuottaa painamalla `<enter>` -painiketta. Markov-astetta voi muuttaa, sekä muodostuvan lauseen pituutta,ja ohjelmalle voi antaa sanat, joilla muodostuvan lauseen haluaa alkavan.
 
 Testit voi käynnistää poetry-ympäristössä:
 ```
@@ -44,6 +44,7 @@ Tai testikattavuusraportin luomiseksi:
 * [Suunnitteludokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/suunnitteludokumentti.md)
 * [Testausdokumentti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/testausdokumentti.md)
 * [Toteutusraportti](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Toteutusraportti.md)
+* [Käyttöohje](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/Kaytto-ohje.md)
 ### Viikkoraportit
 * [Viikko 1](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-01.md)
 * [Viikko 2](https://github.com/jatufin/lausegeneraattori/blob/master/dokumentaatio/viikkoraportti-02.md)
